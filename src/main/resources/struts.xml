@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+
+	<package name="HearthIntellect" extends="struts-default">
+		<action name="index"
+			class="com.hearthintellect.action.IndexAction">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="cards"
+			class="com.hearthintellect.action.CardsAction">
+			<result name="success">/cards.jsp</result>	
+		</action>
+
+	</package>
+</struts>
