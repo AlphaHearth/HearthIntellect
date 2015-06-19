@@ -3,8 +3,9 @@ package com.hearthintellect.mongo.repo;
 import org.springframework.data.repository.CrudRepository;
 
 import com.hearthintellect.model.Mechanic;
+import com.hearthintellect.mongo.repo.base.BaseRepository;
 
-public class MechanicRepository implements CrudRepository<Mechanic, Integer> {
+public class MechanicRepository extends BaseRepository implements CrudRepository<Mechanic, Integer> {
 
 	public <S extends Mechanic> S save(S entity) {
 		// TODO Auto-generated method stub

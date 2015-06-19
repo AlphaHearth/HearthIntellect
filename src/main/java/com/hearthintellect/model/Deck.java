@@ -1,9 +1,14 @@
 package com.hearthintellect.model;
 
+import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * Entity for Deck
  * @author Robert Peng
  */
+@Document(collection="decks")
 public class Deck extends BaseCollection {
 	
 	private int deckId;
@@ -11,6 +16,10 @@ public class Deck extends BaseCollection {
 	private int goodRating;
 	private int badRating;
 	private int occurredTimes;
+	
+	public String toString() {
+		return "{deckId:" + deckId + ", name: " + name + "}";
+	}
 	
 	public int getDeckId() {
 		return deckId;
@@ -73,13 +82,13 @@ public class Deck extends BaseCollection {
 		}
 	}
 	
-	private DeckEntry[] cards;
+	private List<DeckEntry> cards;
 	
-	public DeckEntry[] getCards() {
+	public List<DeckEntry> getCards() {
 		return cards;
 	}
 	
-	public void setCards(DeckEntry[] cards) {
+	public void setCards(List<DeckEntry> cards) {
 		this.cards = cards;
 	}
 	

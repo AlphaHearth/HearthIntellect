@@ -1,16 +1,19 @@
 package com.hearthintellect.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * Entity for Card
  * @author Robert Peng
  */
+@Document(collection="cards")
 public class Card extends BaseCollection {
 	
 	private int cardId;
 	private String name;
 	private String description;
 	
-	private boolean collectible;
+	private int collectible;
 	
 	private String iconUrl;
 	private String imageUrl;
@@ -30,6 +33,10 @@ public class Card extends BaseCollection {
 	
 	// only exists for cards with type = 3 (hero cards)
 	private int heroPower;
+	
+	public String toString() {
+		return "{cardId: " + cardId + ", name: " + name + ", imageUrl: " + imageUrl + "}";
+	}
 
 	public int getCardId() {
 		return cardId;
@@ -55,11 +62,11 @@ public class Card extends BaseCollection {
 		this.description = description;
 	}
 
-	public boolean getCollectible() {
+	public int getCollectible() {
 		return collectible;
 	}
 
-	public void setCollectible(boolean collectible) {
+	public void setCollectible(int collectible) {
 		this.collectible = collectible;
 	}
 

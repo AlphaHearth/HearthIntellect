@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-       xmlns:schemaLocation=
-       		"http://www.springframework.org/schema/context
-       		http://www.springframework.org/schema/context/spring-context-3.0.xsd
-       		http://www.springframework.org/schema/data/mongo
-       		http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
-       		http://www.springframework.org/schema/beans
-       		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:context="http://www.springframework.org/schema/context"
+          xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+          xsi:schemaLocation=
+          "http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-4.1.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.7.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 	
 	<!-- Registering MongoDB Connection -->
-	<mongo:mongo host="localhost" prot="27017" />
+	<mongo:mongo host="localhost" port="27017" />
 	<!-- Registering MongoDbFactory -->
 	<mongo:db-factory id="mongoDbFactory" dbname="hearthstone" mongo-ref="mongo" />
 	<!-- Registering Spring Converters -->
 	<mongo:mapping-converter id="mappingConverter">
-		<mongo:custom-converters base-package="com.hearthintellect.mongo.converter" />
+		<mongo:custom-converters>
+			<mongo:converter>
+				<bean class="com.hearthintellect.mongo.converter.CardReadConverter" />
+			</mongo:converter>
+			<mongo:converter>
+				<bean class="com.hearthintellect.mongo.converter.CardWriteConverter" />
+			</mongo:converter>
+			<mongo:converter>
+				<bean class="com.hearthintellect.mongo.converter.DeckReadConverter" />
+			</mongo:converter>
+			<mongo:converter>
+				<bean class="com.hearthintellect.mongo.converter.DeckWriteConverter" />
+			</mongo:converter>
+		</mongo:custom-converters>
 	</mongo:mapping-converter>
 	<!-- Bean for MongoTemplate -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" >
@@ -37,6 +50,23 @@
 	</bean>
 	<bean id="adventureRepository" class="com.hearthintellect.mongo.repo.AdventureRepository" >
 		<property name="mongoOps" ref="mongoTemplate" />
+	</bean>
+	
+	<!-- Beans for Struts2 Actions -->
+	<bean id="indexAction" class="com.hearthintellect.action.IndexAction" />
+	<bean id="cardsAction" class="com.hearthintellect.action.CardsAction" >
+		<property name="cardRepository" ref="cardRepository" />
+	</bean>
+	<bean id="deckSearchAction" class="com.hearthintellect.action.DeckSearchAction">
+		<property name="cardRepository" ref="cardRepository" />
+	</bean>
+	<bean id="deckSearchResultAction" class="com.hearthintellect.action.DeckSearchResultAction" />
+	<bean id="deckAction" class="com.hearthintellect.action.DeckAction" >
+		<property name="cardRepository" ref="cardRepository" />
+		<property name="deckRepository" ref="deckRepository" />
+	</bean>
+	<bean id="decksAction" class="com.hearthintellect.action.DecksAction" >
+		<property name="deckRepository" ref="deckRepository" />
 	</bean>
 	
 </beans>

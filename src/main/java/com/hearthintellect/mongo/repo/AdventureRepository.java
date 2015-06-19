@@ -3,8 +3,9 @@ package com.hearthintellect.mongo.repo;
 import org.springframework.data.repository.CrudRepository;
 
 import com.hearthintellect.model.Adventure;
+import com.hearthintellect.mongo.repo.base.BaseRepository;
 
-public class AdventureRepository implements CrudRepository<Adventure, Integer> {
+public class AdventureRepository extends BaseRepository implements CrudRepository<Adventure, Integer> {
 
 	public <S extends Adventure> S save(S entity) {
 		// TODO Auto-generated method stub

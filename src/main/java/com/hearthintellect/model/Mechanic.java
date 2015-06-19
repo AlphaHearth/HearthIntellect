@@ -1,5 +1,8 @@
 package com.hearthintellect.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "mechanics")
 public class Mechanic extends BaseCollection {
 	
 	private int mechanicId;
