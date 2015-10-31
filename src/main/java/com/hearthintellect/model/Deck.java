@@ -20,11 +20,11 @@ public class Deck {
 	String name;
 	int[] rate;
 
+    @Embedded(concreteClass = Entry.class)
 	List<Entry> cards;
-
-    @Embedded
+    
 	public class Entry {
-		@Reference(idOnly = true)
+		@Reference(lazy = true, idOnly = true)
 		Card card;
 		int count;
 	}

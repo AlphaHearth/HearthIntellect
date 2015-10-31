@@ -1,3 +1,19 @@
 package com.hearthintellect.dao;
 
-public interface DeckRepository {}
+import com.hearthintellect.model.Class;
+import com.hearthintellect.model.Deck;
+import com.hearthintellect.model.DeckType;
+
+public interface DeckRepository {
+
+    Deck findById(long deckId);
+
+    Iterable<Deck> findAllByType(DeckType type);
+
+    Iterable<Deck> findAllByClass(Class _class);
+
+    void like();
+    void dislike();
+
+    // TODO Order by rating/patch
+}
