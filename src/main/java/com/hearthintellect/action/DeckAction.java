@@ -9,7 +9,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.Deck;
-import com.hearthintellect.model.Deck.DeckEntry;
+import com.hearthintellect.model.Deck.Entry;
 import com.hearthintellect.mongo.repo.CardRepository;
 import com.hearthintellect.mongo.repo.DeckRepository;
 import com.opensymphony.xwork2.ActionSupport;
@@ -35,10 +35,10 @@ public class DeckAction extends ActionSupport {
 		deck = deckRepository.findOne(id);
 		if (deck == null)
 			return ERROR;
-		List<DeckEntry> cardsId = deck.getCards();
+		List<Entry> cardsId = deck.getCards();
 		
 		cards = new LinkedList<CardInDeck>();
-		for (DeckEntry cardId : cardsId) {
+		for (Entry cardId : cardsId) {
 			CardInDeck card = new CardInDeck(cardRepository.findOne(cardId.getCardId()));
 			card.setCount(cardId.getCount());
 			cards.add(card);
