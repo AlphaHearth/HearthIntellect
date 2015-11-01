@@ -13,11 +13,11 @@ public interface CardRepository {
 
     Iterator<Card> findAllByClass(HeroClass _Hero_class);
 
-    Iterator<Card> findAllByRace(Race race);
+    Iterator<Card> findAllByRace(Card.Race race);
 
-    Iterator<Card> findAllBySet(Set set);
+    Iterator<Card> findAllBySet(Card.Set set);
 
-    Iterator<Card> findAllByQuality(CardQuality quality);
+    Iterator<Card> findAllByQuality(Card.Quality quality);
 
     Iterator<Card> findAllByMechanic(Mechanic mechanic);
 

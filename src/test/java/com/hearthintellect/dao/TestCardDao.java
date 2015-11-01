@@ -1,8 +1,13 @@
 package com.hearthintellect.dao;
 
+import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
 import com.hearthintellect.model.HeroClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.Vector;
@@ -12,8 +17,11 @@ import static org.junit.Assert.assertEquals;
 /**
  * Unit tests for {@link CardRepository}
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringMongoConfig.class)
 public class TestCardDao {
 
+    @Autowired
     private CardRepository cardRepository;
 
     @Test

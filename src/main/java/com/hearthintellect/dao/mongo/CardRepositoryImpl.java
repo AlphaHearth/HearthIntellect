@@ -38,17 +38,17 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
-    public Iterator<Card> findAllByRace(Race race) {
+    public Iterator<Card> findAllByRace(Card.Race race) {
         return createQuery().field("race").equal(race).iterator();
     }
 
     @Override
-    public Iterator<Card> findAllBySet(Set set) {
+    public Iterator<Card> findAllBySet(Card.Set set) {
         return createQuery().field("set").equal(set).iterator();
     }
 
     @Override
-    public Iterator<Card> findAllByQuality(CardQuality quality) {
+    public Iterator<Card> findAllByQuality(Card.Quality quality) {
         return createQuery().field("quality").equal(quality).iterator();
     }
 
