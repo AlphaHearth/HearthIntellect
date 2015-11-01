@@ -16,16 +16,47 @@ import org.mongodb.morphia.annotations.Reference;
 public class Deck {
 
 	@Id
-	long deckId;
+	private long deckId;
 
-	String name;
-	int[] rate;
+	private String name;
+	private int[] rate;
 
     @Embedded(concreteClass = Vector.class)
-	List<DeckEntry> cards;
+	private List<DeckEntry> cards;
 
 	public String toString() {
 		return "{deckId:" + deckId + ", name: " + name + "}";
 	}
-	
+
+	public long getDeckId() {
+		return deckId;
+	}
+
+	public void setDeckId(long deckId) {
+		this.deckId = deckId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int[] getRate() {
+		return rate;
+	}
+
+	public void setRate(int[] rate) {
+		this.rate = rate;
+	}
+
+	public List<DeckEntry> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<DeckEntry> cards) {
+		this.cards = cards;
+	}
 }

@@ -21,32 +21,32 @@ import java.util.Vector;
 public class Card {
 
     @Id
-    long cardId;
-    String name;
-    String effect;
-    String desc;
+    private long cardId;
+    private String name;
+    private String effect;
+    private String desc;
 
-    String imageUrl;
+    private String imageUrl;
 
-    Card.Set set;
-    Card.Type type;
-    Card.Quality quality;
-    Race race;
+    private Card.Set set;
+    private Card.Type type;
+    private Card.Quality quality;
+    private Race race;
 
     @Property("class")
-    HeroClass heroClass;
+    private HeroClass heroClass;
 
-    int health;
-    int attack;
-    int cost;
+    private int health;
+    private int attack;
+    private int cost;
 
-    int[] collect;
-    int[] disenchant;
+    private int[] collect;
+    private int[] disenchant;
 
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics;
 
-    @Reference(lazy = true, concreteClass = Vector.class)
+    @Embedded(concreteClass = Vector.class)
     List<CardQuote> quotes;
 
     public enum Quality {

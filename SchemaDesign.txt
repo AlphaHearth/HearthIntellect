@@ -20,7 +20,7 @@ Card {
 	
 	cost: int
 	attack: int
-	health: int
+	health: int 
 	
 	effect: String
 	desc: String

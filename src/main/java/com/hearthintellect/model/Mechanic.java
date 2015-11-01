@@ -7,10 +7,10 @@ import org.mongodb.morphia.annotations.*;
 public class Mechanic {
 
 	@Id
-	long mechanicId;
+    private long mechanicId;
 
-	String name;
-	String description;
+    private String name;
+    private String description;
 
     public long getMechanicId() {
         return mechanicId;
