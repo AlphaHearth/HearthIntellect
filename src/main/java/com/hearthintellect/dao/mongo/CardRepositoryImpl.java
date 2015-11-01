@@ -33,8 +33,8 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
-    public Iterator<Card> findAllByClass(com.hearthintellect.model.Class _class) {
-        return createQuery().field("class").equal(_class).iterator();
+    public Iterator<Card> findAllByClass(HeroClass _Hero_class) {
+        return createQuery().field("class").equal(_Hero_class).iterator();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
-    public Iterator<Card> findAllBySet(CardSet set) {
+    public Iterator<Card> findAllBySet(Set set) {
         return createQuery().field("set").equal(set).iterator();
     }
 

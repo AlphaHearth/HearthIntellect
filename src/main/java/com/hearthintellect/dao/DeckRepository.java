@@ -1,6 +1,6 @@
 package com.hearthintellect.dao;
 
-import com.hearthintellect.model.Class;
+import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.Deck;
 import com.hearthintellect.model.DeckType;
 
@@ -10,7 +10,7 @@ public interface DeckRepository {
 
     Iterable<Deck> findAllByType(DeckType type);
 
-    Iterable<Deck> findAllByClass(Class _class);
+    Iterable<Deck> findAllByClass(HeroClass _Hero_class);
 
     void like();
     void dislike();

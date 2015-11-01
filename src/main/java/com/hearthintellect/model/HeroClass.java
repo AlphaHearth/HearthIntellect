@@ -1,5 +1,5 @@
 package com.hearthintellect.model;
 
-public enum Class {
+public enum HeroClass {
     Paladin, Warrior, Hunter, Shaman, Rogue, Druid, Priest, Mage, Warlock, Neutral
 }

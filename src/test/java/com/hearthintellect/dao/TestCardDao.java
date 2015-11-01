@@ -1,8 +1,11 @@
 package com.hearthintellect.dao;
 
 import com.hearthintellect.model.*;
-import com.hearthintellect.model.Class;
+import com.hearthintellect.model.HeroClass;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.Vector;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,11 +29,17 @@ public class TestCardDao {
         card.setAttack(2);
         card.setHealth(3);
 
-        card.setQuality(CardQuality.Legendary);
-        card.setRace(Race.None);
-        card.setSet(CardSet.Credits);
-        card.setType(CardType.Minion);
-        card.set_class(Class.Neutral);
+        card.setQuality(Card.Quality.Legendary);
+        card.setRace(Card.Race.None);
+        card.setSet(Card.Set.Credits);
+        card.setType(Card.Type.Minion);
+        card.setHeroClass(HeroClass.Neutral);
+
+        List<CardQuote> quotes = new Vector<>();
+        quotes.add(new CardQuote(CardQuote.Type.Play, "Fear me, if you dare!", "url1"));
+        quotes.add(new CardQuote(CardQuote.Type.Attack, "Ahahaha, don't make me laugh!", "url2"));
+        quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
+        card.setQuotes(quotes);
 
         cardRepository.save(card);
         card = cardRepository.findById(1);
@@ -42,11 +51,11 @@ public class TestCardDao {
         assertEquals(2, card.getCost());
         assertEquals(2, card.getAttack());
         assertEquals(3, card.getHealth());
-        assertEquals(CardQuality.Legendary, card.getQuality());
-        assertEquals(Race.None, card.getRace());
-        assertEquals(CardSet.Credits, card.getSet());
-        assertEquals(CardType.Minion, card.getType());
-        assertEquals(Class.Neutral, card.get_class());
+        assertEquals(Card.Quality.Legendary, card.getQuality());
+        assertEquals(Card.Race.None, card.getRace());
+        assertEquals(Card.Set.Credits, card.getSet());
+        assertEquals(Card.Type.Minion, card.getType());
+        assertEquals(HeroClass.Neutral, card.getHeroClass());
 
     }
 

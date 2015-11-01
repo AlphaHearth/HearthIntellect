@@ -3,6 +3,7 @@ package com.hearthintellect.model;
 import org.mongodb.morphia.annotations.*;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Entity for Card
@@ -27,13 +28,13 @@ public class Card {
 
     String imageUrl;
 
-    CardSet set;
-    CardType type;
-    CardQuality quality;
+    Card.Set set;
+    Card.Type type;
+    Card.Quality quality;
     Race race;
 
     @Property("class")
-    Class _class;
+    HeroClass heroClass;
 
     int health;
     int attack;
@@ -44,6 +45,25 @@ public class Card {
 
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics;
+
+    @Reference(lazy = true, concreteClass = Vector.class)
+    List<CardQuote> quotes;
+
+    public enum Quality {
+        Free, Common, Rare, Epic, Legendary
+    }
+
+    public enum Type {
+        Hero, Minion, Power, Spell, Weapon
+    }
+
+    public enum Set {
+        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament
+    }
+
+    public enum Race {
+        None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
+    }
 
     public String toString() {
         return "{cardId: " + cardId + ", name: " + name + ", imageUrl: " + imageUrl + "}";
@@ -89,27 +109,27 @@ public class Card {
         this.imageUrl = imageUrl;
     }
 
-    public CardSet getSet() {
+    public Card.Set getSet() {
         return set;
     }
 
-    public void setSet(CardSet set) {
+    public void setSet(Card.Set set) {
         this.set = set;
     }
 
-    public CardType getType() {
+    public Card.Type getType() {
         return type;
     }
 
-    public void setType(CardType type) {
+    public void setType(Card.Type type) {
         this.type = type;
     }
 
-    public CardQuality getQuality() {
+    public Card.Quality getQuality() {
         return quality;
     }
 
-    public void setQuality(CardQuality quality) {
+    public void setQuality(Card.Quality quality) {
         this.quality = quality;
     }
 
@@ -121,12 +141,12 @@ public class Card {
         this.race = race;
     }
 
-    public Class get_class() {
-        return _class;
+    public HeroClass getHeroClass() {
+        return heroClass;
     }
 
-    public void set_class(Class _class) {
-        this._class = _class;
+    public void setHeroClass(HeroClass heroClass) {
+        this.heroClass = heroClass;
     }
 
     public int getHealth() {
@@ -175,5 +195,13 @@ public class Card {
 
     public void setMechanics(List<Mechanic> mechanics) {
         this.mechanics = mechanics;
+    }
+
+    public List<CardQuote> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(List<CardQuote> quotes) {
+        this.quotes = quotes;
     }
 }

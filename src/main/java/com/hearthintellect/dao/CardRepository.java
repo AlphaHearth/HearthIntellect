@@ -1,7 +1,7 @@
 package com.hearthintellect.dao;
 
 import com.hearthintellect.model.*;
-import com.hearthintellect.model.Class;
+import com.hearthintellect.model.HeroClass;
 
 import java.util.Iterator;
 
@@ -11,11 +11,11 @@ public interface CardRepository {
 
     Iterator<Card> findAllByName(String name);
 
-    Iterator<Card> findAllByClass(Class _class);
+    Iterator<Card> findAllByClass(HeroClass _Hero_class);
 
     Iterator<Card> findAllByRace(Race race);
 
-    Iterator<Card> findAllBySet(CardSet set);
+    Iterator<Card> findAllBySet(Set set);
 
     Iterator<Card> findAllByQuality(CardQuality quality);
 
