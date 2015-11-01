@@ -1,5 +1,7 @@
 package com.hearthintellect.config;
 
+import com.hearthintellect.dao.CardRepository;
+import com.hearthintellect.dao.mongo.CardRepositoryImpl;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -36,6 +38,11 @@ public class SpringMongoConfig {
         datastore.ensureIndexes();
 
         return datastore;
+    }
+
+    @Bean
+    public CardRepository cardRepository() {
+        return new CardRepositoryImpl(datastore());
     }
 
 }

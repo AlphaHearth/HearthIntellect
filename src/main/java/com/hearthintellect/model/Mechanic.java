@@ -1,12 +1,9 @@
 package com.hearthintellect.model;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Index;
-import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "mechanics", noClassnameStored = true)
-@Indexes(@Index("name"))
+@Indexes(@Index(name = "name", fields = @Field("name")))
 public class Mechanic {
 
 	@Id

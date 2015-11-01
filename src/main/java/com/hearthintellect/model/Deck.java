@@ -1,6 +1,7 @@
 package com.hearthintellect.model;
 
 import java.util.List;
+import java.util.Vector;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -20,14 +21,8 @@ public class Deck {
 	String name;
 	int[] rate;
 
-    @Embedded(concreteClass = Entry.class)
-	List<Entry> cards;
-    
-	public class Entry {
-		@Reference(lazy = true, idOnly = true)
-		Card card;
-		int count;
-	}
+    @Embedded(concreteClass = Vector.class)
+	List<DeckEntry> cards;
 
 	public String toString() {
 		return "{deckId:" + deckId + ", name: " + name + "}";
