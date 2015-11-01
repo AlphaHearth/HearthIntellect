@@ -1,0 +1,57 @@
+Card {
+	_id: long
+	name: String
+	type: Enum(Spell, Minion, Weapon, Hero, Power)
+	race: Enum(None, Dragon, Beast, Demon, Mech, Murloc, Pirate, Totem)
+	set: Enum(Basic, Classic, Reward, Missions, Promotion, Credits, `Naxxramas`, `Goblins vs Gnomes`, `Blackrock Mountain`, `The Grand Tournament`)
+	quality: Enum(Free, Common, Rare, Epic, Legendary)
+	class: Enum(Paladin, Warrior, Hunter, Shaman, Rogue, Druid, Priest, Mage, Warlock, Neutral)
+	craftable: [normal_cost golden_cost], (`null` for false)
+	disenchantable: [normal_gain golden_gain], (`null` for false)
+	
+	imageUrl: String
+	quote: [{
+		type: Enum(Play, Attack, Death, Alternate, Trigger, Other)
+		line: String
+		audioUrl: String
+	}]
+	
+	mechanics: Mechanic[]
+	
+	cost: int
+	attack: int
+	health: int 
+	
+	effect: String
+	desc: String
+}
+Frequent Operations include:
+  Query by: name(search), class, race, set, quality, mechanic
+  Order by: class, race, set, quality, craft, disenchant
+
+Mechanic {
+	_id: long
+	name: String
+	desc: String
+}
+
+Deck {
+	_id: long
+	type: Enum(Constructed, Basic)
+	class: Enum(Paladin, Warrior, Hunter, Shaman, Rogue, Druid, Priest, Mage, Warlock, Neutral)
+	
+	rating: [good bad]: int[2]
+	
+	cards: [{
+		cardId: long
+		count: Enum(1, 2)
+	}]
+	
+	author: User
+	createDate: Date
+	lastEditDate: Date
+	patch: String
+}
+Frequent Operations include:
+  Query by: type, class, author
+  Order by: rating, patch

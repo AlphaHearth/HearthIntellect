@@ -1,54 +1,38 @@
 package com.hearthintellect.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.mongodb.morphia.annotations.*;
 
-@Document(collection = "mechanics")
-public class Mechanic extends BaseCollection {
-	
-	private int mechanicId;
-	private String iconUrl;
-	private String name;
-	private String description;
-	private String umlName;
-	
-	public int getMechanicId() {
-		return mechanicId;
-	}
-	
-	public void setMechanicId(int mechanicId) {
-		this.mechanicId = mechanicId;
-	}
-	
-	public String getIconUrl() {
-		return iconUrl;
-	}
-	
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getUmlName() {
-		return umlName;
-	}
-	
-	public void setUmlName(String umlName) {
-		this.umlName = umlName;
-	}
+@Entity(value = "mechanics", noClassnameStored = true)
+@Indexes(@Index(name = "name", fields = @Field("name")))
+public class Mechanic {
 
+	@Id
+    private long mechanicId;
+
+    private String name;
+    private String description;
+
+    public long getMechanicId() {
+        return mechanicId;
+    }
+
+    public void setMechanicId(long mechanicId) {
+        this.mechanicId = mechanicId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

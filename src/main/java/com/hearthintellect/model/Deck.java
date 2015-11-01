@@ -1,95 +1,62 @@
 package com.hearthintellect.model;
 
 import java.util.List;
+import java.util.Vector;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  * Entity for Deck
  * @author Robert Peng
  */
-@Document(collection="decks")
-public class Deck extends BaseCollection {
-	
-	private int deckId;
+@Entity(value = "decks", noClassnameStored = true)
+public class Deck {
+
+	@Id
+	private long deckId;
+
 	private String name;
-	private int goodRating;
-	private int badRating;
-	private int occurredTimes;
-	
+	private int[] rate;
+
+    @Embedded(concreteClass = Vector.class)
+	private List<DeckEntry> cards;
+
 	public String toString() {
 		return "{deckId:" + deckId + ", name: " + name + "}";
 	}
-	
-	public int getDeckId() {
+
+	public long getDeckId() {
 		return deckId;
 	}
-	
-	public void setDeckId(int deckId) {
+
+	public void setDeckId(long deckId) {
 		this.deckId = deckId;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public int getGoodRating() {
-		return goodRating;
+
+	public int[] getRate() {
+		return rate;
 	}
 
-	public void setGoodRating(int goodRating) {
-		this.goodRating = goodRating;
+	public void setRate(int[] rate) {
+		this.rate = rate;
 	}
 
-	public int getBadRating() {
-		return badRating;
-	}
-
-	public void setBadRating(int badRating) {
-		this.badRating = badRating;
-	}
-
-	public int getOccurredTimes() {
-		return occurredTimes;
-	}
-
-	public void setOccurredTimes(int occurredTimes) {
-		this.occurredTimes = occurredTimes;
-	}
-
-	public class DeckEntry {
-		private int cardId;
-		private int count;
-		
-		public int getCardId() {
-			return cardId;
-		}
-		
-		public void setCardId(int cardId) {
-			this.cardId = cardId;
-		}
-		
-		public int getCount() {
-			return count;
-		}
-		
-		public void setCount(int count) {
-			this.count = count;
-		}
-	}
-	
-	private List<DeckEntry> cards;
-	
 	public List<DeckEntry> getCards() {
 		return cards;
 	}
-	
+
 	public void setCards(List<DeckEntry> cards) {
 		this.cards = cards;
 	}
-	
 }

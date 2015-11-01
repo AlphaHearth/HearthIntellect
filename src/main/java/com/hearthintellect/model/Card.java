@@ -1,177 +1,207 @@
 package com.hearthintellect.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.mongodb.morphia.annotations.*;
+
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Entity for Card
+ *
  * @author Robert Peng
  */
-@Document(collection="cards")
-public class Card extends BaseCollection {
-	
-	private int cardId;
-	private String name;
-	private String description;
-	
-	private int collectible;
-	
-	private String iconUrl;
-	private String imageUrl;
-	
-	private int setId;
-	private int typeId;
-	private int factionId;
-	private int classId;
-	private int qualityId;
-	private int raceId;
-	
-	private int health;
-	private int attack;
-	private int cost;
-	
-	private int[] mechanics;
-	
-	// only exists for cards with type = 3 (hero cards)
-	private int heroPower;
-	
-	public String toString() {
-		return "{cardId: " + cardId + ", name: " + name + ", imageUrl: " + imageUrl + "}";
-	}
+@Entity(value = "cards", noClassnameStored = true)
+@Indexes({
+             @Index(name = "set", fields = @Field("set")),
+             @Index(name = "type", fields = @Field("type")),
+             @Index(name = "quality", fields = @Field("quality")),
+             @Index(name = "race", fields = @Field("race")),
+             @Index(name = "class", fields = @Field("class"))
+})
+public class Card {
 
-	public int getCardId() {
-		return cardId;
-	}
+    @Id
+    private long cardId;
+    private String name;
+    private String effect;
+    private String desc;
 
-	public void setCardId(int cardId) {
-		this.cardId = cardId;
-	}
+    private String imageUrl;
 
-	public String getName() {
-		return name;
-	}
+    private Card.Set set;
+    private Card.Type type;
+    private Card.Quality quality;
+    private Race race;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Property("class")
+    private HeroClass heroClass;
 
-	public String getDescription() {
-		return description;
-	}
+    private int health;
+    private int attack;
+    private int cost;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    private int[] collect;
+    private int[] disenchant;
 
-	public int getCollectible() {
-		return collectible;
-	}
+    @Reference(lazy = true, idOnly = true)
+    List<Mechanic> mechanics;
 
-	public void setCollectible(int collectible) {
-		this.collectible = collectible;
-	}
+    @Embedded(concreteClass = Vector.class)
+    List<CardQuote> quotes;
 
-	public String getIconUrl() {
-		return iconUrl;
-	}
+    public enum Quality {
+        Free, Common, Rare, Epic, Legendary
+    }
 
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-	}
+    public enum Type {
+        Hero, Minion, Power, Spell, Weapon
+    }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public enum Set {
+        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament
+    }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public enum Race {
+        None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
+    }
 
-	public int getSetId() {
-		return setId;
-	}
+    public String toString() {
+        return "{cardId: " + cardId + ", name: " + name + ", imageUrl: " + imageUrl + "}";
+    }
 
-	public void setSetId(int setId) {
-		this.setId = setId;
-	}
+    public long getCardId() {
+        return cardId;
+    }
 
-	public int getTypeId() {
-		return typeId;
-	}
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
+    }
 
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getFactionId() {
-		return factionId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setFactionId(int factionId) {
-		this.factionId = factionId;
-	}
+    public String getEffect() {
+        return effect;
+    }
 
-	public int getClassId() {
-		return classId;
-	}
+    public void setEffect(String effect) {
+        this.effect = effect;
+    }
 
-	public void setClassId(int classId) {
-		this.classId = classId;
-	}
+    public String getDesc() {
+        return desc;
+    }
 
-	public int getQualityId() {
-		return qualityId;
-	}
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
-	public void setQualityId(int qualityId) {
-		this.qualityId = qualityId;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public int getRaceId() {
-		return raceId;
-	}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	public void setRaceId(int raceId) {
-		this.raceId = raceId;
-	}
+    public Card.Set getSet() {
+        return set;
+    }
 
-	public int getHealth() {
-		return health;
-	}
+    public void setSet(Card.Set set) {
+        this.set = set;
+    }
 
-	public void setHealth(int health) {
-		this.health = health;
-	}
+    public Card.Type getType() {
+        return type;
+    }
 
-	public int getAttack() {
-		return attack;
-	}
+    public void setType(Card.Type type) {
+        this.type = type;
+    }
 
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
+    public Card.Quality getQuality() {
+        return quality;
+    }
 
-	public int getCost() {
-		return cost;
-	}
+    public void setQuality(Card.Quality quality) {
+        this.quality = quality;
+    }
 
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
+    public Race getRace() {
+        return race;
+    }
 
-	public int[] getMechanics() {
-		return mechanics;
-	}
+    public void setRace(Race race) {
+        this.race = race;
+    }
 
-	public void setMechanics(int[] mechanics) {
-		this.mechanics = mechanics;
-	}
+    public HeroClass getHeroClass() {
+        return heroClass;
+    }
 
-	public int getHeroPower() {
-		return heroPower;
-	}
+    public void setHeroClass(HeroClass heroClass) {
+        this.heroClass = heroClass;
+    }
 
-	public void setHeroPower(int heroPower) {
-		this.heroPower = heroPower;
-	}
-	
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int[] getCollect() {
+        return collect;
+    }
+
+    public void setCollect(int[] collect) {
+        this.collect = collect;
+    }
+
+    public int[] getDisenchant() {
+        return disenchant;
+    }
+
+    public void setDisenchant(int[] disenchant) {
+        this.disenchant = disenchant;
+    }
+
+    public List<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(List<Mechanic> mechanics) {
+        this.mechanics = mechanics;
+    }
+
+    public List<CardQuote> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(List<CardQuote> quotes) {
+        this.quotes = quotes;
+    }
 }
