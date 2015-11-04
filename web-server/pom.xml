@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+	  <groupId>com.hearthintellect</groupId>
+	  <artifactId>hearthintellect</artifactId>
+	  <version>0.1</version>
+  </parent>
+
+  <artifactId>web-server</artifactId>
+  <packaging>war</packaging>
+  
+  <dependencies>
+    <dependency>
+	    <groupId>com.hearthintellect</groupId>
+      <artifactId>core</artifactId>
+	    <version>${project.version}</version>
+	  </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <webResources>
+            <resource>
+              <!-- this is relative to the pom.xml directory -->
+              <directory>src/webapp</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>

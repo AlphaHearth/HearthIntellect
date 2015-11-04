@@ -3,16 +3,23 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.hearthintellect</groupId>
-  <artifactId>HearthIntellect</artifactId>
-  <packaging>war</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <artifactId>hearthintellect</artifactId>
+  <packaging>pom</packaging>
+  <version>0.1</version>
 
   <name>HearthIntellect</name>
   <description>An artificial intelligence for HearthStone</description>
   <url>http://www.hearthintellect.com</url>
+  
+  <modules>
+    <module>core</module>
+	  <module>crawler</module>
+	  <module>web-server</module>
+  </modules>
 
   <properties>
     <spring.version>4.2.2.RELEASE</spring.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
@@ -36,31 +43,6 @@
       <version>${spring.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.mongodb.morphia</groupId>
-      <artifactId>morphia</artifactId>
-      <version>1.0.1</version>
-    </dependency>
-
-
-    <!-- Struts2 -->
-    <dependency>
-      <groupId>com.jgeppert.struts2.bootstrap</groupId>
-      <artifactId>struts2-bootstrap-plugin</artifactId>
-      <version>2.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>com.jgeppert.struts2.jquery</groupId>
-      <artifactId>struts2-jquery-plugin</artifactId>
-      <version>3.7.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-spring-plugin</artifactId>
-      <version>2.3.24.1</version>
-    </dependency>
-
-
     <!-- log4j -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -79,14 +61,6 @@
       <artifactId>gson</artifactId>
       <version>2.4</version>
     </dependency>
-
-
-    <!-- Java Servlet Api -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -100,6 +74,5 @@
         </configuration>
       </plugin>
     </plugins>
-    <finalName>HearthIntellect</finalName>
   </build>
 </project>
