@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 public interface CardRepository {
 
-    Card findById(long cardId);
+    Card findById(int cardId);
 
     Iterator<Card> findAllByName(String name);
 

@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Unit tests for {@link MechanicRepository}
@@ -21,7 +22,7 @@ public class TestMechanicDao {
     private MechanicRepository mechanicRepository;
 
     @Test
-    public void testMechanicDao() {
+    public void testMechanicDaoInsert() {
         Mechanic mechanic = new Mechanic();
 
         mechanic.setMechanicId(1);
@@ -33,7 +34,36 @@ public class TestMechanicDao {
 
         assertEquals("Battlecry", mechanic.getName());
         assertEquals("Do something nasty after you played the card", mechanic.getDescription());
+    }
 
+    @Test
+    public void testMechanicDaoUpdate() {
+        Mechanic mechanic = new Mechanic();
+
+        mechanic.setMechanicId(1);
+        mechanic.setName("Deathrattle");
+        mechanic.setDescription("Do something nasty after it dies");
+
+        mechanicRepository.save(mechanic);
+
+        mechanic.setDescription("Do something after it dies");
+        mechanicRepository.update(mechanic);
+
+        mechanic = mechanicRepository.findById(1);
+
+        assertEquals("Deathrattle", mechanic.getName());
+        assertEquals("Do something after it dies", mechanic.getDescription());
+    }
+
+    @Test
+    public void testMechanicDaoRemove() {
+        Mechanic mechanic = new Mechanic();
+        mechanic.setMechanicId(1);
+
+        mechanicRepository.remove(mechanic);
+        mechanic = mechanicRepository.findById(1);
+
+        assertNull(mechanic);
     }
 
 }
