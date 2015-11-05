@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+
+	<package name="HearthIntellect" extends="struts-default">
+		<action name="index" class="indexAction">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="cards" class="cardsAction">
+			<result name="success">/cards.jsp</result>	
+		</action>
+		
+		<action name="deckSearch" class="deckSearchAction">
+			<result name="success">/deckSearch.jsp</result>
+		</action>
+		
+		<action name="deckSearchResult" class="deckSearchResultAction">
+			<result name="success">/deckSearchResult.jsp</result>
+		</action>
+		
+		<action name="decks" class="decksAction">
+			<result name="success">/decks.jsp</result>
+		</action>
+		
+		<action name="deck" class="deckAction">
+			<result name="success">/deck.jsp</result>
+		</action>
+
+	</package>
+</struts>
