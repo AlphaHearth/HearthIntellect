@@ -4,9 +4,11 @@ import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.dao.MechanicRepository;
 import com.hearthintellect.dao.mongo.CardRepositoryImpl;
 import com.hearthintellect.dao.mongo.MechnicRepositoryImpl;
+import com.hearthintellect.morphia.converters.EnumOrdinalConverter;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.converters.EnumConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,6 +32,9 @@ public class SpringMongoConfig {
     public Morphia morphia() {
         Morphia morphia = new Morphia();
         morphia.mapPackage(packageName());
+
+        morphia.getMapper().getConverters().removeConverter(new EnumConverter());
+        morphia.getMapper().getConverters().addConverter(new EnumOrdinalConverter());
 
         return morphia;
     }

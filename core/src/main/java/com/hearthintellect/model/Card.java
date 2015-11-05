@@ -21,7 +21,11 @@ import java.util.Vector;
 public class Card {
 
     @Id
-    private long cardId;
+    private int cardId;
+
+    // Corresponding ID in HearthHead
+    private int HHID;
+
     private String name;
     private String effect;
     private String desc;
@@ -69,11 +73,11 @@ public class Card {
         return "{cardId: " + cardId + ", name: " + name + ", imageUrl: " + imageUrl + "}";
     }
 
-    public long getCardId() {
+    public int getCardId() {
         return cardId;
     }
 
-    public void setCardId(long cardId) {
+    public void setCardId(int cardId) {
         this.cardId = cardId;
     }
 
@@ -203,5 +207,13 @@ public class Card {
 
     public void setQuotes(List<CardQuote> quotes) {
         this.quotes = quotes;
+    }
+
+    public int getHHID() {
+        return HHID;
+    }
+
+    public void setHHID(int HHID) {
+        this.HHID = HHID;
     }
 }

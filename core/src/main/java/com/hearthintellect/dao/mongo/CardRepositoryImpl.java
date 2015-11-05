@@ -23,7 +23,7 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
-    public Card findById(long cardId) {
+    public Card findById(int cardId) {
         return createQuery().field("_id").equal(cardId).get();
     }
 

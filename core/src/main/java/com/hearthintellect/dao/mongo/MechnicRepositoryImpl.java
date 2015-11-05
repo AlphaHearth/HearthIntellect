@@ -21,7 +21,7 @@ public class MechnicRepositoryImpl implements MechanicRepository {
     }
 
     @Override
-    public Mechanic findById(long mechanicId) {
+    public Mechanic findById(int mechanicId) {
         return createQuery().field("_id").equal(mechanicId).get();
     }
 

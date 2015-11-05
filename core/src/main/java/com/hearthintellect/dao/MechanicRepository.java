@@ -4,7 +4,7 @@ import com.hearthintellect.model.Mechanic;
 
 public interface MechanicRepository {
 
-    Mechanic findById(long mechanicId);
+    Mechanic findById(int mechanicId);
 
     Iterable<Mechanic> findAllByName(String name);
 
