@@ -20,8 +20,14 @@ public class MechnicRepositoryImpl implements MechanicRepository {
         return datastore.createQuery(Mechanic.class);
     }
 
+    @Override
     public Mechanic findById(int mechanicId) {
         return createQuery().field("_id").equal(mechanicId).get();
+    }
+
+    @Override
+    public Mechanic findByHHID(int mechanicHHID) {
+        return createQuery().field("HHID").equal(mechanicHHID).get();
     }
 
     @Override

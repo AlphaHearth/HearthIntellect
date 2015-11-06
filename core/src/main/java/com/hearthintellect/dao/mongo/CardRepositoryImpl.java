@@ -28,6 +28,11 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
+    public Card findByHHID(int cardHHID) {
+        return createQuery().field("HHID").equal(cardHHID).get();
+    }
+
+    @Override
     public Iterator<Card> findAllByName(String name) {
         return createQuery().field("name").contains(name).iterator();
     }

@@ -1,12 +1,11 @@
 package com.hearthintellect.model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
 /**
  * Entity for Deck
@@ -21,7 +20,7 @@ public class Deck {
 	private String name;
 	private int[] rate;
 
-    @Embedded(concreteClass = Vector.class)
+    @Embedded(concreteClass = ArrayList.class)
 	private List<DeckEntry> cards;
 
 	public String toString() {

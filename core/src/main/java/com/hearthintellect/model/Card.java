@@ -2,8 +2,8 @@ package com.hearthintellect.model;
 
 import org.mongodb.morphia.annotations.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Entity for Card
@@ -16,7 +16,7 @@ import java.util.Vector;
              @Index(name = "type", fields = @Field("type")),
              @Index(name = "quality", fields = @Field("quality")),
              @Index(name = "race", fields = @Field("race")),
-             @Index(name = "class", fields = @Field("class"))
+             @Index(name = "classs", fields = @Field("classs"))
 })
 public class Card {
 
@@ -37,28 +37,30 @@ public class Card {
     private Card.Quality quality;
     private Race race;
 
-    @Property("class")
+    @Property("classs")
     private HeroClass heroClass;
 
     private int health;
     private int attack;
     private int cost;
 
-    private int[] collect;
-    private int[] disenchant;
+    private boolean collect;
 
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics;
 
-    @Embedded(concreteClass = Vector.class)
+    @Embedded(concreteClass = ArrayList.class)
     List<CardQuote> quotes;
+
+    @Embedded(concreteClass = ArrayList.class)
+    List<Locale> locales;
 
     public enum Quality {
         Free, Common, Rare, Epic, Legendary
     }
 
     public enum Type {
-        Hero, Minion, Power, Spell, Weapon
+        Hero, Minion, HeroPower, Spell, Weapon
     }
 
     public enum Set {
@@ -67,6 +69,47 @@ public class Card {
 
     public enum Race {
         None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
+    }
+
+    @Embedded
+    public static class Locale {
+        @Property("lang")
+        private Language language;
+        private String name;
+        private String effect;
+        private String description;
+
+        public Language getLanguage() {
+            return language;
+        }
+
+        public void setLanguage(Language language) {
+            this.language = language;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getEffect() {
+            return effect;
+        }
+
+        public void setEffect(String effect) {
+            this.effect = effect;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
     }
 
     public String toString() {
@@ -177,20 +220,12 @@ public class Card {
         this.cost = cost;
     }
 
-    public int[] getCollect() {
+    public boolean getCollect() {
         return collect;
     }
 
-    public void setCollect(int[] collect) {
+    public void setCollect(boolean collect) {
         this.collect = collect;
-    }
-
-    public int[] getDisenchant() {
-        return disenchant;
-    }
-
-    public void setDisenchant(int[] disenchant) {
-        this.disenchant = disenchant;
     }
 
     public List<Mechanic> getMechanics() {
@@ -215,5 +250,13 @@ public class Card {
 
     public void setHHID(int HHID) {
         this.HHID = HHID;
+    }
+
+    public List<Locale> getLocales() {
+        return locales;
+    }
+
+    public void setLocales(List<Locale> locales) {
+        this.locales = locales;
     }
 }

@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringMongoConfig.class)
 public class TestMechanicDao {
+    private static final int TEST_ID = 100000;
 
     @Autowired
     private MechanicRepository mechanicRepository;
@@ -25,12 +26,12 @@ public class TestMechanicDao {
     public void testMechanicDaoInsert() {
         Mechanic mechanic = new Mechanic();
 
-        mechanic.setMechanicId(1);
+        mechanic.setMechanicId(TEST_ID);
         mechanic.setName("Battlecry");
         mechanic.setDescription("Do something nasty after you played the card");
 
         mechanicRepository.save(mechanic);
-        mechanic = mechanicRepository.findById(1);
+        mechanic = mechanicRepository.findById(TEST_ID);
 
         assertEquals("Battlecry", mechanic.getName());
         assertEquals("Do something nasty after you played the card", mechanic.getDescription());
@@ -40,7 +41,7 @@ public class TestMechanicDao {
     public void testMechanicDaoUpdate() {
         Mechanic mechanic = new Mechanic();
 
-        mechanic.setMechanicId(1);
+        mechanic.setMechanicId(TEST_ID);
         mechanic.setName("Deathrattle");
         mechanic.setDescription("Do something nasty after it dies");
 
@@ -49,7 +50,7 @@ public class TestMechanicDao {
         mechanic.setDescription("Do something after it dies");
         mechanicRepository.update(mechanic);
 
-        mechanic = mechanicRepository.findById(1);
+        mechanic = mechanicRepository.findById(TEST_ID);
 
         assertEquals("Deathrattle", mechanic.getName());
         assertEquals("Do something after it dies", mechanic.getDescription());
@@ -58,10 +59,10 @@ public class TestMechanicDao {
     @Test
     public void testMechanicDaoRemove() {
         Mechanic mechanic = new Mechanic();
-        mechanic.setMechanicId(1);
+        mechanic.setMechanicId(TEST_ID);
 
         mechanicRepository.remove(mechanic);
-        mechanic = mechanicRepository.findById(1);
+        mechanic = mechanicRepository.findById(TEST_ID);
 
         assertNull(mechanic);
     }
