@@ -1,13 +1,7 @@
 package com.hearthintellect.config;
 
-import com.hearthintellect.dao.CardRepository;
-import com.hearthintellect.dao.DeckRepository;
-import com.hearthintellect.dao.MechanicRepository;
-import com.hearthintellect.dao.UserRepository;
-import com.hearthintellect.dao.morphia.CardRepositoryImpl;
-import com.hearthintellect.dao.morphia.DeckRepositoryImpl;
-import com.hearthintellect.dao.morphia.MechanicRepositoryImpl;
-import com.hearthintellect.dao.morphia.UserRepositoryImpl;
+import com.hearthintellect.dao.*;
+import com.hearthintellect.dao.morphia.*;
 import com.hearthintellect.morphia.converters.EnumOrdinalConverter;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -76,6 +70,14 @@ public class SpringMongoConfig {
     @Bean
     public MechanicRepository mechanicRepository() {
         MechanicRepositoryImpl repo = new MechanicRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
+    }
+
+    @Bean
+    public PatchRepository patchRepository() {
+        PatchRepositoryImpl repo = new PatchRepositoryImpl();
         repo.setDatastore(datastore());
 
         return repo;

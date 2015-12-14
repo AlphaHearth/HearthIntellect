@@ -12,5 +12,5 @@ public interface DeckRepository extends Repository<Deck> {
     void like();
     void dislike();
 
-    // TODO Order by rating/patch
+    // TODO Order by rating
 }
