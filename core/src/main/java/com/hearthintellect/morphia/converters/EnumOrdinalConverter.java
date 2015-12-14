@@ -4,13 +4,15 @@ import org.mongodb.morphia.converters.EnumConverter;
 import org.mongodb.morphia.mapping.MappedField;
 
 /**
- * Converter used to save {@link Enum} into MongoDB as Int32
+ * Converter used to save {@link Enum} into MongoDB as Integer
  */
 public class EnumOrdinalConverter extends EnumConverter {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Object decode(final Class targetClass, final Object fromDBObject, final MappedField optionalExtraInfo) {
+    public Object decode(final Class targetClass,
+                         final Object fromDBObject,
+                         final MappedField optionalExtraInfo) {
         if (fromDBObject == null) {
             return null;
         }

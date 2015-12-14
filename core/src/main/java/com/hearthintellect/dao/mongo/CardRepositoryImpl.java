@@ -33,6 +33,11 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
+    public Iterator<Card> findAll() {
+        return createQuery().iterator();
+    }
+
+    @Override
     public Iterator<Card> findAllByName(String name) {
         return createQuery().field("name").contains(name).iterator();
     }

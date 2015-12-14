@@ -10,6 +10,8 @@ public interface CardRepository {
     Card findById(int cardId);
     Card findByHHID(int cardHHID);
 
+    Iterator<Card> findAll();
+
     Iterator<Card> findAllByName(String name);
 
     Iterator<Card> findAllByClass(HeroClass _Hero_class);
