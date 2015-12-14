@@ -1,9 +1,12 @@
 package com.hearthintellect.model;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.*;
+import org.mongodb.morphia.utils.IndexType;
 
 @Entity(value = "users", noClassnameStored = true)
+@Indexes(
+        @Index(fields = @Field(value = "$nickname", type = IndexType.TEXT))
+)
 public class User extends MongoEntity<String> {
     @Id
     private String email;
