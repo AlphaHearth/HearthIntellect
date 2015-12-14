@@ -18,7 +18,7 @@ import java.util.Vector;
              @Index(name = "race", fields = @Field("race")),
              @Index(name = "class", fields = @Field("class"))
 })
-public class Card {
+public class Card extends MongoEntity<Integer> {
 
     @Id
     private int cardId;
@@ -52,6 +52,16 @@ public class Card {
 
     @Embedded(concreteClass = Vector.class)
     List<CardQuote> quotes;
+
+    @Override
+    public Integer getId() {
+        return cardId;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        cardId = id;
+    }
 
     public enum Quality {
         Free, Common, Rare, Epic, Legendary

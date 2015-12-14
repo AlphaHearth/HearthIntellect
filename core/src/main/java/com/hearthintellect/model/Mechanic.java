@@ -4,7 +4,7 @@ import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "mechanics", noClassnameStored = true)
 @Indexes(@Index(name = "name", fields = @Field("name")))
-public class Mechanic {
+public class Mechanic extends MongoEntity {
 
 	@Id
     private int mechanicId;

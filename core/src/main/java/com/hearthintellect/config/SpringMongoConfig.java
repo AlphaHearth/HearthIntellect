@@ -3,7 +3,7 @@ package com.hearthintellect.config;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.dao.MechanicRepository;
 import com.hearthintellect.dao.mongo.CardRepositoryImpl;
-import com.hearthintellect.dao.mongo.MechnicRepositoryImpl;
+import com.hearthintellect.dao.mongo.MechanicRepositoryImpl;
 import com.hearthintellect.morphia.converters.EnumOrdinalConverter;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -49,12 +49,18 @@ public class SpringMongoConfig {
 
     @Bean
     public CardRepository cardRepository() {
-        return new CardRepositoryImpl(datastore());
+        CardRepository repo = new CardRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
     }
 
     @Bean
     public MechanicRepository mechanicRepository() {
-        return new MechnicRepositoryImpl(datastore());
+        MechanicRepository repo = new MechanicRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
     }
 
 }

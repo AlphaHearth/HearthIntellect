@@ -2,30 +2,13 @@ package com.hearthintellect.dao.mongo;
 
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.*;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 
-public class CardRepositoryImpl implements CardRepository {
+public class CardRepositoryImpl extends MorphiaRepository<Card> implements CardRepository {
     private static final Logger LOG = LoggerFactory.getLogger(CardRepositoryImpl.class);
-
-    private Datastore datastore;
-
-    public CardRepositoryImpl(Datastore datastore) {
-        this.datastore = datastore;
-    }
-
-    private Query<Card> createQuery() {
-        return datastore.createQuery(Card.class);
-    }
-
-    @Override
-    public Card findById(int cardId) {
-        return createQuery().field("_id").equal(cardId).get();
-    }
 
     @Override
     public Iterator<Card> findAllByName(String name) {
@@ -58,21 +41,7 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
-    public void save(Card card) {
-        datastore.save(card);
-    }
-
-    @Override
-    public void update(Card card) {
-        datastore.updateFirst(
-            createQuery().field("_id").equal(card.getCardId()),
-            card,
-            false
-        );
-    }
-
-    @Override
-    public void remove(Card card) {
-        datastore.delete(card);
+    protected Class<Card> getEntityClass() {
+        return Card.class;
     }
 }

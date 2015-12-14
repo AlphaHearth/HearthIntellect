@@ -5,9 +5,7 @@ import com.hearthintellect.model.HeroClass;
 
 import java.util.Iterator;
 
-public interface CardRepository {
-
-    Card findById(int cardId);
+public interface CardRepository extends Repository<Card> {
 
     Iterator<Card> findAllByName(String name);
 
@@ -20,10 +18,6 @@ public interface CardRepository {
     Iterator<Card> findAllByQuality(Card.Quality quality);
 
     Iterator<Card> findAllByMechanic(Mechanic mechanic);
-
-    void save(Card card);
-    void update(Card card);
-    void remove(Card card);
 
     // TODO order by class/race/set/quality/craft/disenchant
 

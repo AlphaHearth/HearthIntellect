@@ -13,13 +13,15 @@ import org.mongodb.morphia.annotations.Reference;
  * @author Robert Peng
  */
 @Entity(value = "decks", noClassnameStored = true)
-public class Deck {
+public class Deck extends MongoEntity<Long> {
 
 	@Id
 	private long deckId;
 
 	private String name;
 	private int[] rate;
+
+	private HeroClass classs;
 
     @Embedded(concreteClass = Vector.class)
 	private List<DeckEntry> cards;
@@ -59,4 +61,22 @@ public class Deck {
 	public void setCards(List<DeckEntry> cards) {
 		this.cards = cards;
 	}
+
+	@Override
+	public Long getId() {
+		return deckId;
+	}
+
+	@Override
+	public void setId(Long id) {
+		deckId = id;
+	}
+
+    public HeroClass getClasss() {
+        return classs;
+    }
+
+    public void setClasss(HeroClass classs) {
+        this.classs = classs;
+    }
 }

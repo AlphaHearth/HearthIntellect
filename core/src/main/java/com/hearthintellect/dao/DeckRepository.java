@@ -3,11 +3,11 @@ package com.hearthintellect.dao;
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.Deck;
 
-public interface DeckRepository {
+import java.util.Iterator;
 
-    Deck findById(long deckId);
+public interface DeckRepository extends Repository<Deck> {
 
-    Iterable<Deck> findAllByClass(HeroClass heroClass);
+    Iterator<Deck> findAllByClass(HeroClass heroClass);
 
     void like();
     void dislike();
