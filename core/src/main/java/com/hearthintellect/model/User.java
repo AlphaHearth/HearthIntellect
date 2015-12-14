@@ -10,6 +10,14 @@ public class User extends MongoEntity<String> {
     private String nickname;
     private String password;
 
+    public User() {}
+
+    public User(String email, String nickname, String password) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }

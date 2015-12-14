@@ -2,6 +2,7 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
+import com.mongodb.MongoClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class TestCardDao {
         quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
         card.setQuotes(quotes);
 
-        cardRepository.save(card);
+        cardRepository.insert(card);
         card = cardRepository.findById(1);
 
         assertEquals(1, card.getCardId());
@@ -91,7 +92,7 @@ public class TestCardDao {
         quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
         card.setQuotes(quotes);
 
-        cardRepository.save(card);
+        cardRepository.insert(card);
 
         card.setName("Mr-Dai");
         cardRepository.update(card);
@@ -102,11 +103,11 @@ public class TestCardDao {
     }
 
     @Test
-    public void testCardDaoRemove() {
+    public void testCardDaoDelete() {
         Card card = new Card();
         card.setCardId(1);
 
-        cardRepository.remove(card);
+        cardRepository.delete(card);
 
         card = cardRepository.findById(1);
         assertNull(card);

@@ -29,7 +29,7 @@ public class TestMechanicDao {
         mechanic.setName("Battlecry");
         mechanic.setDescription("Do something nasty after you played the card");
 
-        mechanicRepository.save(mechanic);
+        mechanicRepository.insert(mechanic);
         mechanic = mechanicRepository.findById(1);
 
         assertEquals("Battlecry", mechanic.getName());
@@ -44,7 +44,7 @@ public class TestMechanicDao {
         mechanic.setName("Deathrattle");
         mechanic.setDescription("Do something nasty after it dies");
 
-        mechanicRepository.save(mechanic);
+        mechanicRepository.insert(mechanic);
 
         mechanic.setDescription("Do something after it dies");
         mechanicRepository.update(mechanic);
@@ -56,11 +56,11 @@ public class TestMechanicDao {
     }
 
     @Test
-    public void testMechanicDaoRemove() {
+    public void testMechanicDaoDelete() {
         Mechanic mechanic = new Mechanic();
         mechanic.setMechanicId(1);
 
-        mechanicRepository.remove(mechanic);
+        mechanicRepository.delete(mechanic);
         mechanic = mechanicRepository.findById(1);
 
         assertNull(mechanic);

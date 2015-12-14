@@ -13,6 +13,4 @@ public interface Repository<T extends MongoEntity> {
 
     void delete(T t);
 
-    void setDatastore(Datastore datastore);
-
 }

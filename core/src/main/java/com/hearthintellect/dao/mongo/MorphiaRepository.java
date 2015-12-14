@@ -13,11 +13,11 @@ public abstract class MorphiaRepository<T extends MongoEntity> implements Reposi
 
     private Datastore datastore;
 
-    protected void setDatastore(Datastore datastore) {
+    public void setDatastore(Datastore datastore) {
         this.datastore = datastore;
     }
 
-    protected Datastore getDatastore() {
+    public Datastore getDatastore() {
         return datastore;
     }
 

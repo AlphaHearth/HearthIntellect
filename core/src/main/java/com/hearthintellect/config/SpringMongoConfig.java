@@ -1,9 +1,13 @@
 package com.hearthintellect.config;
 
 import com.hearthintellect.dao.CardRepository;
+import com.hearthintellect.dao.DeckRepository;
 import com.hearthintellect.dao.MechanicRepository;
+import com.hearthintellect.dao.UserRepository;
 import com.hearthintellect.dao.mongo.CardRepositoryImpl;
+import com.hearthintellect.dao.mongo.DeckRepositoryImpl;
 import com.hearthintellect.dao.mongo.MechanicRepositoryImpl;
+import com.hearthintellect.dao.mongo.UserRepositoryImpl;
 import com.hearthintellect.morphia.converters.EnumOrdinalConverter;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -19,7 +23,8 @@ import org.springframework.context.annotation.Configuration;
 public class SpringMongoConfig {
 
     /** Name of the database */
-    protected String databaseName() {
+    @Bean
+    public String databaseName() {
         return "hearthstone";
     }
 
@@ -40,8 +45,13 @@ public class SpringMongoConfig {
     }
 
     @Bean
+    public MongoClient mongoClient() {
+        return new MongoClient();
+    }
+
+    @Bean
     public Datastore datastore() {
-        Datastore datastore = morphia().createDatastore(new MongoClient(), databaseName());
+        Datastore datastore = morphia().createDatastore(mongoClient(), databaseName());
         datastore.ensureIndexes();
 
         return datastore;
@@ -49,7 +59,15 @@ public class SpringMongoConfig {
 
     @Bean
     public CardRepository cardRepository() {
-        CardRepository repo = new CardRepositoryImpl();
+        CardRepositoryImpl repo = new CardRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
+    }
+
+    @Bean
+    public DeckRepository deckRepository() {
+        DeckRepositoryImpl repo = new DeckRepositoryImpl();
         repo.setDatastore(datastore());
 
         return repo;
@@ -57,7 +75,15 @@ public class SpringMongoConfig {
 
     @Bean
     public MechanicRepository mechanicRepository() {
-        MechanicRepository repo = new MechanicRepositoryImpl();
+        MechanicRepositoryImpl repo = new MechanicRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
+    }
+
+    @Bean
+    public UserRepository userRepository() {
+        UserRepositoryImpl repo = new UserRepositoryImpl();
         repo.setDatastore(datastore());
 
         return repo;
