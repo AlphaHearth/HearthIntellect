@@ -32,9 +32,9 @@ public class Card extends MongoEntity<Integer> {
 
     private String imageUrl;
 
-    private Card.Set set;
-    private Card.Type type;
-    private Card.Quality quality;
+    private Set set;
+    private Type type;
+    private Quality quality;
     private Race race;
 
     @Property("class")

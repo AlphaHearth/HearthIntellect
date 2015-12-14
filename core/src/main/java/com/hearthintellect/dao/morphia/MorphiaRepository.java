@@ -1,8 +1,8 @@
-package com.hearthintellect.dao.mongo;
+package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.Repository;
-import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.model.MongoEntity;
+import com.hearthintellect.util.Page;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
@@ -25,6 +25,16 @@ public abstract class MorphiaRepository<T extends MongoEntity> implements Reposi
 
     protected Query<T> createQuery() {
         return datastore.createQuery(getEntityClass());
+    }
+
+    protected Query<T> processOrderAndPage(Query<T> query, String order, Page page) {
+        if (order != null)
+            query.order(order);
+
+        if (page != null)
+            query.offset(page.getOffset()).limit(page.getNumPerPage());
+
+        return query;
     }
 
     @Override

@@ -1,9 +1,7 @@
-package com.hearthintellect.dao.mongo;
+package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.MechanicRepository;
 import com.hearthintellect.model.Mechanic;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

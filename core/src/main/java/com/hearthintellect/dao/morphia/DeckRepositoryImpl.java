@@ -1,4 +1,4 @@
-package com.hearthintellect.dao.mongo;
+package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.DeckRepository;
 import com.hearthintellect.model.Deck;
