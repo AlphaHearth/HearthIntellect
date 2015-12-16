@@ -17,7 +17,7 @@ public class ZonedDateTimeConverter extends TypeConverter {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
 
     public ZonedDateTimeConverter() {
-        super(String.class);
+        super(ZonedDateTime.class);
     }
 
     @Override

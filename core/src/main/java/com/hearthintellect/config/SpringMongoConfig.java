@@ -3,6 +3,8 @@ package com.hearthintellect.config;
 import com.hearthintellect.dao.*;
 import com.hearthintellect.dao.morphia.*;
 import com.hearthintellect.morphia.converters.EnumOrdinalConverter;
+import com.hearthintellect.morphia.converters.LocalDateTimeConverter;
+import com.hearthintellect.morphia.converters.ZonedDateTimeConverter;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -34,6 +36,8 @@ public class SpringMongoConfig {
 
         morphia.getMapper().getConverters().removeConverter(new EnumConverter());
         morphia.getMapper().getConverters().addConverter(new EnumOrdinalConverter());
+        morphia.getMapper().getConverters().addConverter(new LocalDateTimeConverter());
+        morphia.getMapper().getConverters().addConverter(new ZonedDateTimeConverter());
 
         return morphia;
     }

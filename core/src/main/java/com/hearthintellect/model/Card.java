@@ -1,5 +1,6 @@
 package com.hearthintellect.model;
 
+import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
              @Index(name = "race", fields = @Field("race")),
              @Index(name = "class", fields = @Field("class"))
 })
-public class Card extends MongoEntity<Integer> {
+public class Card extends MongoEntity<Integer> implements JsonEntity {
 
     @Id
     private int cardId;
@@ -30,22 +31,22 @@ public class Card extends MongoEntity<Integer> {
     private String effect;
     private String desc;
 
-    private String imageUrl;
+    private int cost;
+    private int attack;
+    private int health;
 
-    private Set set;
-    private Type type;
-    private Quality quality;
-    private Race race;
+    @Reference(lazy = true, idOnly = true)
+    private List<Image> images;
 
     @Property("class")
     private HeroClass heroClass;
+    @Reference(idOnly = true)
+    private Patch patch;
 
-    private int health;
-    private int attack;
-    private int cost;
+    private boolean collectible;
+    private boolean disenchantable;
 
-    private int[] collect;
-    private int[] disenchant;
+    private boolean active = true;
 
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics;
@@ -53,36 +54,74 @@ public class Card extends MongoEntity<Integer> {
     @Embedded(concreteClass = ArrayList.class)
     List<CardQuote> quotes;
 
-    @Override
-    public Integer getId() {
-        return cardId;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        cardId = id;
-    }
-
     public enum Quality {
         Free, Common, Rare, Epic, Legendary
     }
+    private Quality quality;
 
     public enum Type {
         Hero, Minion, Power, Spell, Weapon
     }
+    private Type type;
 
     public enum Set {
         Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament
     }
+    private Set set;
 
     public enum Race {
         None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
     }
+    private Race race;
 
-    public String toString() {
-        return "{cardId: " + cardId + ", name: " + name + ", imageUrl: " + imageUrl + "}";
+    @Override
+    public JSONObject toJson() {
+        JSONObject result = new JSONObject();
+
+        result.put("id", cardId);
+        result.put("HHID", HHID);
+        result.put("name", name);
+        result.put("effect", effect);
+        result.put("desc", desc);
+        result.put("cost", cost);
+        result.put("attack", attack);
+        result.put("health", health);
+        images.forEach((image) -> result.append("images", image.toJson()));
+        result.put("heroClass", heroClass.ordinal());
+        result.put("collectible", collectible);
+        result.put("disenchantable", disenchantable);
+        result.put("patch", patch.getId());
+        result.put("active", active);
+        mechanics.forEach((mechanic) -> result.append("mechanics", mechanic.getId()));
+        quotes.forEach((quote) -> result.append("quotes", quote.toJson()));
+        result.put("quality", quality.ordinal());
+        result.put("type", type.ordinal());
+        result.put("set", set.ordinal());
+        result.put("race", race.ordinal());
+
+        return result;
     }
 
+    @Override
+    public Integer getId() {
+        return cardId;
+    }
+    @Override
+    public void setId(Integer id) {
+        cardId = id;
+    }
+    public Patch getPatch() {
+        return patch;
+    }
+    public void setPatch(Patch patch) {
+        this.patch = patch;
+    }
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
     public int getCardId() {
         return cardId;
     }
@@ -106,12 +145,6 @@ public class Card extends MongoEntity<Integer> {
     }
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
     public Card.Set getSet() {
         return set;
@@ -161,17 +194,17 @@ public class Card extends MongoEntity<Integer> {
     public void setCost(int cost) {
         this.cost = cost;
     }
-    public int[] getCollect() {
-        return collect;
+    public boolean getDisenchantable() {
+        return disenchantable;
     }
-    public void setCollect(int[] collect) {
-        this.collect = collect;
+    public void setDisenchantable(boolean disenchantable) {
+        this.disenchantable = disenchantable;
     }
-    public int[] getDisenchant() {
-        return disenchant;
+    public boolean getCollectible() {
+        return collectible;
     }
-    public void setDisenchant(int[] disenchant) {
-        this.disenchant = disenchant;
+    public void setCollectible(boolean collectible) {
+        this.collectible = collectible;
     }
     public List<Mechanic> getMechanics() {
         return mechanics;
@@ -190,5 +223,11 @@ public class Card extends MongoEntity<Integer> {
     }
     public void setHHID(int HHID) {
         this.HHID = HHID;
+    }
+    public List<Image> getImages() {
+        return images;
+    }
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }

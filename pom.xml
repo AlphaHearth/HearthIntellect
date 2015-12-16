@@ -55,11 +55,11 @@
       <version>1.7.12</version>
     </dependency>
 
-    <!-- GSON -->
+    <!-- JSON -->
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.4</version>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20151123</version>
     </dependency>
   </dependencies>
   <build>

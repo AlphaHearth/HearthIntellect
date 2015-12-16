@@ -17,7 +17,7 @@ public class LocalDateTimeConverter extends TypeConverter {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public LocalDateTimeConverter() {
-        super(String.class);
+        super(LocalDateTime.class);
     }
 
     @Override
