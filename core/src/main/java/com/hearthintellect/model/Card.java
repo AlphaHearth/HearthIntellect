@@ -2,6 +2,7 @@ package com.hearthintellect.model;
 
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
+import org.mongodb.morphia.utils.IndexType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Entity(value = "cards", noClassnameStored = true)
 @Indexes({
+             @Index(name = "name", fields = @Field(value = "name", type = IndexType.TEXT)),
              @Index(name = "set", fields = @Field("set")),
              @Index(name = "type", fields = @Field("type")),
              @Index(name = "quality", fields = @Field("quality")),

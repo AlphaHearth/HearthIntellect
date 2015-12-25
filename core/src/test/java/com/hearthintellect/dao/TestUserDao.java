@@ -96,7 +96,7 @@ public class TestUserDao {
         User user = new User(userId, "anything", "anything");
         userRepository.delete(user);
 
-        assertThat(users.count(new Document("_id", userId)), is(0));
+        assertThat(users.count(new Document("_id", userId)), is(0L));
     }
 
     /**

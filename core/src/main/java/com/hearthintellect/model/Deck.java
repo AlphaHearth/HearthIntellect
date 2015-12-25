@@ -15,7 +15,7 @@ import org.mongodb.morphia.utils.IndexType;
  */
 @Entity(value = "decks", noClassnameStored = true)
 @Indexes({
-         @Index(fields = @Field(value = "$name", type = IndexType.TEXT)),
+         @Index(fields = @Field(value = "name", type = IndexType.TEXT)),
          @Index(fields = @Field("class"))
 })
 public class Deck extends MongoEntity<Long> implements JsonEntity {

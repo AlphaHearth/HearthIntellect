@@ -1,10 +1,7 @@
 package com.hearthintellect.model;
 
 import org.json.JSONObject;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Field;
-import org.mongodb.morphia.annotations.Index;
-import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
 
 import java.time.ZonedDateTime;
@@ -16,9 +13,19 @@ import java.time.format.DateTimeFormatter;
 })
 public class Patch extends MongoEntity<String> implements JsonEntity {
 
+    @Id
     private String patchCode;
+    @Property("releaseDate")  // Not sure why, but we need this, otherwise ClassCastException will be thrown from morphia
     private ZonedDateTime releaseDate;
     private String releaseNote;
+
+    public Patch() {}
+
+    public Patch(String patchCode, ZonedDateTime releaseDate, String releaseNote) {
+        this.patchCode = patchCode;
+        this.releaseDate = releaseDate;
+        this.releaseNote = releaseNote;
+    }
 
     @Override
     public JSONObject toJson() {

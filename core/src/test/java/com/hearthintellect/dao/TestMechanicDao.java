@@ -36,7 +36,6 @@ public class TestMechanicDao {
         assertEquals("Do something nasty after you played the card", mechanic.getDescription());
     }
 
-    @Test
     public void testMechanicDaoUpdate() {
         Mechanic mechanic = new Mechanic();
 
@@ -53,9 +52,10 @@ public class TestMechanicDao {
 
         assertEquals("Deathrattle", mechanic.getName());
         assertEquals("Do something after it dies", mechanic.getDescription());
+
+        testMechanicDaoDelete();
     }
 
-    @Test
     public void testMechanicDaoDelete() {
         Mechanic mechanic = new Mechanic();
         mechanic.setMechanicId(1);
