@@ -1,10 +1,10 @@
 package com.hearthintellect.config;
 
-import com.hearthintellect.dao.CardRepository;
-import com.hearthintellect.dao.MechanicRepository;
-import com.hearthintellect.dao.mongo.CardRepositoryImpl;
-import com.hearthintellect.dao.mongo.MechnicRepositoryImpl;
+import com.hearthintellect.dao.*;
+import com.hearthintellect.dao.morphia.*;
 import com.hearthintellect.morphia.converters.EnumOrdinalConverter;
+import com.hearthintellect.morphia.converters.LocalDateTimeConverter;
+import com.hearthintellect.morphia.converters.ZonedDateTimeConverter;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -19,7 +19,8 @@ import org.springframework.context.annotation.Configuration;
 public class SpringMongoConfig {
 
     /** Name of the database */
-    protected String databaseName() {
+    @Bean
+    public String databaseName() {
         return "hearthstone";
     }
 
@@ -35,13 +36,20 @@ public class SpringMongoConfig {
 
         morphia.getMapper().getConverters().removeConverter(new EnumConverter());
         morphia.getMapper().getConverters().addConverter(new EnumOrdinalConverter());
+        morphia.getMapper().getConverters().addConverter(new LocalDateTimeConverter());
+        morphia.getMapper().getConverters().addConverter(new ZonedDateTimeConverter());
 
         return morphia;
     }
 
     @Bean
+    public MongoClient mongoClient() {
+        return new MongoClient();
+    }
+
+    @Bean
     public Datastore datastore() {
-        Datastore datastore = morphia().createDatastore(new MongoClient(), databaseName());
+        Datastore datastore = morphia().createDatastore(mongoClient(), databaseName());
         datastore.ensureIndexes();
 
         return datastore;
@@ -49,12 +57,42 @@ public class SpringMongoConfig {
 
     @Bean
     public CardRepository cardRepository() {
-        return new CardRepositoryImpl(datastore());
+        CardRepositoryImpl repo = new CardRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
+    }
+
+    @Bean
+    public DeckRepository deckRepository() {
+        DeckRepositoryImpl repo = new DeckRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
     }
 
     @Bean
     public MechanicRepository mechanicRepository() {
-        return new MechnicRepositoryImpl(datastore());
+        MechanicRepositoryImpl repo = new MechanicRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
+    }
+
+    @Bean
+    public PatchRepository patchRepository() {
+        PatchRepositoryImpl repo = new PatchRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
+    }
+
+    @Bean
+    public UserRepository userRepository() {
+        UserRepositoryImpl repo = new UserRepositoryImpl();
+        repo.setDatastore(datastore());
+
+        return repo;
     }
 
 }
