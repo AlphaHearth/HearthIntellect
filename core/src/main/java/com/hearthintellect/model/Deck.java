@@ -34,10 +34,28 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
 
     @Reference(idOnly = true)
 	private Patch patch;
-    private boolean active = true;
+    private boolean effective = true;
+
+    @Reference(idOnly = true)
+    private User author;
 
     private LocalDateTime postedDate;
     private LocalDateTime lastModified;
+
+    public Deck() {}
+
+    public Deck(String name, String content, Patch patch, User author,
+                HeroClass classs, List<DeckEntry> cards) {
+        this.name = name;
+        this.content = content;
+        this.classs = classs;
+        this.cards = cards;
+        this.patch = patch;
+        this.author = author;
+
+        this.postedDate = LocalDateTime.now();
+        this.lastModified = LocalDateTime.now();
+    }
 
     @Override
     public JSONObject toJson() {
@@ -46,11 +64,12 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
         result.put("id", deckId);
         result.put("name", name);
         result.put("content", content);
+        result.put("author", author.toJson());
         result.put("like", like);
         result.put("dislike", dislike);
         result.put("heroClass", classs.ordinal());
         result.put("patch", patch.getId());
-        result.put("active", active);
+        result.put("effective", effective);
         result.put("postedDate", postedDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         result.put("lastModified", lastModified.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         cards.forEach((card) -> result.append("cards", card.toJson()));
@@ -108,11 +127,11 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
     public void setContent(String content) {
         this.content = content;
     }
-    public boolean isActive() {
-        return active;
+    public boolean getEffective() {
+        return effective;
     }
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setEffective(boolean effective) {
+        this.effective = effective;
     }
     public Patch getPatch() {
         return patch;
@@ -132,4 +151,6 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
     public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
+    public User getAuthor() { return author; }
+    public void setAuthor(User author) { this.author = author; }
 }

@@ -10,10 +10,6 @@ public class Image extends MongoEntity<String> implements JsonEntity {
 
     @Id
     private String imageUrl;
-
-    public enum Type {
-        Medium, Original, Premium
-    }
     private Type type;
 
     @Override
@@ -25,7 +21,6 @@ public class Image extends MongoEntity<String> implements JsonEntity {
 
         return result;
     }
-
 
     public String getId() {
         return imageUrl;
@@ -44,5 +39,9 @@ public class Image extends MongoEntity<String> implements JsonEntity {
     }
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public enum Type {
+        Medium, Original, Premium
     }
 }

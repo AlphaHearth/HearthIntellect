@@ -21,10 +21,6 @@ public class CardQuote implements JsonEntity {
         this.audioUrl = audioUrl;
     }
 
-    public enum Type {
-        Play, Attack, Death, Alternate, Trigger, Other
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject result = new JSONObject();
@@ -53,5 +49,9 @@ public class CardQuote implements JsonEntity {
     }
     public void setAudioUrl(String audioUrl) {
         this.audioUrl = audioUrl;
+    }
+
+    public enum Type {
+        Play, Attack, Death, Alternate, Trigger, Other
     }
 }

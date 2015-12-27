@@ -47,34 +47,17 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
 
     private boolean collectible;
     private boolean disenchantable;
-
-    private boolean active = true;
+    private Quality quality;
+    private Type type;
+    private Set set;
+    private Race race;
+    private boolean effective = true;
 
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics;
 
     @Embedded(concreteClass = ArrayList.class)
     List<CardQuote> quotes;
-
-    public enum Quality {
-        Free, Common, Rare, Epic, Legendary
-    }
-    private Quality quality;
-
-    public enum Type {
-        Hero, Minion, Power, Spell, Weapon
-    }
-    private Type type;
-
-    public enum Set {
-        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament
-    }
-    private Set set;
-
-    public enum Race {
-        None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
-    }
-    private Race race;
 
     @Override
     public JSONObject toJson() {
@@ -93,36 +76,26 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         result.put("collectible", collectible);
         result.put("disenchantable", disenchantable);
         result.put("patch", patch.getId());
-        result.put("active", active);
         mechanics.forEach((mechanic) -> result.append("mechanics", mechanic.getId()));
         quotes.forEach((quote) -> result.append("quotes", quote.toJson()));
         result.put("quality", quality.ordinal());
         result.put("type", type.ordinal());
         result.put("set", set.ordinal());
         result.put("race", race.ordinal());
+        result.put("effective", effective);
 
         return result;
     }
 
     @Override
-    public Integer getId() {
-        return cardId;
-    }
+    public Integer getId() { return cardId; }
     @Override
-    public void setId(Integer id) {
-        cardId = id;
-    }
+    public void setId(Integer id) { cardId = id; }
     public Patch getPatch() {
         return patch;
     }
     public void setPatch(Patch patch) {
         this.patch = patch;
-    }
-    public boolean isActive() {
-        return active;
-    }
-    public void setActive(boolean active) {
-        this.active = active;
     }
     public int getCardId() {
         return cardId;
@@ -231,5 +204,20 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     }
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+    public boolean getEffective() { return effective; }
+    public void setEffective(boolean effective) { this.effective = effective; }
+
+    public enum Quality {
+        Free, Common, Rare, Epic, Legendary
+    }
+    public enum Type {
+        Hero, Minion, Power, Spell, Weapon
+    }
+    public enum Set {
+        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament
+    }
+    public enum Race {
+        None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
     }
 }
