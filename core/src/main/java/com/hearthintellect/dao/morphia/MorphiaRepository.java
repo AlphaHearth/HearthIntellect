@@ -3,6 +3,7 @@ package com.hearthintellect.dao.morphia;
 import com.hearthintellect.dao.Repository;
 import com.hearthintellect.model.MongoEntity;
 import com.hearthintellect.util.Page;
+import com.hearthintellect.util.Sort;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
@@ -27,6 +28,28 @@ public abstract class MorphiaRepository<T extends MongoEntity> implements Reposi
         return datastore.createQuery(getEntityClass());
     }
 
+    /**
+     * <p>
+     *   Process the given {@link Query} with the given {@code order} String and {@link Page}.
+     * </p>
+     * * <p>
+     *     For the syntax of the {@code order} string, see {@link Sort#of(String)}.
+     * </p>
+     * <p>
+     *     If the given {@code order} is {@code null}, no sorting will be applied.
+     * </p>
+     * <p>
+     *     If the given {@code page} is {@code null}, no pagination will be applied.
+     * </p>
+     *
+     * @param query the {@code Query} to be processed
+     * @param order the given string representing a sorting order
+     * @param page a {@link Page} instance describing the designated page
+     * @return the given {@code Query} after being processed
+     *
+     * @see Page
+     * @see Sort#of(String)
+     */
     protected Query<T> processOrderAndPage(Query<T> query, String order, Page page) {
         if (order != null)
             query.order(order);
