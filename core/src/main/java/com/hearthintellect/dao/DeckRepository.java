@@ -2,15 +2,27 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.Deck;
+import com.hearthintellect.model.User;
+import com.hearthintellect.util.Page;
 
-public interface DeckRepository {
+import java.util.Iterator;
 
-    Deck findById(long deckId);
+public interface DeckRepository extends Repository<Deck> {
 
-    Iterable<Deck> findAllByClass(HeroClass heroClass);
+    default Iterator<Deck> findAllByClass(HeroClass heroClass) {
+        return findAllByClass(heroClass, null, null);
+    }
+    Iterator<Deck> findAllByClass(HeroClass heroClass, String order, Page page);
 
-    void like();
-    void dislike();
+    default Iterator<Deck> findAllByUser(User user) {
+        return findAllByUser(user, null, null);
+    }
+    Iterator<Deck> findAllByUser(User user, String order, Page page);
 
-    // TODO Order by rating/patch
+    default Iterator<Deck> findAll() {
+        return findAll(null, null);
+    }
+    Iterator<Deck> findAll(String order, Page page);
+
+    void updateWithModifiedDate(Deck deck);
 }

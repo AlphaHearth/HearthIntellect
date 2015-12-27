@@ -2,8 +2,8 @@ package com.hearthintellect.config;
 
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.dao.MechanicRepository;
-import com.hearthintellect.dao.mongo.CardRepositoryImpl;
-import com.hearthintellect.dao.mongo.MechnicRepositoryImpl;
+import com.hearthintellect.dao.morphia.CardRepositoryImpl;
+import com.hearthintellect.dao.morphia.MechnicRepositoryImpl;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;

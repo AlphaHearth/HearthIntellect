@@ -1,3 +1,5 @@
 package com.hearthintellect.dao;
 
-public interface AdventureRepository {}
+import com.hearthintellect.model.Adventure;
+
+public interface AdventureRepository extends Repository<Adventure> {}

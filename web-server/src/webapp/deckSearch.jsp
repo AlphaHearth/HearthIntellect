@@ -37,7 +37,7 @@
 	<s:else>
 		<a href="deckSearch?classs=0">&lt;&lt;&nbsp;Back</a><br />
 		<ul id="deckTab" class="nav nav-tabs" role="tablist">
-      		<li role="presentation" class="active">
+      		<li role="presentation" class="effective">
       			<%
 					out.print("\t\t\t\t<a href=\"#classs\" id=\"classs-tab\" role=\"tab\" data-toggle=\"tab\" aria-controls=\"classs\" aria-expanded=\"true\">");
 					Integer classs = (Integer) request.getAttribute("classs");
@@ -58,7 +58,7 @@
       		<li role="neutral"><a href="#neutral" role="tab" id="neutral-tab" data-toggle="tab" aria-controls="neutral">Neutral</a></li>
    		</ul>
 		<div id="deckTabContent" class="tab-content">
-			<div role="tabpanel" class="tab-pane fade in active" id="classs" aria-labelledBy="classs-tab">
+			<div role="tabpanel" class="tab-pane fade in effective" id="classs" aria-labelledBy="classs-tab">
 				<table style="margin: 0 auto;" class="cards-gallery">
 					<tr>
 					<%

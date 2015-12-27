@@ -53,10 +53,10 @@ public class TestCardDao {
         quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
         card.setQuotes(quotes);
 
-        cardRepository.save(card);
+        cardRepository.insert(card);
         card = cardRepository.findById(TEST_ID);
 
-        assertEquals(1, card.getCardId());
+        assertEquals(TEST_ID, card.getCardId());
         assertEquals("Robert", card.getName());
         assertEquals("Battlecry: publish a website", card.getEffect());
         assertEquals("The Author of the website", card.getDesc());
@@ -95,13 +95,13 @@ public class TestCardDao {
         quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
         card.setQuotes(quotes);
 
-        cardRepository.save(card);
+        cardRepository.insert(card);
 
         card.setName("Mr-Dai");
         cardRepository.update(card);
         card = cardRepository.findById(TEST_ID);
 
-        assertEquals(1, card.getCardId());
+        assertEquals(TEST_ID, card.getCardId());
         assertEquals("Mr-Dai", card.getName());
     }
 
@@ -110,7 +110,7 @@ public class TestCardDao {
         Card card = new Card();
         card.setCardId(TEST_ID);
 
-        cardRepository.remove(card);
+        cardRepository.delete(card);
 
         card = cardRepository.findById(TEST_ID);
         assertNull(card);

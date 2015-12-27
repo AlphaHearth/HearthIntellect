@@ -29,5 +29,4 @@
       <version>${webmagic.version}</version>
     </dependency>
   </dependencies>
-  
 </project>
