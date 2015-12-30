@@ -1,5 +1,6 @@
 package com.hearthintellect.model;
 
+import com.hearthintellect.util.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.Embedded;
 
@@ -10,12 +11,12 @@ import org.mongodb.morphia.annotations.Embedded;
 public class CardQuote implements JsonEntity {
 
     private Type type;
-    private String line;
-    private String audioUrl;
+    private LocaleString line;
+    private LocaleString audioUrl;
 
     public CardQuote() {}
 
-    public CardQuote(Type type, String line, String audioUrl) {
+    public CardQuote(Type type, LocaleString line, LocaleString audioUrl) {
         this.type = type;
         this.line = line;
         this.audioUrl = audioUrl;
@@ -38,16 +39,16 @@ public class CardQuote implements JsonEntity {
     public void setType(Type type) {
         this.type = type;
     }
-    public String getLine() {
+    public LocaleString getLine() {
         return line;
     }
-    public void setLine(String line) {
+    public void setLine(LocaleString line) {
         this.line = line;
     }
-    public String getAudioUrl() {
+    public LocaleString getAudioUrl() {
         return audioUrl;
     }
-    public void setAudioUrl(String audioUrl) {
+    public void setAudioUrl(LocaleString audioUrl) {
         this.audioUrl = audioUrl;
     }
 

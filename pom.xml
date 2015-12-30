@@ -61,6 +61,13 @@
       <artifactId>json</artifactId>
       <version>20151123</version>
     </dependency>
+
+    <!-- Commons -->
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.2</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

@@ -58,7 +58,7 @@ public class HearthHeadCardProcessor implements PageProcessor {
             int temp = script.indexOf("'cardsound" + i + "');\n", idx);
             if (temp == -1) {
                 LOG.debug("Quote line for card sound " + i + " not found: ");
-                quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), "", cardSoundLink));
+                // quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), "", cardSoundLink));
                 continue;
             }
 
@@ -69,7 +69,7 @@ public class HearthHeadCardProcessor implements PageProcessor {
 
             if (quoteStart == -1 || quoteStart >= secondNL) {
                 LOG.debug("Quote line for card sound " + i + " not found: ");
-                quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), "", cardSoundLink));
+                // quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), "", cardSoundLink));
                 continue;
             }
 
@@ -77,7 +77,7 @@ public class HearthHeadCardProcessor implements PageProcessor {
             String cardSoundLine = script.substring(quoteStart + 3, quoteEnd);
 
             LOG.debug("Complete card sound fetched: \nType: " + cardSoundType + "\nLink: " + cardSoundLink + "\nLine: " + cardSoundLine);
-            quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), cardSoundLine, cardSoundLink));
+            // quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), cardSoundLine, cardSoundLink));
         }
 
         page.putField("quotes", quotes);

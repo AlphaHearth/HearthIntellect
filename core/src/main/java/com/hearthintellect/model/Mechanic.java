@@ -1,5 +1,6 @@
 package com.hearthintellect.model;
 
+import com.hearthintellect.util.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
@@ -10,8 +11,8 @@ public class Mechanic extends MongoEntity<Integer> implements JsonEntity {
 	@Id
     private int mechanicId;
 
-    private String name;
-    private String description;
+    private LocaleString name;
+    private LocaleString description;
 
     public int getMechanicId() {
         return mechanicId;
@@ -19,16 +20,16 @@ public class Mechanic extends MongoEntity<Integer> implements JsonEntity {
     public void setMechanicId(int mechanicId) {
         this.mechanicId = mechanicId;
     }
-    public String getName() {
+    public LocaleString getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(LocaleString name) {
         this.name = name;
     }
-    public String getDescription() {
+    public LocaleString getDescription() {
         return description;
     }
-    public void setDescription(String description) {
+    public void setDescription(LocaleString description) {
         this.description = description;
     }
     @Override

@@ -2,6 +2,8 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
+import com.hearthintellect.util.LocaleString;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@link CardRepository}
@@ -33,9 +34,18 @@ public class TestCardDao {
         Card card = new Card();
 
         card.setCardId(TEST_ID);
-        card.setName("Robert");
-        card.setEffect("Battlecry: publish a website");
-        card.setDesc("The Author of the website");
+        LocaleString cardName = new LocaleString();
+        cardName.put(Locale.ENGLISH, "Robert");
+        cardName.put(Locale.CHINESE, "呆呆");
+        card.setName(cardName);
+        LocaleString cardEffect = new LocaleString();
+        cardEffect.put(Locale.ENGLISH, "Battlecry: publish a website");
+        cardEffect.put(Locale.CHINESE, "战吼：发布一个网站");
+        card.setEffect(cardEffect);
+        LocaleString cardDesc = new LocaleString();
+        cardDesc.put(Locale.ENGLISH, "The Author of the website");
+        cardDesc.put(Locale.CHINESE, "网站作者");
+        card.setDesc(cardDesc);
 
         card.setCost(2);
         card.setAttack(2);
@@ -47,19 +57,31 @@ public class TestCardDao {
         card.setType(Card.Type.Minion);
         card.setHeroClass(HeroClass.Neutral);
 
-        List<CardQuote> quotes = new Vector<>();
-        quotes.add(new CardQuote(CardQuote.Type.Play, "Fear me, if you dare!", "url1"));
-        quotes.add(new CardQuote(CardQuote.Type.Attack, "Ahahaha, don't make me laugh!", "url2"));
-        quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
+        List<CardQuote> quotes = new ArrayList<>();
+        LocaleString playQuote = new LocaleString();
+        playQuote.put(Locale.ENGLISH, "Fear me, if you dare!");
+        LocaleString playUrl = new LocaleString();
+        playUrl.put(Locale.ENGLISH, "url1");
+        quotes.add(new CardQuote(CardQuote.Type.Play, playQuote, playUrl));
+        LocaleString attackQuote = new LocaleString();
+        attackQuote.put(Locale.ENGLISH, "Ahahaha, don't make me laugh!");
+        LocaleString attackUrl = new LocaleString();
+        attackUrl.put(Locale.ENGLISH, "url2");
+        quotes.add(new CardQuote(CardQuote.Type.Attack, attackQuote, attackUrl));
+        LocaleString deathQuote = new LocaleString();
+        deathQuote.put(Locale.ENGLISH, "This is just the beginning!");
+        LocaleString deathUrl = new LocaleString();
+        deathUrl.put(Locale.ENGLISH, "url3");
+        quotes.add(new CardQuote(CardQuote.Type.Death, deathQuote, deathUrl));
         card.setQuotes(quotes);
 
         cardRepository.insert(card);
         card = cardRepository.findById(TEST_ID);
 
         assertEquals(TEST_ID, card.getCardId());
-        assertEquals("Robert", card.getName());
-        assertEquals("Battlecry: publish a website", card.getEffect());
-        assertEquals("The Author of the website", card.getDesc());
+        assertEquals(cardName, card.getName());
+        assertEquals(cardEffect, card.getEffect());
+        assertEquals(cardDesc, card.getDesc());
         assertEquals(2, card.getCost());
         assertEquals(2, card.getAttack());
         assertEquals(3, card.getHealth());
@@ -68,41 +90,25 @@ public class TestCardDao {
         assertEquals(Card.Set.Credits, card.getSet());
         assertEquals(Card.Type.Minion, card.getType());
         assertEquals(HeroClass.Neutral, card.getHeroClass());
+
+        testCardDaoUpdate();
     }
 
-    @Test
+    /** Invoked at the end of {@link #testCardDaoInsert()} */
     public void testCardDaoUpdate() {
-        Card card = new Card();
+        Card card = cardRepository.findById(TEST_ID);
 
-        card.setCardId(TEST_ID);
-        card.setName("Robert");
-        card.setEffect("Deathrattle: close the website");
-        card.setDesc("The Author of the website");
-
-        card.setCost(2);
-        card.setAttack(2);
-        card.setHealth(3);
-
-        card.setQuality(Card.Quality.Legendary);
-        card.setRace(Card.Race.None);
-        card.setSet(Card.Set.Credits);
-        card.setType(Card.Type.Minion);
-        card.setHeroClass(HeroClass.Neutral);
-
-        List<CardQuote> quotes = new Vector<>();
-        quotes.add(new CardQuote(CardQuote.Type.Play, "Fear me, if you dare!", "url1"));
-        quotes.add(new CardQuote(CardQuote.Type.Attack, "Ahahaha, don't make me laugh!", "url2"));
-        quotes.add(new CardQuote(CardQuote.Type.Death, "This is just the beginning!", "url3"));
-        card.setQuotes(quotes);
-
-        cardRepository.insert(card);
-
-        card.setName("Mr-Dai");
+        LocaleString cardName = new LocaleString();
+        cardName.put(Locale.ENGLISH, "Mr-Dai");
+        cardName.put(Locale.CHINESE, "呆呆");
+        card.setName(cardName);
         cardRepository.update(card);
         card = cardRepository.findById(TEST_ID);
 
         assertEquals(TEST_ID, card.getCardId());
-        assertEquals("Mr-Dai", card.getName());
+        assertEquals(cardName, card.getName());
+
+        testCardDaoRemove();
     }
 
     @Test

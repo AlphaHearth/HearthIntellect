@@ -1,5 +1,6 @@
 package com.hearthintellect.model;
 
+import com.hearthintellect.util.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
@@ -14,7 +15,6 @@ import java.util.List;
  */
 @Entity(value = "cards", noClassnameStored = true)
 @Indexes({
-             @Index(name = "name", fields = @Field(value = "name", type = IndexType.TEXT)),
              @Index(name = "set", fields = @Field("set")),
              @Index(name = "type", fields = @Field("type")),
              @Index(name = "quality", fields = @Field("quality")),
@@ -25,13 +25,11 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
 
     @Id
     private int cardId;
-
-    // Corresponding ID in HearthHead
     private int HHID;
 
-    private String name;
-    private String effect;
-    private String desc;
+    private LocaleString name;
+    private LocaleString effect;
+    private LocaleString desc;
 
     private int cost;
     private int attack;
@@ -64,7 +62,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         JSONObject result = new JSONObject();
 
         result.put("id", cardId);
-        result.put("HHID", HHID);
         result.put("name", name);
         result.put("effect", effect);
         result.put("desc", desc);
@@ -91,6 +88,8 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public Integer getId() { return cardId; }
     @Override
     public void setId(Integer id) { cardId = id; }
+    public int getHHID() { return HHID; }
+    public void setHHID(int HHID) { this.HHID = HHID; }
     public Patch getPatch() {
         return patch;
     }
@@ -103,22 +102,22 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public void setCardId(int cardId) {
         this.cardId = cardId;
     }
-    public String getName() {
+    public LocaleString getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(LocaleString name) {
         this.name = name;
     }
-    public String getEffect() {
+    public LocaleString getEffect() {
         return effect;
     }
-    public void setEffect(String effect) {
+    public void setEffect(LocaleString effect) {
         this.effect = effect;
     }
-    public String getDesc() {
+    public LocaleString getDesc() {
         return desc;
     }
-    public void setDesc(String desc) {
+    public void setDesc(LocaleString desc) {
         this.desc = desc;
     }
     public Card.Set getSet() {
@@ -192,12 +191,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     }
     public void setQuotes(List<CardQuote> quotes) {
         this.quotes = quotes;
-    }
-    public int getHHID() {
-        return HHID;
-    }
-    public void setHHID(int HHID) {
-        this.HHID = HHID;
     }
     public List<Image> getImages() {
         return images;
