@@ -35,9 +35,8 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     private int attack;
     private int health;
 
-    @Reference(lazy = true, idOnly = true)
-    private List<Image> images;
-
+    @Property("image")
+    private String imageUrl;
     @Property("class")
     private HeroClass heroClass;
     @Reference(idOnly = true)
@@ -68,7 +67,7 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         result.put("cost", cost);
         result.put("attack", attack);
         result.put("health", health);
-        images.forEach((image) -> result.append("images", image.toJson()));
+        result.put("imageUrl", imageUrl);
         result.put("heroClass", heroClass.ordinal());
         result.put("collectible", collectible);
         result.put("disenchantable", disenchantable);
@@ -192,11 +191,11 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public void setQuotes(List<CardQuote> quotes) {
         this.quotes = quotes;
     }
-    public List<Image> getImages() {
-        return images;
+    public String getImageUrl() {
+        return imageUrl;
     }
-    public void setImages(List<Image> images) {
-        this.images = images;
+    public void setImageImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
     public boolean getEffective() { return effective; }
     public void setEffective(boolean effective) { this.effective = effective; }
@@ -208,7 +207,8 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         Hero, Minion, Power, Spell, Weapon, HeroPower
     }
     public enum Set {
-        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament
+        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas,
+        GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers
     }
     public enum Race {
         None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem

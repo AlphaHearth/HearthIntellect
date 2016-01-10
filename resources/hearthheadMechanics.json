@@ -1,41 +1,42 @@
-{"_id":1,"HHID":1,"icon":"ability_warrior_battleshout","name":"Battlecry","description":"Does something when you play it from your hand.","xmlname":"Battlecry"}
-{"_id":2,"HHID":2,"icon":"ability_warrior_charge","name":"Charge","description":"Can attack immediately.","xmlname":"Charge"}
-{"_id":3,"HHID":3,"icon":"ability_warrior_secondwind","name":"Combo","description":"A bonus if you already played a card this turn.","xmlname":"Combo"}
-{"_id":4,"HHID":4,"icon":"spell_shadow_deathcoil","name":"Deathrattle","description":"Does something when it dies.","xmlname":"Deathrattle"}
-{"_id":5,"HHID":5,"icon":"spell_holy_divineshield","name":"Divine Shield","description":"The first time this minion takes damage, ignore it.","xmlname":"Divine Shield"}
-{"_id":6,"HHID":6,"icon":"ability_racial_bloodrage","name":"Enrage","description":"While damaged, this minion has a new power.","xmlname":"Enrage"}
-{"_id":7,"HHID":7,"icon":"spell_frost_frostnova","name":"Freeze","description":"Frozen characters lose their next attack.","xmlname":"Freeze"}
-{"_id":8,"HHID":8,"icon":"spell_arcane_arcane01","name":"Grant Charge","description":""}
-{"_id":9,"HHID":9,"icon":"spell_nature_lightningoverload","name":"Overload: X","description":"You have X less mana next turn.","xmlname":"Recall"}
-{"_id":10,"HHID":10,"icon":"inv_enchant_essencemagiclarge","name":"Spell Damage","description":"Your spell cards deal # extra damage.","xmlname":"Spellpower"}
-{"_id":11,"HHID":11,"icon":"spell_shadow_charm","name":"Secret","description":"Hidden until a specific action occurs on your opponent's turn.","xmlname":"Secret"}
-{"_id":12,"HHID":12,"icon":"ability_priest_silence","name":"Silence","description":"Removes all card text and enchantments.","xmlname":"Silence"}
-{"_id":13,"HHID":13,"icon":"ability_stealth","name":"Stealth","description":"Can't be attacked or targeted until it deals damage.","xmlname":"Stealth"}
-{"_id":14,"HHID":15,"icon":"spell_nature_reincarnation","name":"Taunt","description":"Enemies must attack this minion.","xmlname":"Taunt"}
-{"_id":15,"HHID":17,"icon":"spell_shaman_unleashweapon_wind","name":"Windfury","description":"Can attack twice each turn.","xmlname":"Windfury"}
-{"_id":16,"HHID":18,"icon":"spell_frost_iceshock","name":"Counter","description":"A card that is Countered has no effect.","xmlname":"Counter"}
-{"_id":17,"HHID":19,"icon":"spell_holy_dispelmagic","name":"Immune","description":"Can't be damaged.","xmlname":"Cant Be Damaged"}
-{"_id":18,"HHID":50,"icon":"inv_misc_ticket_tarot_maelstrom_01","name":"Draw Cards","description":"Draws additional card(s) from the deck.","xmlname":"HH Draw Card"}
-{"_id":19,"HHID":51,"icon":"inv_misc_gear_08","name":"Discard","description":"Removes cards before they can be played.","xmlname":"HH Discard"}
-{"_id":20,"HHID":52,"icon":"spell_nature_regeneration","name":"Buff Stats","description":"Increases the health and/or attack of a character or weapon.","xmlname":"HH Buff Stats"}
-{"_id":21,"HHID":53,"icon":"achievement_arena_3v3_4","name":"Choose One","description":"Select one effect from the list of options.","xmlname":"HH Choose One"}
-{"_id":22,"HHID":54,"icon":"spell_shadow_demonicfortitude","name":"Destroy","description":"Removes something from the battlefield, regardless of its remaining health or effects.","xmlname":"HH Destroy"}
-{"_id":23,"HHID":55,"icon":"spell_shadow_twilight","name":"Summon","description":"Places another minion on the battlefield.","xmlname":"HH Summon"}
-{"_id":24,"HHID":56,"icon":"spell_magic_lesserinvisibilty","name":"Copy","description":"Creates a duplicate of another card or minion.","xmlname":"HH Copy"}
-{"_id":25,"HHID":57,"icon":"ability_warrior_disarm","name":"Can't Attack","description":"","xmlname":"HH Cant Attack"}
-{"_id":26,"HHID":58,"icon":"spell_shadow_shadowworddominate","name":"Take Control","description":"Forces a minion to be controlled by its enemy.","xmlname":"HH Take Control"}
-{"_id":27,"HHID":59,"icon":"spell_nature_heavypolymorph2","name":"Transform","description":"Causes one minion to become another minion.","xmlname":"HH Transform"}
-{"_id":28,"HHID":60,"icon":"spell_holy_renew","name":"Restore Health","description":"Increases a character's remaining health, but not beyond its maximum health.","xmlname":"HH Restore Health"}
-{"_id":29,"HHID":61,"icon":"pvecurrency-valor","name":"Change Cost","description":"Changes the amount of mana crystals required to play certain cards.","xmlname":"HH Change Cost"}
-{"_id":30,"HHID":62,"icon":"inv_gizmo_khoriumpowercore","name":"Change Stats","description":"Sets characters' attack or health to a specific value.","xmlname":"HH Change Stats"}
-{"_id":31,"HHID":63,"icon":"inv_misc_gem_sapphire_02","name":"Mana Crystals","description":"Changes the amount of available mana crystals for a player.","xmlname":"HH Mana Crystals"}
-{"_id":32,"HHID":64,"icon":"spell_shadow_ritualofsacrifice","name":"Deal Damage","description":"Inflicts some amount of damage to character(s).","xmlname":"HH Deal Damage"}
-{"_id":33,"HHID":65,"icon":"ability_warrior_rampage","name":"Damage All","description":"Inflicts some amount of damage to your characters as well as your enemy's characters.","xmlname":"HH Damage All"}
-{"_id":34,"HHID":66,"icon":"spell_shadow_rainoffire","name":"Damage Enemies","description":"Inflicts some amount of damage to your enemy's characters.","xmlname":"HH Damage Enemies"}
-{"_id":35,"HHID":67,"icon":"spell_holy_layonhands","name":"Return to Hand","description":"Removes a card from play and puts it back into the hand of cards not yet played.","xmlname":"HH Return To Hand"}
-{"_id":36,"HHID":68,"icon":"ability_warrior_shieldreflection","name":"Gain Armor","description":"Increases the armor value of a hero.","xmlname":"HH Gain Armor"}
-{"_id":37,"HHID":69,"icon":"ability_rogue_dualweild","name":"Poisonous","description":"Destroy any minion damaged by this minion.","xmlname":"HH Poisonous"}
-{"_id":38,"HHID":70,"icon":"spell_holy_divineprotection","name":"Immune To Spell Damage","description":"Not affected by increased spell damage.","xmlname":"HH ImmuneToSpellpower"}
-{"_id":39,"HHID":71,"icon":"warlock_curse_shadow","name":"Affected By Spell Damage","description":"Damage increased by spell damage.","xmlname":"HH AffectedBySpellPower"}
-{"_id":40,"HHID":20,"icon":"inv_misc_enggizmos_30","name":"Spare Parts","description":"Spare Parts are 1-cost spells with minor effects.","xmlname":"SparePart"}
-{"_id":41,"HHID":21,"icon":"achievement_dungeon_outland_dungeon_hero","name":"Inspire","description":"Does something after you use your Hero Power.","xmlname":"Inspire"}
+{"_id":1,"HHID":1,"name":"Battlecry","description":"Does something when you play it from your hand."}
+{"_id":2,"HHID":2,"name":"Charge","description":"Can attack immediately."}
+{"_id":3,"HHID":3,"name":"Combo","description":"A bonus if you already played a card this turn."}
+{"_id":4,"HHID":4,"name":"Deathrattle","description":"Does something when it dies."}
+{"_id":5,"HHID":5,"name":"Divine Shield","description":"The first time this minion takes damage, ignore it."}
+{"_id":6,"HHID":6,"name":"Enrage","description":"While damaged, this minion has a new power."}
+{"_id":7,"HHID":7,"name":"Freeze","description":"Frozen characters lose their next attack."}
+{"_id":8,"HHID":8,"name":"Grant Charge","description":""}
+{"_id":9,"HHID":9,"name":"Overload: X","description":"You have X less mana next turn."}
+{"_id":10,"HHID":10,"name":"Spell Damage","description":"Your spell cards deal # extra damage."}
+{"_id":11,"HHID":11,"name":"Secret","description":"Hidden until a specific action occurs on your opponent's turn."}
+{"_id":12,"HHID":12,"name":"Silence","description":"Removes all card text and enchantments."}
+{"_id":13,"HHID":13,"name":"Stealth","description":"Can't be attacked or targeted until it deals damage."}
+{"_id":14,"HHID":15,"name":"Taunt","description":"Enemies must attack this minion."}
+{"_id":15,"HHID":17,"name":"Windfury","description":"Can attack twice each turn."}
+{"_id":16,"HHID":18,"name":"Counter","description":"A card that is Countered has no effect."}
+{"_id":17,"HHID":19,"name":"Immune","description":"Can't be damaged."}
+{"_id":18,"HHID":50,"name":"Draw Cards","description":"Draws additional card(s) from the deck."}
+{"_id":19,"HHID":51,"name":"Discard","description":"Removes cards before they can be played."}
+{"_id":20,"HHID":52,"name":"Buff Stats","description":"Increases the health and/or attack of a character or weapon."}
+{"_id":21,"HHID":53,"name":"Choose One","description":"Select one effect from the list of options."}
+{"_id":22,"HHID":54,"name":"Destroy","description":"Removes something from the battlefield, regardless of its remaining health or effects."}
+{"_id":23,"HHID":55,"name":"Summon","description":"Places another minion on the battlefield."}
+{"_id":24,"HHID":56,"name":"Copy","description":"Creates a duplicate of another card or minion."}
+{"_id":25,"HHID":57,"name":"Can't Attack","description":""}
+{"_id":26,"HHID":58,"name":"Take Control","description":"Forces a minion to be controlled by its enemy."}
+{"_id":27,"HHID":59,"name":"Transform","description":"Causes one minion to become another minion."}
+{"_id":28,"HHID":60,"name":"Restore Health","description":"Increases a character's remaining health, but not beyond its maximum health."}
+{"_id":29,"HHID":61,"name":"Change Cost","description":"Changes the amount of mana crystals required to play certain cards."}
+{"_id":30,"HHID":62,"name":"Change Stats","description":"Sets characters' attack or health to a specific value."}
+{"_id":31,"HHID":63,"name":"Mana Crystals","description":"Changes the amount of available mana crystals for a player."}
+{"_id":32,"HHID":64,"name":"Deal Damage","description":"Inflicts some amount of damage to character(s)."}
+{"_id":33,"HHID":65,"name":"Damage All","description":"Inflicts some amount of damage to your characters as well as your enemy's characters."}
+{"_id":34,"HHID":66,"name":"Damage Enemies","description":"Inflicts some amount of damage to your enemy's characters."}
+{"_id":35,"HHID":67,"name":"Return to Hand","description":"Removes a card from play and puts it back into the hand of cards not yet played."}
+{"_id":36,"HHID":68,"name":"Gain Armor","description":"Increases the armor value of a hero."}
+{"_id":37,"HHID":69,"name":"Poisonous","description":"Destroy any minion damaged by this minion."}
+{"_id":38,"HHID":70,"name":"Immune To Spell Damage","description":"Not affected by increased spell damage."}
+{"_id":39,"HHID":71,"name":"Affected By Spell Damage","description":"Damage increased by spell damage."}
+{"_id":40,"HHID":20,"name":"Spare Parts","description":"Spare Parts are 1-cost spells with minor effects."}
+{"_id":41,"HHID":21,"name":"Inspire","description":"Does something after you use your Hero Power."}
+{"_id":42,"HHID":22,"name":"Discover","description":"Choose one of three cards to add to your hand."}

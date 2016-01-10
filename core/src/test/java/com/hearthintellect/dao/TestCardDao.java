@@ -60,19 +60,13 @@ public class TestCardDao {
         List<CardQuote> quotes = new ArrayList<>();
         LocaleString playQuote = new LocaleString();
         playQuote.put(Locale.ENGLISH, "Fear me, if you dare!");
-        LocaleString playUrl = new LocaleString();
-        playUrl.put(Locale.ENGLISH, "url1");
-        quotes.add(new CardQuote(CardQuote.Type.Play, playQuote, playUrl));
+        quotes.add(new CardQuote(CardQuote.Type.Play, playQuote, "url1"));
         LocaleString attackQuote = new LocaleString();
         attackQuote.put(Locale.ENGLISH, "Ahahaha, don't make me laugh!");
-        LocaleString attackUrl = new LocaleString();
-        attackUrl.put(Locale.ENGLISH, "url2");
-        quotes.add(new CardQuote(CardQuote.Type.Attack, attackQuote, attackUrl));
+        quotes.add(new CardQuote(CardQuote.Type.Attack, attackQuote, "url2"));
         LocaleString deathQuote = new LocaleString();
         deathQuote.put(Locale.ENGLISH, "This is just the beginning!");
-        LocaleString deathUrl = new LocaleString();
-        deathUrl.put(Locale.ENGLISH, "url3");
-        quotes.add(new CardQuote(CardQuote.Type.Death, deathQuote, deathUrl));
+        quotes.add(new CardQuote(CardQuote.Type.Death, deathQuote, "url3"));
         card.setQuotes(quotes);
 
         cardRepository.insert(card);

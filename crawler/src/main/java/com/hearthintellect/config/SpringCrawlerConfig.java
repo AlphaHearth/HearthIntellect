@@ -2,7 +2,7 @@ package com.hearthintellect.config;
 
 import com.hearthintellect.crawler.pipeline.MongoCardPipeline;
 import com.hearthintellect.crawler.processor.HearthHeadCardProcessor;
-import com.hearthintellect.crawler.scheduler.MongoCardScheduler;
+import com.hearthintellect.crawler.scheduler.CardScheduler;
 import com.hearthintellect.dao.CardRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,9 +28,8 @@ public class SpringCrawlerConfig {
     }
 
     @Bean
-    public Scheduler cardScheduler(CardRepository cardRepository) {
-        MongoCardScheduler scheduler = new MongoCardScheduler();
-        scheduler.setCardRepository(cardRepository);
+    public Scheduler cardScheduler() {
+        CardScheduler scheduler = new CardScheduler();
 
         return scheduler;
     }
@@ -41,10 +40,12 @@ public class SpringCrawlerConfig {
     }
 
     @Bean
-    public Spider hearthheadCardSpider(CardRepository cardRepository) {
-        return Spider.create(hearthheadCardProcessor())
-                     .setScheduler(cardScheduler(cardRepository))
-                     .addPipeline(cardPipeline(cardRepository))
+    public Spider hearthheadCardSpider(Scheduler cardScheduler,
+                                       PageProcessor hearthheadCardProcessor,
+                                       Pipeline cardPipeline) {
+        return Spider.create(hearthheadCardProcessor)
+                     .setScheduler(cardScheduler)
+                     .addPipeline(cardPipeline)
                      .thread(5);
     }
 

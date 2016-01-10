@@ -1,6 +1,6 @@
 package com.hearthintellect.config;
 
-import com.hearthintellect.crawler.processor.JUnitCardPipeline;
+import com.hearthintellect.crawler.pipeline.JUnitCardPipeline;
 import com.hearthintellect.dao.CardRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

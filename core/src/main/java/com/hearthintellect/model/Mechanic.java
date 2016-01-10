@@ -10,6 +10,7 @@ public class Mechanic extends MongoEntity<Integer> implements JsonEntity {
 
 	@Id
     private int mechanicId;
+    private int HHID;
 
     private LocaleString name;
     private LocaleString description;
@@ -19,6 +20,12 @@ public class Mechanic extends MongoEntity<Integer> implements JsonEntity {
     }
     public void setMechanicId(int mechanicId) {
         this.mechanicId = mechanicId;
+    }
+    public int getHHID() {
+        return HHID;
+    }
+    public void setHHID(int HHID) {
+        this.HHID = HHID;
     }
     public LocaleString getName() {
         return name;

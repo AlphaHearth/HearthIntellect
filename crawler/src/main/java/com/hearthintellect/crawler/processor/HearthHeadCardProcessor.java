@@ -2,6 +2,7 @@ package com.hearthintellect.crawler.processor;
 
 import com.hearthintellect.config.SpringCrawlerConfig;
 import com.hearthintellect.model.CardQuote;
+import com.hearthintellect.util.LocaleString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -13,10 +14,11 @@ import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * WebMagic PageProcessor for a HearthHead card page.
- *
+ * <p>
  * For example, see <code>http://www.hearthhead.com/card=32</code>
  */
 public class HearthHeadCardProcessor implements PageProcessor {
@@ -24,28 +26,46 @@ public class HearthHeadCardProcessor implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(100);
 
+    /**
+     * Extracts card information from the given page.
+     * <p>
+     * Fields to be extracted include `name`, `effect`, `desc`, `mechanics`, `quotes`
+     */
     @Override
     public void process(Page page) {
+        if (page.getStatusCode() != 200)
+            page.setSkip(true);
+
+        // Extract `HHID`
         String HHID = page.getUrl().regex(".*\\.hearthhead\\.com/card=(\\d)/.*").toString();
-        LOG.debug("Processing HearthHead card page for HHID=" + HHID);
+        if (LOG.isDebugEnabled())
+            LOG.debug("Processing HearthHead card page for HHID=" + HHID);
         page.putField("HHID", HHID);
 
+        // Extract locale
         String locale = page.getUrl().regex(".*//(\\w)\\.hearthhead.*").toString();
-        LOG.debug("Subdomain of the page is `" + locale + "`");
+        if (LOG.isDebugEnabled())
+            LOG.debug("Subdomain of the page is `" + locale + "`");
+        page.putField("locale", locale);
 
-        String name = page.getHtml().xpath("//*[@id=\"main-contents\"]/div[2]/h1/text").toString();
-        LOG.debug("The name of the card is `" + name + "`");
+        // Extract `name`
+        String name = page.getHtml().xpath("//*[@id=\"main-contents\"]/div[2]/h1/text")
+                          .toString();
+        if (LOG.isDebugEnabled())
+            LOG.debug("The name of the card is `" + name + "`");
         page.putField("name", name);
 
-        // Try to fetch description from `noscript` element
-        String noscript = page.getHtml().xpath("//*[@id=\"main-contents\"]/div[2]/noscript").toString();
+        // Extract `desc` from `noscript` element
+        String noscript = page.getHtml().xpath("//*[@id=\"main-contents\"]/div[2]/noscript")
+                              .toString();
         int descStart = noscript.indexOf("<i>");
         int descEnd = noscript.indexOf("</i>", descStart);
         String desc = noscript.substring(descStart + 3, descEnd);
-        LOG.debug("The description of the card is `" + desc + "`");
+        if (LOG.isDebugEnabled())
+            LOG.debug("The description of the card is `" + desc + "`");
         page.putField("desc", desc);
 
-        // Try to fetch card quotes from script and HTML elements
+        // Extract card quotes from script and HTML elements
         List<CardQuote> quotes = new ArrayList<>();
         String script = page.getHtml().xpath("//*[@id=\"main-contents\"]/div[2]/script[2]").toString();
         int idx = 0;
@@ -55,10 +75,14 @@ public class HearthHeadCardProcessor implements PageProcessor {
                 break;
             String cardSoundType = page.getHtml().xpath("//*[@id=\"cardsoundlink" + i + "\"]/text").toString();
 
+            LocaleString quote = new LocaleString();
+
             int temp = script.indexOf("'cardsound" + i + "');\n", idx);
             if (temp == -1) {
-                LOG.debug("Quote line for card sound " + i + " not found: ");
-                // quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), "", cardSoundLink));
+                if (LOG.isDebugEnabled())
+                    LOG.debug("Quote line for card sound " + i + " not found: ");
+                quote.put(Locale.getDefault(), "");
+                quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), quote, cardSoundLink));
                 continue;
             }
 
@@ -68,18 +92,21 @@ public class HearthHeadCardProcessor implements PageProcessor {
             int quoteStart = script.indexOf("<i>", firstNL);
 
             if (quoteStart == -1 || quoteStart >= secondNL) {
-                LOG.debug("Quote line for card sound " + i + " not found: ");
-                // quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), "", cardSoundLink));
+                if (LOG.isDebugEnabled())
+                    LOG.debug("Quote line for card sound " + i + " not found: ");
+                quote.put(Locale.getDefault(), "");
+                quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), quote, cardSoundLink));
                 continue;
             }
 
             int quoteEnd = script.indexOf("</i>", quoteStart);
             String cardSoundLine = script.substring(quoteStart + 3, quoteEnd);
 
-            LOG.debug("Complete card sound fetched: \nType: " + cardSoundType + "\nLink: " + cardSoundLink + "\nLine: " + cardSoundLine);
-            // quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), cardSoundLine, cardSoundLink));
+            if (LOG.isDebugEnabled())
+                LOG.debug("Complete card sound fetched: \nType: " + cardSoundType + "\nLink: " + cardSoundLink + "\nLine: " + cardSoundLine);
+            quote.put(Locale.getDefault(), cardSoundLine);
+            quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), quote, cardSoundLink));
         }
-
         page.putField("quotes", quotes);
     }
 

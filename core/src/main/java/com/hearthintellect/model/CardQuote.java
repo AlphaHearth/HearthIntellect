@@ -12,11 +12,11 @@ public class CardQuote implements JsonEntity {
 
     private Type type;
     private LocaleString line;
-    private LocaleString audioUrl;
+    private String audioUrl;
 
     public CardQuote() {}
 
-    public CardQuote(Type type, LocaleString line, LocaleString audioUrl) {
+    public CardQuote(Type type, LocaleString line, String audioUrl) {
         this.type = type;
         this.line = line;
         this.audioUrl = audioUrl;
@@ -45,10 +45,10 @@ public class CardQuote implements JsonEntity {
     public void setLine(LocaleString line) {
         this.line = line;
     }
-    public LocaleString getAudioUrl() {
+    public String getAudioUrl() {
         return audioUrl;
     }
-    public void setAudioUrl(LocaleString audioUrl) {
+    public void setAudioUrl(String audioUrl) {
         this.audioUrl = audioUrl;
     }
 
