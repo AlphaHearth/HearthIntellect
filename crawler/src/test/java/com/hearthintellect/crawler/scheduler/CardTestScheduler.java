@@ -1,5 +1,6 @@
 package com.hearthintellect.crawler.scheduler;
 
+import com.mongodb.MongoClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Request;
@@ -12,8 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * {@link Scheduler} for generating test pages
  */
-public class TestCardScheduler extends QueueScheduler {
-    private static final Logger LOG = LoggerFactory.getLogger(TestCardScheduler.class);
+public class CardTestScheduler extends CardScheduler {
+    private static final Logger LOG = LoggerFactory.getLogger(CardTestScheduler.class);
 
     private int[] candidateHHID = new int[]{ 32, 447, 530, 858, 1123, 1805, 1986, 1990, 1997, 2007, 2286, 2655, 2826 };
     private int iter = 0;

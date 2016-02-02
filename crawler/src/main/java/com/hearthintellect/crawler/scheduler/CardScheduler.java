@@ -19,6 +19,8 @@ public class CardScheduler implements Scheduler {
     private MongoCursor iter;
     private ReentrantLock lock = new ReentrantLock();
 
+    public CardScheduler() {}
+
     public CardScheduler(MongoClient client) {
         MongoCollection<Document> cards = client.getDatabase("hearthstone").getCollection("cards");
         iter = cards.find().iterator();
