@@ -55,15 +55,31 @@ public class HearthHeadCardProcessor implements PageProcessor {
             LOG.debug("The name of the card is `" + name + "`");
         page.putField("name", name);
 
-        // Extract `desc` from `noscript` element
+        // Extract `effect` from `noscript` element
         String noscript = page.getHtml().xpath("//*[@id=\"main-contents\"]/div[2]/noscript")
                               .toString();
-        int descStart = noscript.indexOf("<i>");
+        int effectStart = noscript.indexOf("<span class=\"q2\">");
+        int effectEnd = noscript.indexOf("</span>", effectStart);
+        if (effectStart == -1 || effectEnd == -1) {
+            LOG.info("Effect for card `" + name + "` not found");
+        } else {
+            String effect = noscript.substring(effectStart + 17, effectEnd);
+            if (LOG.isDebugEnabled())
+                LOG.debug("The effect of the card is `" + effect + "`");
+            page.putField("effect", effect);
+        }
+
+        // Extract `desc` from `noscript` element
+        int descStart = noscript.indexOf("<i>", effectEnd);
         int descEnd = noscript.indexOf("</i>", descStart);
-        String desc = noscript.substring(descStart + 3, descEnd);
-        if (LOG.isDebugEnabled())
-            LOG.debug("The description of the card is `" + desc + "`");
-        page.putField("desc", desc);
+        if (descStart == -1 || descEnd == -1) {
+            LOG.info("Description for card `" + name + "` not found");
+        } else {
+            String desc = noscript.substring(descStart + 3, descEnd);
+            if (LOG.isDebugEnabled())
+                LOG.debug("The description of the card is `" + desc + "`");
+            page.putField("desc", desc);
+        }
 
         // Extract card quotes from script and HTML elements
         List<CardQuote> quotes = new ArrayList<>();
@@ -108,6 +124,29 @@ public class HearthHeadCardProcessor implements PageProcessor {
             quotes.add(new CardQuote(CardQuote.Type.valueOf(cardSoundType), quote, cardSoundLink));
         }
         page.putField("quotes", quotes);
+
+        // Extract `mechanics` from `script` element
+        script = page.getHtml().xpath("//*[@id=\"main-contents\"]/script[4]").toString();
+        int mechanicsStart = script.indexOf("var lv_mechanics = [");
+        int mechanicsEnd = script.indexOf(";", mechanicsStart);
+        if (mechanicsStart == -1 || mechanicsEnd == -1) {
+            LOG.info("Mechanics for card `" + name + "` not found");
+        } else {
+            List<Integer> mechanicsId = new ArrayList<>();
+            for (idx = mechanicsStart + 1; idx > mechanicsStart && idx < mechanicsEnd; ) {
+                int idStart = script.indexOf("\"id\":", idx);
+                int idEnd = script.indexOf(",", idStart);
+                if (idStart != -1 && idStart < mechanicsEnd && idEnd != -1 && idEnd < mechanicsEnd) {
+                    String idStr = script.substring(idStart + 5, idEnd);
+                    if (LOG.isDebugEnabled())
+                        LOG.debug("Mechanic id `" + idStr + "` found for card `" + "`");
+                    mechanicsId.add(Integer.valueOf(idStr));
+                }
+
+                idx = idEnd;
+            }
+            page.putField("mechanicsId", mechanicsId);
+        }
     }
 
     @Override

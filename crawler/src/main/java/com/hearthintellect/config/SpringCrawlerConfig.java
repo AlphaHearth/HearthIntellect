@@ -4,6 +4,7 @@ import com.hearthintellect.crawler.pipeline.MongoCardPipeline;
 import com.hearthintellect.crawler.processor.HearthHeadCardProcessor;
 import com.hearthintellect.crawler.scheduler.CardScheduler;
 import com.hearthintellect.dao.CardRepository;
+import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -28,8 +29,8 @@ public class SpringCrawlerConfig {
     }
 
     @Bean
-    public Scheduler cardScheduler() {
-        CardScheduler scheduler = new CardScheduler();
+    public Scheduler cardScheduler(MongoClient mongoClient) {
+        CardScheduler scheduler = new CardScheduler(mongoClient);
 
         return scheduler;
     }
