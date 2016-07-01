@@ -13,7 +13,6 @@
 
     <modules>
         <module>core</module>
-        <module>crawler</module>
         <module>web-server</module>
     </modules>
 
