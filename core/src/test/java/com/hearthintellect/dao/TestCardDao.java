@@ -241,7 +241,6 @@ public class TestCardDao {
         assertThat(card.getRace(), is(Card.Race.Totem));
         assertThat(card.getHeroClass(), is(HeroClass.Shaman));
         assertThat(card.getQuality(), is(Card.Quality.Rare));
-
     }
 
 }

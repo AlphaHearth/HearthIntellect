@@ -20,20 +20,15 @@ import org.springframework.context.annotation.Configuration;
 public class SpringMongoConfig {
 
     /** Name of the database */
-    @Bean
-    public String databaseName() {
-        return "hearthstone";
-    }
+    public static final String DATABASE_NAME = "hearthstone";
 
     /** Name of package where the mapping classes are */
-    protected String packageName() {
-        return "com.hearthintellect.model";
-    }
+    protected static String PACKAGE_NAME = "com.hearthintellect.model";
 
     @Bean
     public Morphia morphia() {
         Morphia morphia = new Morphia();
-        morphia.mapPackage(packageName());
+        morphia.mapPackage(PACKAGE_NAME);
 
         morphia.getMapper().getConverters().removeConverter(new EnumConverter());
         morphia.getMapper().getConverters().addConverter(new EnumOrdinalConverter());
@@ -50,50 +45,44 @@ public class SpringMongoConfig {
     }
 
     @Bean
-    public Datastore datastore() {
-        Datastore datastore = morphia().createDatastore(mongoClient(), databaseName());
+    public Datastore datastore(MongoClient mongoClient) {
+        Datastore datastore = morphia().createDatastore(mongoClient, DATABASE_NAME);
         datastore.ensureIndexes();
-
         return datastore;
     }
 
     @Bean
-    public CardRepository cardRepository() {
+    public CardRepository cardRepository(Datastore datastore) {
         CardRepositoryImpl repo = new CardRepositoryImpl();
-        repo.setDatastore(datastore());
-
+        repo.setDatastore(datastore);
         return repo;
     }
 
     @Bean
-    public DeckRepository deckRepository() {
+    public DeckRepository deckRepository(Datastore datastore) {
         DeckRepositoryImpl repo = new DeckRepositoryImpl();
-        repo.setDatastore(datastore());
-
+        repo.setDatastore(datastore);
         return repo;
     }
 
     @Bean
-    public MechanicRepository mechanicRepository() {
+    public MechanicRepository mechanicRepository(Datastore datastore) {
         MechanicRepositoryImpl repo = new MechanicRepositoryImpl();
-        repo.setDatastore(datastore());
-
+        repo.setDatastore(datastore);
         return repo;
     }
 
     @Bean
-    public PatchRepository patchRepository() {
+    public PatchRepository patchRepository(Datastore datastore) {
         PatchRepositoryImpl repo = new PatchRepositoryImpl();
-        repo.setDatastore(datastore());
-
+        repo.setDatastore(datastore);
         return repo;
     }
 
     @Bean
-    public UserRepository userRepository() {
+    public UserRepository userRepository(Datastore datastore) {
         UserRepositoryImpl repo = new UserRepositoryImpl();
-        repo.setDatastore(datastore());
-
+        repo.setDatastore(datastore);
         return repo;
     }
 

@@ -1,7 +1,7 @@
 package com.hearthintellect.model;
 
 /**
- * Common class for MongoDB entities
+ * Base class for MongoDB entities
  *
  * @param <T> Java type of the entity's T
  */
