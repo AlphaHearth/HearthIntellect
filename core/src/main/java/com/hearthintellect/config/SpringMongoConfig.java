@@ -21,9 +21,8 @@ public class SpringMongoConfig {
 
     /** Name of the database */
     public static final String DATABASE_NAME = "hearthstone";
-
     /** Name of package where the mapping classes are */
-    protected static String PACKAGE_NAME = "com.hearthintellect.model";
+    public static final String PACKAGE_NAME = "com.hearthintellect.model";
 
     @Bean
     public Morphia morphia() {

@@ -32,8 +32,6 @@ public class TestUserDao {
     private UserRepository userRepository;
     @Autowired
     private MongoClient client;
-    @Autowired
-    private String databaseName;
 
     private String userId;
     private String nickname = "Nickle Back";
@@ -41,8 +39,8 @@ public class TestUserDao {
 
     @Before
     public void setUp() {
-        MongoCollection<Document> users = client.getDatabase(databaseName)
-                                          .getCollection("users");
+        MongoCollection<Document> users =
+            client.getDatabase(SpringMongoConfig.DATABASE_NAME).getCollection("users");
 
         // Find a unique random ID for test
         userId = UUID.randomUUID().toString();
@@ -52,8 +50,8 @@ public class TestUserDao {
 
     @After
     public void cleanUp() {
-        MongoCollection<Document> users = client.getDatabase(databaseName)
-                                          .getCollection("users");
+        MongoCollection<Document> users =
+            client.getDatabase(SpringMongoConfig.DATABASE_NAME).getCollection("users");
 
         // Delete the inserted user
         users.deleteOne(new Document("_id", userId));
@@ -64,8 +62,8 @@ public class TestUserDao {
      */
     @Test
     public void testUserDaoInsert() {
-        MongoCollection<Document> users = client.getDatabase(databaseName)
-                                                .getCollection("users");
+        MongoCollection<Document> users =
+            client.getDatabase(SpringMongoConfig.DATABASE_NAME).getCollection("users");
 
         User user = new User(userId, nickname, password);
 
@@ -85,11 +83,11 @@ public class TestUserDao {
      */
     @Test
     public void testUserDelete() {
-        MongoCollection<Document> users = client.getDatabase(databaseName)
-                                                .getCollection("users");
+        MongoCollection<Document> users =
+            client.getDatabase(SpringMongoConfig.DATABASE_NAME).getCollection("users");
 
-        Document userDoc = new Document("_id", userId).append("nickname", nickname)
-                                                   .append("password", password);
+        Document userDoc =
+            new Document("_id", userId).append("nickname", nickname).append("password", password);
         users.insertOne(userDoc);
 
         // Delete the user via the testing method
@@ -104,11 +102,11 @@ public class TestUserDao {
      */
     @Test
     public void testUserFindById() {
-        MongoCollection<Document> users = client.getDatabase(databaseName)
-                                          .getCollection("users");
+        MongoCollection<Document> users =
+            client.getDatabase(SpringMongoConfig.DATABASE_NAME).getCollection("users");
 
-        Document userDoc = new Document("_id", userId).append("nickname", nickname)
-                           .append("password", password);
+        Document userDoc =
+            new Document("_id", userId).append("nickname", nickname).append("password", password);
         users.insertOne(userDoc);
 
         // Query via the testing method
@@ -130,11 +128,11 @@ public class TestUserDao {
      */
     @Test
     public void testUserUpdate() {
-        MongoCollection<Document> users = client.getDatabase(databaseName)
-                                          .getCollection("users");
+        MongoCollection<Document> users =
+            client.getDatabase(SpringMongoConfig.DATABASE_NAME).getCollection("users");
 
-        Document userDoc = new Document("_id", userId).append("nickname", nickname)
-                           .append("password", password);
+        Document userDoc =
+            new Document("_id", userId).append("nickname", nickname).append("password", password);
         users.insertOne(userDoc);
 
         // Update via the testing method
