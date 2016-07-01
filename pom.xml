@@ -14,6 +14,7 @@
     <modules>
         <module>core</module>
         <module>web-server</module>
+        <module>service</module>
     </modules>
 
     <properties>

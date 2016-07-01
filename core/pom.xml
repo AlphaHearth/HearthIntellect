@@ -10,6 +10,7 @@
 
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
+    <description>The core module of HearthIntellect, containing the main models and DAO classes of the project.</description>
 
     <dependencies>
         <dependency>

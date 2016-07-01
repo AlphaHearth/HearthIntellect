@@ -10,6 +10,9 @@
 
   <artifactId>web-server</artifactId>
   <packaging>war</packaging>
+  <description>
+    Web module of HearthIntellect, which will be packaged as WAR and run in a Servlet container.
+  </description>
   
   <dependencies>
     <dependency>

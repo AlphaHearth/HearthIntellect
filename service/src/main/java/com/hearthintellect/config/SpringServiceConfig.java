@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Spring configuration for the {@code core} module
+ * Spring configuration class for the {@code service} module.
  */
 @Configuration
-@Import(SpringMongoConfig.class)
-public class SpringCoreConfig {}
+@Import(SpringCoreConfig.class)
+public class SpringServiceConfig {
+    // TODO to be implemented
+}
