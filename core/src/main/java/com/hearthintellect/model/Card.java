@@ -3,7 +3,6 @@ package com.hearthintellect.model;
 import com.hearthintellect.util.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
-import org.mongodb.morphia.utils.IndexType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     private Patch patch;
 
     private boolean collectible;
-    private boolean disenchantable;
     private Quality quality;
     private Type type;
     private Set set;
@@ -70,7 +68,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         result.put("imageUrl", imageUrl);
         result.put("heroClass", heroClass.ordinal());
         result.put("collectible", collectible);
-        result.put("disenchantable", disenchantable);
         result.put("patch", patch.getId());
         mechanics.forEach((mechanic) -> result.append("mechanics", mechanic.getId()));
         quotes.forEach((quote) -> result.append("quotes", quote.toJson()));
@@ -167,12 +164,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public void setCost(int cost) {
         this.cost = cost;
     }
-    public boolean getDisenchantable() {
-        return disenchantable;
-    }
-    public void setDisenchantable(boolean disenchantable) {
-        this.disenchantable = disenchantable;
-    }
     public boolean getCollectible() {
         return collectible;
     }
@@ -194,7 +185,7 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public String getImageUrl() {
         return imageUrl;
     }
-    public void setImageImageUrl(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
     public boolean getEffective() { return effective; }
@@ -204,11 +195,12 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         Free, Common, Rare, Epic, Legendary
     }
     public enum Type {
-        Hero, Minion, Power, Spell, Weapon, HeroPower
+        Hero, Minion, Spell, Weapon, HeroPower
     }
     public enum Set {
         Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas,
-        GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers
+        GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers,
+        WhisperOfTheOldGods, OneNightInKarazhan
     }
     public enum Race {
         None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
