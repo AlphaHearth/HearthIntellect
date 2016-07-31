@@ -38,8 +38,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     private String imageUrl;
     @Property("class")
     private HeroClass heroClass;
-    @Reference(idOnly = true)
-    private Patch patch;
 
     private boolean collectible;
     private Quality quality;
@@ -68,7 +66,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         result.put("imageUrl", imageUrl);
         result.put("heroClass", heroClass.ordinal());
         result.put("collectible", collectible);
-        result.put("patch", patch.getId());
         mechanics.forEach((mechanic) -> result.append("mechanics", mechanic.getId()));
         quotes.forEach((quote) -> result.append("quotes", quote.toJson()));
         result.put("quality", quality.ordinal());
@@ -86,12 +83,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public void setId(Integer id) { cardId = id; }
     public int getHHID() { return HHID; }
     public void setHHID(int HHID) { this.HHID = HHID; }
-    public Patch getPatch() {
-        return patch;
-    }
-    public void setPatch(Patch patch) {
-        this.patch = patch;
-    }
     public int getCardId() {
         return cardId;
     }
