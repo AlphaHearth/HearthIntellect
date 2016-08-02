@@ -2,6 +2,7 @@ target/
 .idea/
 .settings/
 *.iml
+**.json
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
