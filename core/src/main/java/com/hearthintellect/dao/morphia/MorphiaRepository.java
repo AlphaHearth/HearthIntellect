@@ -72,11 +72,7 @@ public abstract class MorphiaRepository<T extends MongoEntity> implements Reposi
 
     @Override
     public void update(T t) {
-        datastore.updateFirst(
-            createQuery().field("_id").equal(t.getId()),
-            t,
-            false
-        );
+        datastore.save(t);
     }
 
     @Override

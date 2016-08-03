@@ -1,9 +1,14 @@
 package com.hearthintellect.crawler.crawler;
+import com.hearthintellect.config.SpringCoreConfig;
+import com.hearthintellect.dao.CardRepository;
+import com.hearthintellect.dao.MechanicRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.utils.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.*;
@@ -52,7 +57,16 @@ public class CardCrawler {
         // Link Card and Mechanic via crawling
         HearthHeadCardCrawler.crawl(cards, mechanics);
 
-        LOG.info("Saving to database...");
+        LOG.info("Initializing links to database...");
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
+
+        LOG.info("Saving Mechanics to database...");
+        MechanicRepository mechanicRepository = context.getBean(MechanicRepository.class);
+        mechanics.forEach(mechanicRepository::insert);
+
+        LOG.info("Saving Cards to database...");
+        CardRepository cardRepository = context.getBean(CardRepository.class);
+        cards.forEach(cardRepository::insert);
 
     }
 

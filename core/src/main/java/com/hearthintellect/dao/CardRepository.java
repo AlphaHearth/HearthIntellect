@@ -275,5 +275,4 @@ public interface CardRepository extends Repository<Card> {
      * @see Sort#of(String)
      */
     Iterator<Card> findAllByMechanic(Mechanic mechanic, String order, Page page);
-
 }

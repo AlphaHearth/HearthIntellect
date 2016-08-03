@@ -29,6 +29,7 @@ public class LocaleStringConverter extends TypeConverter {
             return null;
         }
 
+        @SuppressWarnings("unchecked")
         final Map<String, String> map = (Map<String, String>) fromDBObject;
         if (!map.isEmpty() || getMapper().getOptions().isStoreEmpties()) {
             final LocaleString localeString = new LocaleString();
