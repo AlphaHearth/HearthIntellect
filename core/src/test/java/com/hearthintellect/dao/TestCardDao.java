@@ -119,10 +119,12 @@ public class TestCardDao {
     @Test
     @Ignore("The test depends on real production data. Failing on development environment is acceptable.")
     public void testCardDaoOnRealData() {
+        Locale locale = new Locale("en", "US");
+
         // http://www.hearthhead.com/card=32/alakir-the-windlord
         Card card = cardRepository.findByHHID(32);
 
-        assertThat(card.getName(), is("Al'Akir the Windlord"));
+        assertThat(card.getName().get(locale), is("Al'Akir the Windlord"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.Classic));
         assertThat(card.getHeroClass(), is(HeroClass.Shaman));
@@ -131,7 +133,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=447/arcane-explosion
         card = cardRepository.findByHHID(447);
 
-        assertThat(card.getName(), is("Arcane Explosion"));
+        assertThat(card.getName().get(locale), is("Arcane Explosion"));
         assertThat(card.getType(), is(Card.Type.Spell));
         assertThat(card.getSet(), is(Card.Set.Basic));
         assertThat(card.getHeroClass(), is(HeroClass.Mage));
@@ -140,7 +142,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=1805/deaths-bite
         card = cardRepository.findByHHID(1805);
 
-        assertThat(card.getName(), is("Death's Bite"));
+        assertThat(card.getName().get(locale), is("Death's Bite"));
         assertThat(card.getType(), is(Card.Type.Weapon));
         assertThat(card.getSet(), is(Card.Set.Naxxramas));
         assertThat(card.getHeroClass(), is(HeroClass.Warrior));
@@ -149,15 +151,16 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=2826/alleria-windrunner
         card = cardRepository.findByHHID(2826);
 
-        assertThat(card.getName(), is("Alleria Windrunner"));
+        assertThat(card.getName().get(locale), is("Alleria Windrunner"));
         assertThat(card.getType(), is(Card.Type.Hero));
+        assertThat(card.getSet(), is(Card.Set.AlternativeHeros));
         assertThat(card.getHeroClass(), is(HeroClass.Hunter));
         assertThat(card.getQuality(), is(Card.Quality.Epic));
 
         // http://www.hearthhead.com/card=1123/shapeshift
         card = cardRepository.findByHHID(1123);
 
-        assertThat(card.getName(), is("Shapeshift"));
+        assertThat(card.getName().get(locale), is("Shapeshift"));
         assertThat(card.getType(), is(Card.Type.HeroPower));
         assertThat(card.getHeroClass(), is(HeroClass.Druid));
         assertThat(card.getQuality(), is(Card.Quality.Free));
@@ -165,7 +168,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=1997/fel-cannon
         card = cardRepository.findByHHID(1997);
 
-        assertThat(card.getName(), is("Fel Cannon"));
+        assertThat(card.getName().get(locale), is("Fel Cannon"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.GoblinsVsGnomes));
         assertThat(card.getRace(), is(Card.Race.Mech));
@@ -175,7 +178,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=2655/murloc-knight
         card = cardRepository.findByHHID(2655);
 
-        assertThat(card.getName(), is("Murloc Knight"));
+        assertThat(card.getName().get(locale), is("Murloc Knight"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.TheGrandTournament));
         assertThat(card.getRace(), is(Card.Race.Murloc));
@@ -185,7 +188,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=1990/one-eyed-cheat
         card = cardRepository.findByHHID(1990);
 
-        assertThat(card.getName(), is("One-eyed Cheat"));
+        assertThat(card.getName().get(locale), is("One-eyed Cheat"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.GoblinsVsGnomes));
         assertThat(card.getRace(), is(Card.Race.Pirate));
@@ -195,7 +198,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=2286/twilight-whelp
         card = cardRepository.findByHHID(2286);
 
-        assertThat(card.getName(), is("Twilight Whelp"));
+        assertThat(card.getName().get(locale), is("Twilight Whelp"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.BlackrockMountain));
         assertThat(card.getRace(), is(Card.Race.Dragon));
@@ -205,7 +208,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=858/gelbin-mekkatorque
         card = cardRepository.findByHHID(858);
 
-        assertThat(card.getName(), is("Gelbin Mekkatorque"));
+        assertThat(card.getName().get(locale), is("Gelbin Mekkatorque"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.Promotion));
         assertThat(card.getRace(), is(Card.Race.None));
@@ -215,7 +218,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=530/captains-parrot
         card = cardRepository.findByHHID(530);
 
-        assertThat(card.getName(), is("Captain's Parrot"));
+        assertThat(card.getName().get(locale), is("Captain's Parrot"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.Reward));
         assertThat(card.getRace(), is(Card.Race.Beast));
@@ -225,7 +228,7 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=1986/malganis
         card = cardRepository.findByHHID(1986);
 
-        assertThat(card.getName(), is("Mal'Ganis"));
+        assertThat(card.getName().get(locale), is("Mal'Ganis"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.GoblinsVsGnomes));
         assertThat(card.getRace(), is(Card.Race.Demon));
@@ -235,12 +238,67 @@ public class TestCardDao {
         // http://www.hearthhead.com/card=2007/vitality-totem
         card = cardRepository.findByHHID(2007);
 
-        assertThat(card.getName(), is("Vitality Totem"));
+        assertThat(card.getName().get(locale), is("Vitality Totem"));
         assertThat(card.getType(), is(Card.Type.Minion));
         assertThat(card.getSet(), is(Card.Set.GoblinsVsGnomes));
         assertThat(card.getRace(), is(Card.Race.Totem));
         assertThat(card.getHeroClass(), is(HeroClass.Shaman));
         assertThat(card.getQuality(), is(Card.Quality.Rare));
+
+        // http://www.hearthhead.com/card=1671/shado-pan-monk
+        card = cardRepository.findByHHID(1671);
+
+        assertThat(card.getName().get(locale), is("Shado-Pan Monk"));
+        assertThat(card.getType(), is(Card.Type.Minion));
+        assertThat(card.getSet(), is(Card.Set.Missions));
+        assertThat(card.getRace(), is(Card.Race.None));
+        assertThat(card.getHeroClass(), is(HeroClass.Neutral));
+        assertThat(card.getQuality(), is(Card.Quality.Free));
+        assertThat(card.getCollectible(), is(false));
+
+        // http://www.hearthhead.com/card=1768/ben-brode
+        card = cardRepository.findByHHID(1768);
+
+        assertThat(card.getName().get(locale), is("Ben Brode"));
+        assertThat(card.getType(), is(Card.Type.Minion));
+        assertThat(card.getSet(), is(Card.Set.Credits));
+        assertThat(card.getRace(), is(Card.Race.None));
+        assertThat(card.getHeroClass(), is(HeroClass.Neutral));
+        assertThat(card.getQuality(), is(Card.Quality.Legendary));
+        assertThat(card.getCollectible(), is(false));
+
+        // http://www.hearthhead.com/card=2690/golemagg
+        card = cardRepository.findByHHID(2690);
+
+        assertThat(card.getName().get(locale), is("Golemagg"));
+        assertThat(card.getType(), is(Card.Type.Minion));
+        assertThat(card.getSet(), is(Card.Set.TavernBrawl));
+        assertThat(card.getRace(), is(Card.Race.None));
+        assertThat(card.getHeroClass(), is(HeroClass.Neutral));
+        assertThat(card.getQuality(), is(Card.Quality.Legendary));
+        assertThat(card.getCollectible(), is(false));
+
+        // http://www.hearthhead.com/card=2951/elise-starseeker
+        card = cardRepository.findByHHID(2951);
+
+        assertThat(card.getName().get(locale), is("Elise Starseeker"));
+        assertThat(card.getType(), is(Card.Type.Minion));
+        assertThat(card.getSet(), is(Card.Set.LeagueOfExplorers));
+        assertThat(card.getRace(), is(Card.Race.None));
+        assertThat(card.getHeroClass(), is(HeroClass.Neutral));
+        assertThat(card.getQuality(), is(Card.Quality.Legendary));
+        assertThat(card.getCollectible(), is(true));
+
+        // http://www.hearthhead.com/card=38857/cthun
+        card = cardRepository.findByHHID(38857);
+
+        assertThat(card.getName().get(locale), is("C'Thun"));
+        assertThat(card.getType(), is(Card.Type.Minion));
+        assertThat(card.getSet(), is(Card.Set.WhisperOfTheOldGods));
+        assertThat(card.getRace(), is(Card.Race.None));
+        assertThat(card.getHeroClass(), is(HeroClass.Neutral));
+        assertThat(card.getQuality(), is(Card.Quality.Legendary));
+        assertThat(card.getCollectible(), is(true));
     }
 
 }
