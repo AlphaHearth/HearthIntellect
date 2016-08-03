@@ -29,8 +29,8 @@ public class SpringMongoConfig {
         Morphia morphia = new Morphia();
         morphia.mapPackage(PACKAGE_NAME);
 
-        morphia.getMapper().getConverters().removeConverter(new EnumConverter());
-        morphia.getMapper().getConverters().addConverter(new EnumOrdinalConverter());
+        // morphia.getMapper().getConverters().removeConverter(new EnumConverter());
+        // morphia.getMapper().getConverters().addConverter(new EnumOrdinalConverter());
         morphia.getMapper().getConverters().addConverter(new LocalDateTimeConverter());
         morphia.getMapper().getConverters().addConverter(new ZonedDateTimeConverter());
         morphia.getMapper().getConverters().addConverter(new LocaleStringConverter());

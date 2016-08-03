@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,10 +47,10 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     private Race race;
 
     @Reference(lazy = true, idOnly = true)
-    List<Mechanic> mechanics;
+    List<Mechanic> mechanics = Collections.emptyList();
 
     @Embedded(concreteClass = ArrayList.class)
-    List<CardQuote> quotes;
+    List<CardQuote> quotes = Collections.emptyList();
 
     @Override
     public JSONObject toJson() {
