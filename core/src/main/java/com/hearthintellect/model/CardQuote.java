@@ -10,6 +10,7 @@ import org.mongodb.morphia.annotations.Embedded;
 @Embedded
 public class CardQuote implements JsonEntity {
 
+    private int HHID;
     private Type type;
     private LocaleString line;
     private String audioUrl;
@@ -33,6 +34,8 @@ public class CardQuote implements JsonEntity {
         return result;
     }
 
+    public void setHHID(int HHID) { this.HHID = HHID; }
+    public int getHHID() { return HHID; }
     public Type getType() {
         return type;
     }

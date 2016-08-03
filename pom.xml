@@ -15,6 +15,7 @@
         <module>core</module>
         <module>web-server</module>
         <module>service</module>
+        <module>crawler</module>
     </modules>
 
     <properties>

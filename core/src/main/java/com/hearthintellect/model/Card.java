@@ -44,7 +44,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     private Type type;
     private Set set;
     private Race race;
-    private boolean effective = true;
 
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics;
@@ -72,7 +71,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         result.put("type", type.ordinal());
         result.put("set", set.ordinal());
         result.put("race", race.ordinal());
-        result.put("effective", effective);
 
         return result;
     }
@@ -179,8 +177,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    public boolean getEffective() { return effective; }
-    public void setEffective(boolean effective) { this.effective = effective; }
 
     public enum Quality {
         Free, Common, Rare, Epic, Legendary
@@ -189,8 +185,8 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
         Hero, Minion, Spell, Weapon, HeroPower
     }
     public enum Set {
-        Basic, Classic, Reward, Missions, Promotion, Credits, Naxxramas,
-        GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers,
+        Basic, Classic, Reward, Missions, Promotion, Credits, AlternativeHeros, TavernBrawl,
+        Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers,
         WhisperOfTheOldGods, OneNightInKarazhan
     }
     public enum Race {
