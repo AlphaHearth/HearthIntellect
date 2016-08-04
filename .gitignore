@@ -3,6 +3,7 @@ target/
 .settings/
 *.iml
 **.html
+resources/v1/**.json
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
