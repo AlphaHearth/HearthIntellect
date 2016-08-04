@@ -34,7 +34,12 @@ public class LocaleStringConverter extends TypeConverter {
         if (!map.isEmpty() || getMapper().getOptions().isStoreEmpties()) {
             final LocaleString localeString = new LocaleString();
             for (final Map.Entry<String, String> entry : map.entrySet()) {
-                localeString.put(new Locale(entry.getKey()), entry.getValue());
+                String localeStr = entry.getKey();
+                String[] splitResult = localeStr.split("_");
+                if (splitResult.length == 2)
+                    localeString.put(new Locale(splitResult[0], splitResult[1]), entry.getValue());
+                else
+                    localeString.put(new Locale(splitResult[0]), entry.getValue());
             }
             return localeString;
         }
@@ -51,7 +56,10 @@ public class LocaleStringConverter extends TypeConverter {
         new IterHelper<Locale, String>().loopMap(value, new IterHelper.MapIterCallback<Locale, String>() {
             @Override
             public void eval(final Locale key, final String val) {
-                values.put(key.getLanguage(), val);
+                if (key.getCountry().isEmpty())
+                    values.put(key.getLanguage(), val);
+                else
+                    values.put(key.getLanguage() + "_" + key.getCountry(), val);
             }
         });
 

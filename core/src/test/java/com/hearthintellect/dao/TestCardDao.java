@@ -35,16 +35,16 @@ public class TestCardDao {
 
         card.setCardId(TEST_ID);
         LocaleString cardName = new LocaleString();
-        cardName.put(Locale.ENGLISH, "Robert");
-        cardName.put(Locale.CHINESE, "呆呆");
+        cardName.put(Locale.US, "Robert");
+        cardName.put(Locale.CHINA, "呆呆");
         card.setName(cardName);
         LocaleString cardEffect = new LocaleString();
-        cardEffect.put(Locale.ENGLISH, "Battlecry: publish a website");
-        cardEffect.put(Locale.CHINESE, "战吼：发布一个网站");
+        cardEffect.put(Locale.US, "Battlecry: publish a website");
+        cardEffect.put(Locale.CHINA, "战吼：发布一个网站");
         card.setEffect(cardEffect);
         LocaleString cardDesc = new LocaleString();
-        cardDesc.put(Locale.ENGLISH, "The Author of the website");
-        cardDesc.put(Locale.CHINESE, "网站作者");
+        cardDesc.put(Locale.US, "The Author of the website");
+        cardDesc.put(Locale.CHINA, "网站作者");
         card.setDesc(cardDesc);
 
         card.setCost(2);
@@ -59,13 +59,13 @@ public class TestCardDao {
 
         List<CardQuote> quotes = new ArrayList<>();
         LocaleString playQuote = new LocaleString();
-        playQuote.put(Locale.ENGLISH, "Fear me, if you dare!");
+        playQuote.put(Locale.US, "Fear me, if you dare!");
         quotes.add(new CardQuote(CardQuote.Type.Play, playQuote, "url1"));
         LocaleString attackQuote = new LocaleString();
-        attackQuote.put(Locale.ENGLISH, "Ahahaha, don't make me laugh!");
+        attackQuote.put(Locale.US, "Ahahaha, don't make me laugh!");
         quotes.add(new CardQuote(CardQuote.Type.Attack, attackQuote, "url2"));
         LocaleString deathQuote = new LocaleString();
-        deathQuote.put(Locale.ENGLISH, "This is just the beginning!");
+        deathQuote.put(Locale.US, "This is just the beginning!");
         quotes.add(new CardQuote(CardQuote.Type.Death, deathQuote, "url3"));
         card.setQuotes(quotes);
 
@@ -93,8 +93,8 @@ public class TestCardDao {
         Card card = cardRepository.findById(TEST_ID);
 
         LocaleString cardName = new LocaleString();
-        cardName.put(Locale.ENGLISH, "Mr-Dai");
-        cardName.put(Locale.CHINESE, "呆呆");
+        cardName.put(Locale.US, "Mr-Dai");
+        cardName.put(Locale.CHINA, "呆呆");
         card.setName(cardName);
         cardRepository.update(card);
         card = cardRepository.findById(TEST_ID);
@@ -117,7 +117,7 @@ public class TestCardDao {
     }
 
     @Test
-    @Ignore("The test depends on real production data. Failing on development environment is acceptable.")
+    // @Ignore("The test depends on real production data. Failing on development environment is acceptable.")
     public void testCardDaoOnRealData() {
         Locale locale = new Locale("en", "US");
 
@@ -253,7 +253,7 @@ public class TestCardDao {
         assertThat(card.getSet(), is(Card.Set.Missions));
         assertThat(card.getRace(), is(Card.Race.None));
         assertThat(card.getHeroClass(), is(HeroClass.Neutral));
-        assertThat(card.getQuality(), is(Card.Quality.Free));
+        assertThat(card.getQuality(), is(Card.Quality.Common));
         assertThat(card.getCollectible(), is(false));
 
         // http://www.hearthhead.com/card=1768/ben-brode

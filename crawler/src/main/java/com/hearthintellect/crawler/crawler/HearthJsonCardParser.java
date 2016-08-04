@@ -62,16 +62,18 @@ public class HearthJsonCardParser {
         SET_MAP.put("HERO_SKINS", Card.Set.AlternativeHeros);
         SET_MAP.put("CREDITS", Card.Set.Credits);
         SET_MAP.put("LOE", Card.Set.LeagueOfExplorers);
+        SET_MAP.put("TB", Card.Set.TavernBrawl);
         SET_MAP.put("OG", Card.Set.WhisperOfTheOldGods);
 
         RACE_MAP.put("BEAST", Card.Race.Beast);
         RACE_MAP.put("DRAGON", Card.Race.Dragon);
         RACE_MAP.put("MURLOC", Card.Race.Murloc);
-        RACE_MAP.put("MECH", Card.Race.Mech);
+        RACE_MAP.put("MECHANICAL", Card.Race.Mech);
         RACE_MAP.put("DEMON", Card.Race.Demon);
         RACE_MAP.put("TOTEM", Card.Race.Totem);
         RACE_MAP.put("PIRATE", Card.Race.Pirate);
 
+        CLASS_MAP.put("DREAM", HeroClass.Dream);
         CLASS_MAP.put("PALADIN", HeroClass.Paladin);
         CLASS_MAP.put("WARLOCK", HeroClass.Warlock);
         CLASS_MAP.put("HUNTER", HeroClass.Hunter);
@@ -102,6 +104,9 @@ public class HearthJsonCardParser {
         for (int i = 0; i < jsonCards.length(); i++) {
             JSONObject cardJson = jsonCards.getJSONObject(i);
             if (cardJson.has("type") && cardJson.getString("type").equals("ENCHANTMENT"))
+                continue;
+            if (cardJson.has("set") &&
+                    (cardJson.getString("set").equals("CHEAT") || cardJson.getString("set").equals("NONE")))
                 continue;
 
             Card card = new Card();
@@ -157,6 +162,18 @@ public class HearthJsonCardParser {
                     card.setHeroClass(CLASS_MAP.get(cardJson.getString("playerClass")));
                 else
                     card.setHeroClass(HeroClass.Neutral);
+
+                // Validate
+                if (card.getSet() == null)
+                    LOG.error("Failed to set Card.Set for card {}.", cardJson.toString());
+                if (card.getType() == null)
+                    LOG.error("Failed to set Card.Type for card {}.", cardJson.toString());
+                if (card.getQuality() == null)
+                    LOG.error("Failed to set Card.Quality for card {}.", cardJson.toString());
+                if (card.getType() == Card.Type.Minion && card.getRace() == null)
+                    LOG.error("Failed to set Card.Race for card {}.", cardJson.toString());
+                if (card.getHeroClass() == null)
+                    LOG.error("Failed to set HeroClass for card {}.", cardJson.toString());
 
                 cards.add(card);
             } catch (Throwable ex) {

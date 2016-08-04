@@ -165,6 +165,9 @@ public class HearthHeadCardParser {
             Mechanic mechanic = new Mechanic();
             mechanic.setId(jsonMechanic.getInt("_id"));
             mechanic.setHHID(jsonMechanic.getInt("HHID"));
+            LocaleString name = new LocaleString();
+            mechanic.setName(name);
+            name.put(CardCrawler.DEFAULT_LOCALE, jsonMechanic.getString("name"));
             LocaleString description = new LocaleString();
             description.put(CardCrawler.DEFAULT_LOCALE, jsonMechanic.getString("description"));
             mechanic.setDescription(description);

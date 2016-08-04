@@ -57,6 +57,20 @@ public class CardCrawler {
         // Link Card and Mechanic via crawling
         HearthHeadCardCrawler.crawl(cards, mechanics);
 
+        cards.sort((c1, c2) -> {
+            if (c1.getSet() != c2.getSet())
+                return c1.getSet().compareTo(c2.getSet());
+            if (c1.getHeroClass() != c2.getHeroClass())
+                return c1.getHeroClass().compareTo(c2.getHeroClass());
+            if (c1.getCost() != c2.getCost())
+                return Integer.compare(c1.getCost(), c2.getCost());
+            return c1.getName().get(DEFAULT_LOCALE).compareTo(c2.getName().get(DEFAULT_LOCALE));
+        });
+        for (int i = 0; i < cards.size(); i++)
+            cards.get(i).setId(i + 1);
+
+        mechanics.sort((m1, m2) -> Integer.compare(m1.getId(), m2.getId()));
+
         LOG.info("Initializing links to database...");
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
 
