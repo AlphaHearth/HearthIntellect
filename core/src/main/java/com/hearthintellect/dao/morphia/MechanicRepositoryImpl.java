@@ -2,6 +2,8 @@ package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.MechanicRepository;
 import com.hearthintellect.model.Mechanic;
+import com.hearthintellect.util.Page;
+import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,8 +11,16 @@ public class MechanicRepositoryImpl extends MorphiaRepository<Mechanic> implemen
     private static final Logger LOG = LoggerFactory.getLogger(MechanicRepositoryImpl.class);
 
     @Override
-    public Iterable<Mechanic> findAllByName(String name) {
-        return createQuery().field("name").contains(name);
+    public Iterable<Mechanic> findAll() {
+        return createQuery();
+    }
+
+    @Override
+    public Iterable<Mechanic> findAll(Page page, String order) {
+        Query<Mechanic> query = createQuery();
+        processOrderAndPage(query, order, page);
+
+        return query;
     }
 
     @Override
