@@ -52,6 +52,21 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     @Embedded(concreteClass = ArrayList.class)
     List<CardQuote> quotes = Collections.emptyList();
 
+    public JSONObject toBriefJson() {
+        JSONObject result = new JSONObject();
+
+        result.put("id", cardId);
+        result.put("name", name);
+        result.put("effect", effect);
+        result.put("type", type.ordinal());
+        result.put("cost", cost);
+        result.put("attack", attack);
+        result.put("health", health);
+        result.put("imageUrl", imageUrl);
+
+        return result;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject result = new JSONObject();

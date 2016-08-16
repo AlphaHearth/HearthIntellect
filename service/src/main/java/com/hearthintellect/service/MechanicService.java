@@ -5,28 +5,30 @@ import com.hearthintellect.model.Mechanic;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import static com.hearthintellect.util.RsResponseUtils.ok;
 
 /**
  * JAX-RS service class for {@link Mechanic}.
  */
-@Produces("application/json")
+@Produces(MediaType.APPLICATION_JSON)
 public class MechanicService {
     private static final Logger LOG = LoggerFactory.getLogger(MechanicService.class);
 
-    @Autowired
     private MechanicRepository mechanicRepository;
 
     @GET
     @Path("/mechanics")
-    public String listMechanics() {
+    public Response listMechanics() {
         JSONArray jsonArr = new JSONArray();
         for (Mechanic mechanic : mechanicRepository.findAll())
             jsonArr.put(mechanic.toJson());
 
-        return jsonArr.toString();
+        return ok(jsonArr);
     }
 
     public MechanicRepository getMechanicRepository() {
