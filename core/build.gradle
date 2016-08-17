@@ -1,0 +1,6 @@
+
+description = ''
+dependencies {
+    compile group: 'org.mongodb.morphia', name: 'morphia', version:'1.2.1'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version:'3.2.2'
+}

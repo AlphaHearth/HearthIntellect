@@ -1,0 +1,9 @@
+
+apply plugin: 'war'
+
+description = ''
+dependencies {
+  compile project(':core')
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version:'2.22.1'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version:'2.22.1'
+}

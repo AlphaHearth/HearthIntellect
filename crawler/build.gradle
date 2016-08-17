@@ -1,0 +1,6 @@
+
+description = ''
+dependencies {
+  compile project(':core')
+    compile group: 'org.jsoup', name: 'jsoup', version:'1.9.2'
+}

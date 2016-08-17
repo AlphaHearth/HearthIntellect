@@ -1,0 +1,10 @@
+rootProject.name = 'hearthintellect'
+include ':core'
+include ':web-server'
+include ':service'
+include ':crawler'
+
+project(':core').projectDir = "$rootDir/core" as File
+project(':web-server').projectDir = "$rootDir/web-server" as File
+project(':service').projectDir = "$rootDir/service" as File
+project(':crawler').projectDir = "$rootDir/crawler" as File
