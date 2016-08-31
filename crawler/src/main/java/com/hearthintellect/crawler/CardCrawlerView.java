@@ -1,4 +1,4 @@
-package com.hearthintellect.crawler.crawler;
+package com.hearthintellect.crawler;
 
 import com.hearthintellect.model.Card;
 import javafx.application.Application;

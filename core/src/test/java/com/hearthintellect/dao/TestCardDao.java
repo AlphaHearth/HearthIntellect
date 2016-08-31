@@ -117,7 +117,7 @@ public class TestCardDao {
     }
 
     @Test
-    // @Ignore("The test depends on real production data. Failing on development environment is acceptable.")
+    @Ignore("The test depends on real production data. Failing on development environment is acceptable.")
     public void testCardDaoOnRealData() {
         Locale locale = new Locale("en", "US");
 

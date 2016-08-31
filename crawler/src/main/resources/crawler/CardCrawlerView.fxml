@@ -10,7 +10,7 @@
 <!--
   Scene 的根节点需要给定所使用的 XML 命名空间，并需要在使用 Controller 时给出 Controller 类
 -->
-<GridPane fx:controller="com.hearthintellect.crawler.crawler.CardCrawlerViewController"
+<GridPane fx:controller="com.hearthintellect.crawler.CardCrawlerViewController"
           xmlns:fx="http://javafx.com/fxml"
           alignment="center"
           hgap="10" vgap="10">

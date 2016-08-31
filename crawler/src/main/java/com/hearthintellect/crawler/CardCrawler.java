@@ -1,4 +1,4 @@
-package com.hearthintellect.crawler.crawler;
+package com.hearthintellect.crawler;
 import com.hearthintellect.config.SpringCoreConfig;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.dao.MechanicRepository;
