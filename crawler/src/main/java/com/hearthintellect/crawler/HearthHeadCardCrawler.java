@@ -16,14 +16,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HearthHeadCardCrawler {
     private static final Logger LOG = LoggerFactory.getLogger(HearthHeadCardCrawler.class);
 
-    private static final String HEARTH_HEAD_URL = "D:\\GithubRepository\\HearthIntellect\\resources\\hh\\%d.html";
-    private static final String EFFECTIVE_ID = "D:\\GithubRepository\\HearthIntellect\\resources\\effectiveHHID.txt";
+    private static final Path EFFECTIVE_ID = Paths.get("resources", "effectiveHHID.txt");
 
     public static void crawl(List<Card> cards, List<Mechanic> mechanics)
         throws IOException {
@@ -34,32 +41,34 @@ public class HearthHeadCardCrawler {
         LOG.info("Sorting mechanics on HHID...");
         mechanics.sort((m1, m2) -> Integer.compare(m1.getHHID(), m2.getHHID()));
 
-        LOG.info("Sorting cards on HHID...");
-        cards.sort((c1, c2) -> Integer.compare(c1.getHHID(), c2.getHHID()));
-        for (Integer hhid : effectiveHHIDs) {
+        for (Integer hhid : effectiveHHIDs)
             crawlCard(cards, mechanics, hhid);
-        }
     }
 
     private static void crawlCard(List<Card> cards, List<Mechanic> mechanics, int hhid) {
         try {
             LOG.info("Crawling HHID={}...", hhid);
 
-            Card card = CollectionUtils.binarySearch(cards, hhid, Card::getHHID);
+            String content = new String(Files.readAllBytes(Paths.get("resources", "hh", String.format("%d.html", hhid))));
+
+            Document doc = Jsoup.parse(content);
+
+            LOG.debug("Parsing image url...");
+            Element imageMeta = doc.select("meta[property=twitter:image]").first();
+            String imageUrl = imageMeta.attr("content");
+
+            String[] x = imageUrl.split("\\.");
+            String y = x[x.length - 2];
+            String[] z = y.split("/");
+            String hjId = z[z.length - 1];
+
+            Card card = CollectionUtils.binarySearch(cards, hjId, Card::getImageUrl);
             if (card == null) {
-                LOG.warn("Failed to find card for HHID `{}`.", hhid);
+                LOG.warn("Failed to find card for Image Url `{}`.", hjId);
                 return;
             }
 
             LOG.debug("Found card `{}`.", card.getName().get(CardCrawler.DEFAULT_LOCALE));
-
-            Document doc = null;
-            try {
-                doc = Jsoup.parse(IOUtils.readFile(String.format(HEARTH_HEAD_URL, hhid)));
-            } catch (IOException ex) {
-                LOG.error("Failed to open html file for `" + hhid + "`", ex);
-                return;
-            }
 
             LOG.debug("Parsing Mechanics...");
             // Extract information
@@ -181,8 +190,8 @@ public class HearthHeadCardCrawler {
         LOG.info(cardJson.toString());
     }
 
-    private static List<Integer> readHHID(String effectiveId) throws IOException {
-        String content = IOUtils.readFile(effectiveId);
+    private static List<Integer> readHHID(Path effectiveId) throws IOException {
+        String content = new String(Files.readAllBytes(effectiveId));
         String[] idStrs = content.split(",");
         List<Integer> results = new ArrayList<>();
         for (String idStr : idStrs)

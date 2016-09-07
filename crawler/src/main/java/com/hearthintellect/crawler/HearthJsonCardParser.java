@@ -9,7 +9,12 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 public class HearthJsonCardParser {
@@ -64,6 +69,8 @@ public class HearthJsonCardParser {
         SET_MAP.put("LOE", Card.Set.LeagueOfExplorers);
         SET_MAP.put("TB", Card.Set.TavernBrawl);
         SET_MAP.put("OG", Card.Set.WhisperOfTheOldGods);
+        SET_MAP.put("KARA", Card.Set.OneNightInKarazhan);
+        SET_MAP.put("KARA_RESERVE", Card.Set.OneNightInKarazhan);
 
         RACE_MAP.put("BEAST", Card.Race.Beast);
         RACE_MAP.put("DRAGON", Card.Race.Dragon);
@@ -86,18 +93,33 @@ public class HearthJsonCardParser {
         CLASS_MAP.put("NEUTRAL", HeroClass.Neutral);
     }
 
-    public static List<Card> parse(String jsonFileUrl) {
+    public static List<Card> parse(String jsonFileUrl) throws MalformedURLException {
         LOG.info("Reading card JSON from `{}`", jsonFileUrl);
-        String json = null;
+
+        URL url = new URL(jsonFileUrl);
+
+        URLConnection conn = null;
         try {
-            json = IOUtils.readFile(jsonFileUrl);
+            conn = IOUtils.openConnWithRetry(url, 3, 1000);
         } catch (IOException ex) {
-            LOG.error("Failed to read `" + jsonFileUrl + "`", ex);
-            return Collections.emptyList();
+            LOG.error("Failed to open connection to `" + url + "`", ex);
+            System.exit(-1); // TODO Think twice
         }
-        JSONArray jsonCards = new JSONArray(json);
+
+        conn.setRequestProperty("User-Agent", "Mozilla");
+
+        String json = null;
+        try (Scanner input = new Scanner(conn.getInputStream()).useDelimiter("\\A")) {
+            json = input.hasNext() ? input.next() : "";
+            LOG.info("Downloaded `{}`.", jsonFileUrl);
+        } catch (FileNotFoundException ex) {
+            LOG.warn(jsonFileUrl + " not found.");
+        } catch (IOException ex) {
+            LOG.error("Failed to download from " + jsonFileUrl, ex);
+        }
 
         LOG.info("Parsing card JSON...");
+        JSONArray jsonCards = new JSONArray(json);
 
         List<Card> cards = new ArrayList<>(jsonCards.length());
 
