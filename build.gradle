@@ -14,7 +14,7 @@ subprojects {
     mavenLocal()
     maven { url "http://repo.maven.apache.org/maven2" }
   }
-  
+
   dependencies {
     compile group: 'org.springframework', name: 'spring-web', version:'4.3.0.RELEASE'
     compile group: 'org.springframework', name: 'spring-test', version:'4.3.0.RELEASE'

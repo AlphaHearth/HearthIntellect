@@ -27,8 +27,10 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
     private String content;
 	private int like;
     private int dislike;
+
     @Property("class")
-	private HeroClass classs;
+	private HeroClass heroClass;
+
     @Embedded(concreteClass = ArrayList.class)
 	private List<DeckEntry> cards;
 
@@ -45,10 +47,10 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
     public Deck() {}
 
     public Deck(String name, String content, Patch patch, User author,
-                HeroClass classs, List<DeckEntry> cards) {
+                HeroClass heroClass, List<DeckEntry> cards) {
         this.name = name;
         this.content = content;
-        this.classs = classs;
+        this.heroClass = heroClass;
         this.cards = cards;
         this.patch = patch;
         this.author = author;
@@ -67,7 +69,7 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
         result.put("author", author.toJson());
         result.put("like", like);
         result.put("dislike", dislike);
-        result.put("heroClass", classs.ordinal());
+        result.put("heroClass", heroClass.ordinal());
         result.put("patch", patch.getId());
         result.put("effective", effective);
         result.put("postedDate", postedDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -95,19 +97,11 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
 	public void setCards(List<DeckEntry> cards) {
 		this.cards = cards;
 	}
-	@Override
-	public Long getId() {
-		return deckId;
-	}
-	@Override
-	public void setId(Long id) {
-		deckId = id;
-	}
-    public HeroClass getClasss() {
-        return classs;
+    public HeroClass getHeroClass() {
+        return heroClass;
     }
-    public void setClasss(HeroClass classs) {
-        this.classs = classs;
+    public void setHeroClass(HeroClass heroClass) {
+        this.heroClass = heroClass;
     }
     public int getLike() {
         return like;
@@ -153,4 +147,13 @@ public class Deck extends MongoEntity<Long> implements JsonEntity {
     }
     public User getAuthor() { return author; }
     public void setAuthor(User author) { this.author = author; }
+
+    @Override
+    public Long getId() {
+        return deckId;
+    }
+    @Override
+    public void setId(Long id) {
+        deckId = id;
+    }
 }

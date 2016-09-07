@@ -5,9 +5,10 @@ import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
 
 @Entity(value = "users", noClassnameStored = true)
-@Indexes(
-        @Index(fields = @Field(value = "nickname", type = IndexType.TEXT))
-)
+@Indexes({
+    @Index(fields = @Field(value = "email", type = IndexType.TEXT)),
+    @Index(fields = @Field(value = "nickname", type = IndexType.TEXT))
+})
 public class User extends MongoEntity<String> implements JsonEntity {
     @Id
     private String email;
@@ -50,6 +51,7 @@ public class User extends MongoEntity<String> implements JsonEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
     @Override
     public String getId() {
         return email;
