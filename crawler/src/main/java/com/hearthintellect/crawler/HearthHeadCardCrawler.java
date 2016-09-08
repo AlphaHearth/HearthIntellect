@@ -3,11 +3,11 @@ package com.hearthintellect.crawler;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.CardQuote;
 import com.hearthintellect.model.Mechanic;
-import com.hearthintellect.util.LocaleString;
-import com.hearthintellect.utils.CollectionUtils;
 import com.hearthintellect.utils.IOUtils;
+import com.hearthintellect.utils.LocaleString;
+import com.hearthintellect.utils.CollectionUtils;
+import com.hearthintellect.utils.ConcurrentUtils;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,12 +16,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -30,26 +31,36 @@ import java.util.concurrent.Executors;
 public class HearthHeadCardCrawler {
     private static final Logger LOG = LoggerFactory.getLogger(HearthHeadCardCrawler.class);
 
-    private static final Path EFFECTIVE_ID = Paths.get("resources", "effectiveHHID.txt");
-
     public static void crawl(List<Card> cards, List<Mechanic> mechanics)
         throws IOException {
 
-        LOG.info("Reading effective HHID...");
-        List<Integer> effectiveHHIDs = readHHID(EFFECTIVE_ID);
+        LOG.info("Detecting effective HHID...");
+        List<Integer> effectiveHHIDs = detectHHID();
+        LOG.info("Found {} effective HHID.", effectiveHHIDs.size());
+        effectiveHHIDs.sort(Integer::compare);
 
         LOG.info("Sorting mechanics on HHID...");
         mechanics.sort((m1, m2) -> Integer.compare(m1.getHHID(), m2.getHHID()));
 
+        LOG.info("Crawling cards from HearthHead...");
+        ExecutorService executor = Executors.newFixedThreadPool(50);
         for (Integer hhid : effectiveHHIDs)
-            crawlCard(cards, mechanics, hhid);
+            executor.submit(() -> crawlCard(cards, mechanics, hhid));
+        try {
+            ConcurrentUtils.shutdownAndWait(executor);
+        } catch (InterruptedException ex) {}
     }
 
     private static void crawlCard(List<Card> cards, List<Mechanic> mechanics, int hhid) {
         try {
-            LOG.info("Crawling HHID={}...", hhid);
+            LOG.debug("Crawling HHID={}...", hhid);
 
-            String content = new String(Files.readAllBytes(Paths.get("resources", "hh", String.format("%d.html", hhid))));
+            URL url = new URL(Constants.hearthheadCardUrl(hhid));
+            URLConnection conn = IOUtils.openConnWithRetry(url, 5, 500);
+            String content;
+            try (Scanner scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A")) {
+                content = scanner.hasNext() ? scanner.next() : "";
+            }
 
             Document doc = Jsoup.parse(content);
 
@@ -64,9 +75,10 @@ public class HearthHeadCardCrawler {
 
             Card card = CollectionUtils.binarySearch(cards, hjId, Card::getImageUrl);
             if (card == null) {
-                LOG.warn("Failed to find card for Image Url `{}`.", hjId);
+                LOG.warn("Failed to find card for Image Url `{}`. Current hhid = {}", hjId, hhid);
                 return;
             }
+            card.setHHID(hhid);
 
             LOG.debug("Found card `{}`.", card.getName().get(CardCrawler.DEFAULT_LOCALE));
 
@@ -100,10 +112,8 @@ public class HearthHeadCardCrawler {
             LOG.debug("Parsing Quotes...", card.getName().get(CardCrawler.DEFAULT_LOCALE));
             // Parse Quote
             Elements audios = doc.select("#sounds > audio");
-            if (audios.isEmpty()) {
-                // printCard(card);
+            if (audios.isEmpty())
                 return;
-            }
             Element script = doc.select("#sounds ~ script").first();
             String jScript = script.html();
             List<CardQuote> quotes = new ArrayList<>(audios.size());
@@ -147,56 +157,35 @@ public class HearthHeadCardCrawler {
                 quotes.add(quote);
             }
             card.setQuotes(quotes);
-            // printCard(card);
         } catch (Throwable ex) {
             LOG.error("Ah oh: ", ex);
         }
     }
 
-    private static void printCard(Card card) {
-        JSONObject cardJson = new JSONObject();
-        cardJson.put("HHID", card.getHHID());
-        cardJson.put("name", card.getName().get(CardCrawler.DEFAULT_LOCALE));
-        cardJson.put("effect", card.getEffect().get(CardCrawler.DEFAULT_LOCALE));
-        cardJson.put("description", card.getDesc().get(CardCrawler.DEFAULT_LOCALE));
-        cardJson.put("cost", card.getCost());
-        cardJson.put("type", card.getType().name().toUpperCase());
-        cardJson.put("quality", card.getQuality().name().toUpperCase());
-        cardJson.put("set", card.getSet().name().toUpperCase());
-        cardJson.put("playerClass", card.getHeroClass().name().toUpperCase());
-        cardJson.put("image", card.getImageUrl());
-        if (card.getType() == Card.Type.Minion || card.getType() == Card.Type.Weapon) {
-            cardJson.put("attack", card.getAttack());
-            cardJson.put("health", card.getHealth());
+    private static List<Integer> detectHHID() throws IOException {
+        List<Integer> results = Collections.synchronizedList(new ArrayList<>(2010));
+        ExecutorService executor = Executors.newFixedThreadPool(50);
+        for (int i = 0; i < 50000; i++) {
+            final int finalI = i;
+            executor.submit(() -> {
+                try {
+                    URL url = new URL(Constants.hearthheadCardUrl(finalI));
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("User-Agent", "Mozilla");
+                    conn.setRequestMethod("HEAD");
+                    if (conn.getResponseCode() == 200) {
+                        LOG.debug("Detected effective HHID {}.", finalI);
+                        results.add(finalI);
+                    }
+                } catch (Exception ex) {
+                    LOG.error("Error occurred when requesting i = " + finalI, ex);
+                }
+            });
         }
-
-        JSONArray mechanics = new JSONArray();
-        for (Mechanic mechanic : card.getMechanics()) {
-            mechanics.put(mechanic.getId());
-        }
-        cardJson.put("mechanics", mechanics);
-
-        JSONArray quotes = new JSONArray();
-        for (CardQuote quote : card.getQuotes()) {
-            JSONObject quoteJson = new JSONObject();
-            quoteJson.put("type", quote.getType().name().toUpperCase());
-            quoteJson.put("link", quote.getAudioUrl());
-            if (quote.getLine() != null)
-                quoteJson.put("line", quote.getLine().get(CardCrawler.DEFAULT_LOCALE));
-            quotes.put(quoteJson);
-        }
-        cardJson.put("quotes", quotes);
-
-        LOG.info(cardJson.toString());
-    }
-
-    private static List<Integer> readHHID(Path effectiveId) throws IOException {
-        String content = new String(Files.readAllBytes(effectiveId));
-        String[] idStrs = content.split(",");
-        List<Integer> results = new ArrayList<>();
-        for (String idStr : idStrs)
-            results.add(Integer.valueOf(idStr.trim()));
-        return results;
+        try {
+            ConcurrentUtils.shutdownAndWait(executor);
+        } catch (InterruptedException ex) {}
+        return new ArrayList<>(results);
     }
 
 }

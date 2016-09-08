@@ -21,4 +21,65 @@ public class Constants {
         new Locale("zh", "CN"), new Locale("zh", "TW")
     };
 
+    /**
+     * Returns the HearthHead Card URL for the given HearthHead ID.
+     *
+     * @param hearthheadId the given HearthHead Card ID
+     * @return the respective HearthHead Card URL
+     */
+    public static String hearthheadCardUrl(int hearthheadId) {
+        return String.format("http://www.hearthhead.com/card=%d", hearthheadId);
+    }
+
+    public static String hearthheadCardUrl(int hearthheadId, Locale locale) {
+        return String.format("http://%s.hearthhead.com/card=%d",
+            locale.getCountry().toLowerCase(), hearthheadId);
+    }
+
+    public static String hearthheadCardSoundUrl(String cardSoundId, boolean isMp3) {
+        String formatSuffix = isMp3 ? "mp3" : "ogg";
+        return String.format("http://wow.zamimg.com/hearthhead/sounds/%s.%s", cardSoundId, formatSuffix);
+    }
+
+    public static String hearthheadCardSoundUrl(String cardSoundId, boolean isMp3, Locale locale) {
+        String formatSuffix = isMp3 ? "mp3" : "ogg";
+        return String.format("http://wow.zamimg.com/hearthhead/sounds/%s%s/%s.%s",
+            locale.getLanguage(), locale.getCountry().toLowerCase(), cardSoundId, formatSuffix);
+    }
+
+    public static String hearthheadCardImageUrl(String cardImageId, ImageType imageType, Locale locale) {
+        switch (imageType) {
+            case Medium: return String.format("http://wow.zamimg.com/images/hearthstone/cards/%s%s/medium/%s.png",
+                locale.getLanguage(), locale.getCountry().toLowerCase(), cardImageId);
+            case Original: return String.format("http://wow.zamimg.com/images/hearthstone/cards/%s%s/original/%s.png",
+                locale.getLanguage(), locale.getCountry().toLowerCase(), cardImageId);
+            case Premium: return String.format("http://wow.zamimg.com/images/hearthstone/cards/%s%s/animated/%s_premium.gif",
+                locale.getLanguage(), locale.getCountry().toLowerCase(), cardImageId);
+        }
+        // Will never get here
+        return null;
+    }
+
+    public static String hearthheadCardImageUrl(String cardImageId, ImageType imageType, Locale locale, int patch) {
+        switch (imageType) {
+            case Medium: return String.format("http://wow.zamimg.com/images/hearthstone/cards/%s%s/medium/%s.png?%d",
+                locale.getLanguage(), locale.getCountry().toLowerCase(), cardImageId, patch);
+            case Original: return String.format("http://wow.zamimg.com/images/hearthstone/cards/%s%s/original/%s.png?%d",
+                locale.getLanguage(), locale.getCountry().toLowerCase(), cardImageId, patch);
+            case Premium: return String.format("http://wow.zamimg.com/images/hearthstone/cards/%s%s/animated/%s_premium.gif?%d",
+                locale.getLanguage(), locale.getCountry().toLowerCase(), cardImageId, patch);
+        }
+        // Will never get here
+        return null;
+    }
+
+    public enum ImageType {
+        /** Static 200*300 png */
+        Medium,
+        /** Static 300*450 png */
+        Original,
+        /** 300*450 golden gif */
+        Premium
+    }
+
 }

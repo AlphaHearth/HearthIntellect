@@ -2,8 +2,7 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
-import com.hearthintellect.util.LocaleString;
-import org.apache.commons.collections.CollectionUtils;
+import com.hearthintellect.utils.LocaleString;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

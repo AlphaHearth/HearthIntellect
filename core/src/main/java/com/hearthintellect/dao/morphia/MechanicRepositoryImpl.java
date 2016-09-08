@@ -2,7 +2,7 @@ package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.MechanicRepository;
 import com.hearthintellect.model.Mechanic;
-import com.hearthintellect.util.Page;
+import com.hearthintellect.utils.Page;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.Mechanic;
-import com.hearthintellect.util.LocaleString;
+import com.hearthintellect.utils.LocaleString;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

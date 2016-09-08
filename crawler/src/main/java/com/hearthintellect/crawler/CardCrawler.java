@@ -21,7 +21,6 @@ public class CardCrawler {
     static final Locale DEFAULT_LOCALE = new Locale("en", "US");
 
     private static final String HJ_CARD_JSON_URL = "https://api.hearthstonejson.com/v1/13921/all/cards.json";
-    private static final Path HH_CARD_JSON_PATH = Paths.get("resources", "hearthheadCards.json");
     private static final Path MECHANIC_JSON_PATH = Paths.get("resources", "hearthheadMechanics.json");
 
     public static void main(String[] args) throws IOException {
@@ -53,7 +52,7 @@ public class CardCrawler {
         // Sort mechanics
         mechanics.sort((m1, m2) -> Integer.compare(m1.getId(), m2.getId()));
 
-        LOG.info("Initializing links to database...");
+        LOG.info("Initializing link to database...");
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
 
         LOG.info("Saving Mechanics to database...");
