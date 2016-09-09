@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -56,9 +57,9 @@ public class HearthHeadCardCrawler {
             LOG.debug("Crawling HHID={}...", hhid);
 
             URL url = new URL(Constants.hearthheadCardUrl(hhid));
-            URLConnection conn = IOUtils.openConnWithRetry(url, 5, 500);
+            InputStream input = IOUtils.openConnWithRetry(url, 5, 500);
             String content;
-            try (Scanner scanner = new Scanner(conn.getInputStream()).useDelimiter("\\A")) {
+            try (Scanner scanner = new Scanner(input).useDelimiter("\\A")) {
                 content = scanner.hasNext() ? scanner.next() : "";
             }
 

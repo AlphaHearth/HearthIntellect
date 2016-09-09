@@ -8,9 +8,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity(value = "patches", noClassnameStored = true)
-@Indexes({
-         @Index(name = "releaseDate", fields = @Field(value = "releaseDate", type = IndexType.DESC))
-})
 public class Patch extends MongoEntity<Integer> implements JsonEntity {
 
     @Id

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -47,6 +48,7 @@ public class HearthJsonCardParser {
         QUALITY_MAP.put("RARE", Card.Quality.Rare);
         QUALITY_MAP.put("EPIC", Card.Quality.Epic);
         QUALITY_MAP.put("LEGENDARY", Card.Quality.Legendary);
+        QUALITY_MAP.put("UNKNOWN_6", Card.Quality.Free);
 
         TYPE_MAP.put("MINION", Card.Type.Minion);
         TYPE_MAP.put("SPELL", Card.Type.Spell);
@@ -97,24 +99,18 @@ public class HearthJsonCardParser {
 
         URL url = new URL(jsonFileUrl);
 
-        URLConnection conn = null;
+        InputStream input = null;
         try {
-            conn = IOUtils.openConnWithRetry(url, 3, 1000);
+            input = IOUtils.openConnWithRetry(url, 3, 1000);
         } catch (IOException ex) {
             LOG.error("Failed to open connection to `" + url + "`", ex);
             System.exit(-1); // TODO Think twice
         }
 
-        conn.setRequestProperty("User-Agent", "Mozilla");
-
-        String json = null;
-        try (Scanner input = new Scanner(conn.getInputStream()).useDelimiter("\\A")) {
-            json = input.hasNext() ? input.next() : "";
+        String json;
+        try (Scanner scanner = new Scanner(input).useDelimiter("\\A")) {
+            json = scanner.hasNext() ? scanner.next() : "";
             LOG.info("Downloaded `{}`.", jsonFileUrl);
-        } catch (FileNotFoundException ex) {
-            LOG.warn(jsonFileUrl + " not found.");
-        } catch (IOException ex) {
-            LOG.error("Failed to download from " + jsonFileUrl, ex);
         }
 
         LOG.info("Parsing card JSON...");

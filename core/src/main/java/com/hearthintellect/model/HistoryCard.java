@@ -16,6 +16,13 @@ public class HistoryCard {
 
     public HistoryCard() {}
 
+    public HistoryCard(Card card) {
+        this.effect = card.getEffect();
+        this.cost = card.getCost();
+        this.attack = card.getAttack();
+        this.health = card.getHealth();
+    }
+
     public HistoryCard(Patch sincePatch, LocaleString effect, int cost, int attack, int health) {
         this.sincePatch = sincePatch;
         this.effect = effect;
