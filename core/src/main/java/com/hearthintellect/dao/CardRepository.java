@@ -2,8 +2,8 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.model.*;
 import com.hearthintellect.model.HeroClass;
-import com.hearthintellect.util.Page;
-import com.hearthintellect.util.Sort;
+import com.hearthintellect.utils.Page;
+import com.hearthintellect.utils.Sort;
 
 import java.util.Iterator;
 

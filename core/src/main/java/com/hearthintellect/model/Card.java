@@ -1,6 +1,6 @@
 package com.hearthintellect.model;
 
-import com.hearthintellect.util.LocaleString;
+import com.hearthintellect.utils.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
@@ -15,11 +15,11 @@ import java.util.List;
  */
 @Entity(value = "cards", noClassnameStored = true)
 @Indexes({
-             @Index(name = "set", fields = @Field("set")),
-             @Index(name = "type", fields = @Field("type")),
-             @Index(name = "quality", fields = @Field("quality")),
-             @Index(name = "race", fields = @Field("race")),
-             @Index(name = "class", fields = @Field("class"))
+    @Index(name = "set", fields = @Field("set")),
+    @Index(name = "type", fields = @Field("type")),
+    @Index(name = "quality", fields = @Field("quality")),
+    @Index(name = "race", fields = @Field("race")),
+    @Index(name = "class", fields = @Field("class"))
 })
 public class Card extends MongoEntity<Integer> implements JsonEntity {
 
@@ -46,11 +46,17 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     private Set set;
     private Race race;
 
+    @Reference(idOnly = true)
+    private Patch sincePatch;
+
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics = Collections.emptyList();
 
     @Embedded(concreteClass = ArrayList.class)
     List<CardQuote> quotes = Collections.emptyList();
+
+    @Embedded(concreteClass = ArrayList.class)
+    List<HistoryCard> historyVersions = Collections.emptyList();
 
     public JSONObject toBriefJson() {
         JSONObject result = new JSONObject();
@@ -192,6 +198,18 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     }
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+    public List<HistoryCard> getHistoryVersions() {
+        return historyVersions;
+    }
+    public void setHistoryVersions(List<HistoryCard> historyVersions) {
+        this.historyVersions = historyVersions;
+    }
+    public Patch getSincePatch() {
+        return sincePatch;
+    }
+    public void setSincePatch(Patch sincePatch) {
+        this.sincePatch = sincePatch;
     }
 
     public enum Quality {

@@ -1,50 +1,56 @@
 package com.hearthintellect.model;
 
+import com.hearthintellect.utils.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
-import org.mongodb.morphia.utils.IndexType;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity(value = "patches", noClassnameStored = true)
-@Indexes({
-         @Index(name = "releaseDate", fields = @Field(value = "releaseDate", type = IndexType.DESC))
-})
-public class Patch extends MongoEntity<String> implements JsonEntity {
+public class Patch extends MongoEntity<Integer> implements JsonEntity {
 
     @Id
+    private int buildNum;
     private String patchCode;
-    @Property("releaseDate")  // Not sure why, but we need this, otherwise ClassCastException will be thrown from morphia
     private ZonedDateTime releaseDate;
-    private String releaseNote;
+    private LocaleString releaseNote;
 
     public Patch() {}
 
-    public Patch(String patchCode, ZonedDateTime releaseDate, String releaseNote) {
+    public Patch(int buildNum, String patchCode) {
+        this.buildNum = buildNum;
         this.patchCode = patchCode;
-        this.releaseDate = releaseDate;
-        this.releaseNote = releaseNote;
     }
 
     @Override
     public JSONObject toJson() {
         JSONObject result = new JSONObject();
 
-        result.put("id", patchCode);
-        result.put("releaseDate", releaseDate.format(DateTimeFormatter.ISO_ZONED_DATE_TIME));
-        result.put("releaseNote", releaseNote);
+        result.put("buildNum", buildNum);
+        result.put("patchCode", patchCode);
 
         return result;
     }
 
     @Override
-    public String getId() {
-        return patchCode;
+    public Integer getId() {
+        return buildNum;
     }
     @Override
-    public void setId(String id) {
-        patchCode = id;
+    public void setId(Integer id) {
+        buildNum = id;
+    }
+    public int getBuildNum() {
+        return buildNum;
+    }
+    public void setBuildNum(int buildNum) {
+        this.buildNum = buildNum;
+    }
+    public String getPatchCode() {
+        return patchCode;
+    }
+    public void setPatchCode(String patchCode) {
+        this.patchCode = patchCode;
     }
     public ZonedDateTime getReleaseDate() {
         return releaseDate;
@@ -52,10 +58,10 @@ public class Patch extends MongoEntity<String> implements JsonEntity {
     public void setReleaseDate(ZonedDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
-    public String getReleaseNote() {
+    public LocaleString getReleaseNote() {
         return releaseNote;
     }
-    public void setReleaseNote(String releaseNote) {
+    public void setReleaseNote(LocaleString releaseNote) {
         this.releaseNote = releaseNote;
     }
 }

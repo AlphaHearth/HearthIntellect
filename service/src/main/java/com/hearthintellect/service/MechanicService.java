@@ -10,7 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import static com.hearthintellect.util.RsResponseUtils.ok;
+import static com.hearthintellect.utils.RsResponseUtils.ok;
 
 /**
  * JAX-RS service class for {@link Mechanic}.

@@ -3,7 +3,7 @@ package com.hearthintellect.dao;
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.Deck;
 import com.hearthintellect.model.User;
-import com.hearthintellect.util.Page;
+import com.hearthintellect.utils.Page;
 
 import java.util.Iterator;
 

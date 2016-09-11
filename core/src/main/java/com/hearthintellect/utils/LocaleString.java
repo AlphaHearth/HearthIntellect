@@ -1,4 +1,4 @@
-package com.hearthintellect.util;
+package com.hearthintellect.utils;
 
 import java.util.HashMap;
 import java.util.Locale;
