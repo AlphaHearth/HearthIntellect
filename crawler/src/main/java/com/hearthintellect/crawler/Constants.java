@@ -42,6 +42,8 @@ public class Constants {
     }
 
     public static String hearthheadCardSoundUrl(String cardSoundId, boolean isMp3, Locale locale) {
+        if (locale.getLanguage().equalsIgnoreCase("en") && locale.getCountry().equalsIgnoreCase("us"))
+            return hearthheadCardSoundUrl(cardSoundId, isMp3);
         String formatSuffix = isMp3 ? "mp3" : "ogg";
         return String.format("http://wow.zamimg.com/hearthhead/sounds/%s%s/%s.%s",
             locale.getLanguage(), locale.getCountry().toLowerCase(), cardSoundId, formatSuffix);
