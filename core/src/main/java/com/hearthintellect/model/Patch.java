@@ -1,11 +1,10 @@
 package com.hearthintellect.model;
 
+import com.hearthintellect.utils.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
-import org.mongodb.morphia.utils.IndexType;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity(value = "patches", noClassnameStored = true)
 public class Patch extends MongoEntity<Integer> implements JsonEntity {
@@ -13,6 +12,8 @@ public class Patch extends MongoEntity<Integer> implements JsonEntity {
     @Id
     private int buildNum;
     private String patchCode;
+    private ZonedDateTime releaseDate;
+    private LocaleString releaseNote;
 
     public Patch() {}
 
@@ -50,5 +51,17 @@ public class Patch extends MongoEntity<Integer> implements JsonEntity {
     }
     public void setPatchCode(String patchCode) {
         this.patchCode = patchCode;
+    }
+    public ZonedDateTime getReleaseDate() {
+        return releaseDate;
+    }
+    public void setReleaseDate(ZonedDateTime releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+    public LocaleString getReleaseNote() {
+        return releaseNote;
+    }
+    public void setReleaseNote(LocaleString releaseNote) {
+        this.releaseNote = releaseNote;
     }
 }

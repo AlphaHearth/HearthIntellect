@@ -2,6 +2,7 @@ package com.hearthintellect.crawler;
 import com.hearthintellect.config.SpringCoreConfig;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.dao.MechanicRepository;
+import com.hearthintellect.dao.PatchRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HistoryCard;
 import com.hearthintellect.model.Mechanic;
@@ -37,7 +38,9 @@ public class CardCrawler {
 
         ExecutorService executor = Executors.newFixedThreadPool(30);
 
+        Map<Integer, Patch> patchEntities = new HashMap<>();
         for (int patchNum : Constants.PATCHES) {
+            patchEntities.put(patchNum, new Patch(patchNum, ""));
             executor.submit(() -> {
                 List<Card> cards;
                 try {
@@ -60,7 +63,7 @@ public class CardCrawler {
             LOG.debug("Scanning card `{}`", card.getName().get(DEFAULT_LOCALE));
             HistoryCard earliestKnownVersion = new HistoryCard(card);
             int currentPatchNum = latestVersion;
-            Patch currentPatch = new Patch(currentPatchNum, "");
+            Patch currentPatch = patchEntities.get(currentPatchNum);
             for (int i = Constants.PATCHES.length - 2; i >= 0; i--) {
                 List<Card> oldCards = versionCards.get(Constants.PATCHES[i]);
                 Card oldCard = CollectionUtils.binarySearch(oldCards, card.getImageUrl(), Card::getImageUrl);
@@ -92,7 +95,7 @@ public class CardCrawler {
                 }
 
                 currentPatchNum = Constants.PATCHES[i];
-                currentPatch = new Patch(currentPatchNum, "");
+                currentPatch = patchEntities.get(currentPatchNum);
             }
         }
 
@@ -120,6 +123,10 @@ public class CardCrawler {
 
         LOG.info("Initializing link to database...");
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
+
+        LOG.info("Saving Patches to database...");
+        PatchRepository patchRepository = context.getBean(PatchRepository.class);
+        patchEntities.values().forEach(patchRepository::insert);
 
         LOG.info("Saving Mechanics to database...");
         MechanicRepository mechanicRepository = context.getBean(MechanicRepository.class);
