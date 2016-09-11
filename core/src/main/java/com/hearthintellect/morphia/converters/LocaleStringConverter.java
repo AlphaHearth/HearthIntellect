@@ -1,11 +1,9 @@
 package com.hearthintellect.morphia.converters;
 
-import com.hearthintellect.util.LocaleString;
-import org.mongodb.morphia.converters.MapOfValuesConverter;
+import com.hearthintellect.utils.LocaleString;
 import org.mongodb.morphia.converters.TypeConverter;
 import org.mongodb.morphia.mapping.MappedField;
 import org.mongodb.morphia.utils.IterHelper;
-import org.mongodb.morphia.utils.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

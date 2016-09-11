@@ -3,6 +3,7 @@ target/
 **/build/
 .idea/
 .settings/
+assets/
 *.iml
 **.html
 **.json

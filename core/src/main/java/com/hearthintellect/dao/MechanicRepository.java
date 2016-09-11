@@ -1,7 +1,7 @@
 package com.hearthintellect.dao;
 
 import com.hearthintellect.model.Mechanic;
-import com.hearthintellect.util.Page;
+import com.hearthintellect.utils.Page;
 
 public interface MechanicRepository extends Repository<Mechanic> {
 

@@ -2,8 +2,8 @@ package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.Repository;
 import com.hearthintellect.model.MongoEntity;
-import com.hearthintellect.util.Page;
-import com.hearthintellect.util.Sort;
+import com.hearthintellect.utils.Page;
+import com.hearthintellect.utils.Sort;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 

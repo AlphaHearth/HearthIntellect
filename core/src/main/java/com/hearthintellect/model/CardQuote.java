@@ -1,6 +1,6 @@
 package com.hearthintellect.model;
 
-import com.hearthintellect.util.LocaleString;
+import com.hearthintellect.utils.LocaleString;
 import org.json.JSONObject;
 import org.mongodb.morphia.annotations.Embedded;
 

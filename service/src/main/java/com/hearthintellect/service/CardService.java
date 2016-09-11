@@ -2,7 +2,7 @@ package com.hearthintellect.service;
 
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
-import com.hearthintellect.util.Page;
+import com.hearthintellect.utils.Page;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Iterator;
 
-import static com.hearthintellect.util.RsResponseUtils.notFound;
-import static com.hearthintellect.util.RsResponseUtils.ok;
+import static com.hearthintellect.utils.RsResponseUtils.notFound;
+import static com.hearthintellect.utils.RsResponseUtils.ok;
 
 /**
  * JAX-RS service class for {@link Card}.

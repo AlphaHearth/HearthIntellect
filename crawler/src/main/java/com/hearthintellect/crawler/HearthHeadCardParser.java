@@ -3,14 +3,15 @@ package com.hearthintellect.crawler;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.Mechanic;
-import com.hearthintellect.util.LocaleString;
-import com.hearthintellect.utils.IOUtils;
+import com.hearthintellect.utils.LocaleString;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class HearthHeadCardParser {
@@ -70,13 +71,13 @@ public class HearthHeadCardParser {
         CLASS_MAP.put(5, HeroClass.Priest);
     }
 
-    public static List<Card> parse(String jsonFileUrl) {
-        LOG.info("Reading card JSON from `{}`", jsonFileUrl);
+    public static List<Card> parse(Path jsonPath) {
+        LOG.info("Reading card JSON from `{}`", jsonPath);
         String json = null;
         try {
-            json = IOUtils.readFile(jsonFileUrl);
+            json = new String(Files.readAllBytes(jsonPath));
         } catch (IOException ex) {
-            LOG.error("Failed to read `" + jsonFileUrl + "`", ex);
+            LOG.error("Failed to read `" + jsonPath + "`", ex);
             return Collections.emptyList();
         }
         JSONArray jsonCards = new JSONArray(json);
@@ -148,12 +149,12 @@ public class HearthHeadCardParser {
         return cards;
     }
 
-    public static List<Mechanic> parseMechanics(String jsonFileUrl) {
+    public static List<Mechanic> parseMechanics(Path jsonPath) {
         String json = null;
         try {
-            json = IOUtils.readFile(jsonFileUrl);
+            json = new String(Files.readAllBytes(jsonPath));
         } catch (IOException ex) {
-            LOG.error("Failed to read `" + jsonFileUrl + "`", ex);
+            LOG.error("Failed to read `" + jsonPath + "`", ex);
             return Collections.emptyList();
         }
         JSONArray jsonMechanics = new JSONArray(json);

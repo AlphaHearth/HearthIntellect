@@ -2,14 +2,19 @@ package com.hearthintellect.crawler;
 
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;
-import com.hearthintellect.util.LocaleString;
+import com.hearthintellect.utils.LocaleString;
 import com.hearthintellect.utils.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 public class HearthJsonCardParser {
@@ -43,6 +48,7 @@ public class HearthJsonCardParser {
         QUALITY_MAP.put("RARE", Card.Quality.Rare);
         QUALITY_MAP.put("EPIC", Card.Quality.Epic);
         QUALITY_MAP.put("LEGENDARY", Card.Quality.Legendary);
+        QUALITY_MAP.put("UNKNOWN_6", Card.Quality.Free);
 
         TYPE_MAP.put("MINION", Card.Type.Minion);
         TYPE_MAP.put("SPELL", Card.Type.Spell);
@@ -64,6 +70,8 @@ public class HearthJsonCardParser {
         SET_MAP.put("LOE", Card.Set.LeagueOfExplorers);
         SET_MAP.put("TB", Card.Set.TavernBrawl);
         SET_MAP.put("OG", Card.Set.WhisperOfTheOldGods);
+        SET_MAP.put("KARA", Card.Set.OneNightInKarazhan);
+        SET_MAP.put("KARA_RESERVE", Card.Set.OneNightInKarazhan);
 
         RACE_MAP.put("BEAST", Card.Race.Beast);
         RACE_MAP.put("DRAGON", Card.Race.Dragon);
@@ -86,18 +94,27 @@ public class HearthJsonCardParser {
         CLASS_MAP.put("NEUTRAL", HeroClass.Neutral);
     }
 
-    public static List<Card> parse(String jsonFileUrl) {
+    public static List<Card> parse(String jsonFileUrl) throws MalformedURLException {
         LOG.info("Reading card JSON from `{}`", jsonFileUrl);
-        String json = null;
+
+        URL url = new URL(jsonFileUrl);
+
+        InputStream input = null;
         try {
-            json = IOUtils.readFile(jsonFileUrl);
+            input = IOUtils.openConnWithRetry(url, 3, 1000);
         } catch (IOException ex) {
-            LOG.error("Failed to read `" + jsonFileUrl + "`", ex);
-            return Collections.emptyList();
+            LOG.error("Failed to open connection to `" + url + "`", ex);
+            System.exit(-1); // TODO Think twice
         }
-        JSONArray jsonCards = new JSONArray(json);
+
+        String json;
+        try (Scanner scanner = new Scanner(input).useDelimiter("\\A")) {
+            json = scanner.hasNext() ? scanner.next() : "";
+            LOG.info("Downloaded `{}`.", jsonFileUrl);
+        }
 
         LOG.info("Parsing card JSON...");
+        JSONArray jsonCards = new JSONArray(json);
 
         List<Card> cards = new ArrayList<>(jsonCards.length());
 
