@@ -75,6 +75,7 @@ public class CardCrawler {
                         card.getHistoryVersions().add(0, earliestKnownVersion);
                     } else
                         card.setSincePatch(currentPatch);
+                    card.setAddedPatch(currentPatch);
                     break;
                 }
 

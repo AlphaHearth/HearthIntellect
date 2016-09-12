@@ -49,6 +49,9 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     @Reference(idOnly = true)
     private Patch sincePatch;
 
+    @Reference(idOnly = true)
+    private Patch addedPatch;
+
     @Reference(lazy = true, idOnly = true)
     List<Mechanic> mechanics = Collections.emptyList();
 
@@ -210,6 +213,12 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
     }
     public void setSincePatch(Patch sincePatch) {
         this.sincePatch = sincePatch;
+    }
+    public Patch getAddedPatch() {
+        return addedPatch;
+    }
+    public void setAddedPatch(Patch addedPatch) {
+        this.addedPatch = addedPatch;
     }
 
     public enum Quality {
