@@ -1,8 +1,16 @@
 # HearthIntellect
-A good helper of HearthStone ;-P
+A good helper for HearthStone ;-P
 
 ## Future tasks
 
-- [ ] Test RESTful service class `CardService`.
+- [ ] Learn JUnit and Gradle for Advanced Testing.
+- [ ] Add test cases for `CardRepository`, `PatchRepository` and `MechanicRepository`.
+- [ ] Learn Jersey for Advanced Resource Return Type.
+- [ ] Fully implement `CardService`.
+- [ ] Learn Jersey Testing Framework.
+- [ ] Add test cases for `CardService`.
+- [ ] Deploy version `0.1`.
 - [ ] Add RESTful service classes for `Deck`, `User` and `News`.
-- [ ] Implement Action classes in SpringMVC in `web-server` module.
+- [ ] Release version `0.2`.
+- [ ] Implement Data Manager (JavaFX Client, directly connect to database without using the REST service).
+- [ ] Release version `0.2.1`.
