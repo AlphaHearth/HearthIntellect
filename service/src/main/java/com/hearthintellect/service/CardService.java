@@ -24,6 +24,13 @@ public class CardService {
 
     private CardRepository cardRepository;
 
+    // TODO Card Search Feature
+    // 1. Search with card name  -> Text Search with MongoDB & Morphia
+    // 2. Cards with specific Mechanic(ID)
+    // 3. Browsing filter. Supported fields include:
+    //    - Set(ComboBox), Type(ComboBox), Race(ComboBox), Quality(CheckBox)
+    //    - Cost, Attack, Health, Durability(Range)
+
     @GET
     @Path("/cards")
     public Response listCards(@DefaultValue("0") @QueryParam("pageNum") int pageNum,

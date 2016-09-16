@@ -1,10 +1,12 @@
 package com.hearthintellect.dao;
 
+import com.hearthintellect.categories.DependOnRealData;
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
 import com.hearthintellect.utils.LocaleString;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@link CardRepository}
+ * Basic CURD unit tests for {@link CardRepository}
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringMongoConfig.class)
@@ -116,7 +118,7 @@ public class TestCardDao {
     }
 
     @Test
-    @Ignore("The test depends on real production data. Failing on development environment is acceptable.")
+    @Category(DependOnRealData.class)
     public void testCardDaoOnRealData() {
         Locale locale = new Locale("en", "US");
 
