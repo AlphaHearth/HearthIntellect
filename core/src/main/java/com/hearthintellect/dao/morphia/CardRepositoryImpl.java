@@ -77,4 +77,12 @@ public class CardRepositoryImpl extends MorphiaRepository<Card> implements CardR
 
         return query.iterator();
     }
+
+    @Override
+    public Iterator<Card> findAllByMechanicId(int mechanicId, String order, Page page) {
+        Query<Card> query = createQuery().field("mechanics").hasThisElement(mechanicId);
+        processOrderAndPage(query, order, page);
+
+        return query.iterator();
+    }
 }

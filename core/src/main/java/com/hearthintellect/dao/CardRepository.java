@@ -275,4 +275,31 @@ public interface CardRepository extends Repository<Card> {
      * @see Sort#of(String)
      */
     Iterator<Card> findAllByMechanic(Mechanic mechanic, String order, Page page);
+
+    /**
+     * <p>
+     *     Find all {@code Card} that have the mechanic with the given ID, and sort
+     *     the result in the order designated by a given string, and return the
+     *     designated page of the ordered result.
+     * </p>
+     * <p>
+     *     For the syntax of the {@code order} string, see {@link Sort#of(String)}
+     * </p>
+     * <p>
+     *     If the given {@code order} is {@code null}, no sorting will be applied.
+     * </p>
+     * <p>
+     *     If the given {@code page} is {@code null}, no pagination will be applied.
+     * </p>
+     *
+     * @param mechanicId the given mechanic ID
+     * @param order the given string representing a sorting order
+     * @param page a {@link Page} instance describing the designated page
+     * @return the designated page of the ordered result
+     *
+     * @see Mechanic
+     * @see Page
+     * @see Sort#of(String)
+     */
+    Iterator<Card> findAllByMechanicId(int mechanicId, String order, Page page);
 }
