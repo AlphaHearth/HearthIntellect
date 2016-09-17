@@ -1,5 +1,6 @@
 package com.hearthintellect.dao;
 
+import com.hearthintellect.config.SpringCoreTestConfig;
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.MongoEntity;
 import com.hearthintellect.model.User;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertThat;
  * Unit tests for {@link UserRepository}
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringMongoConfig.class)
+@ContextConfiguration(classes = SpringCoreTestConfig.class)
 public class TestUserDao {
 
     @Autowired

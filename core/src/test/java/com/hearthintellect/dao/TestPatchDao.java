@@ -1,5 +1,6 @@
 package com.hearthintellect.dao;
 
+import com.hearthintellect.config.SpringCoreTestConfig;
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.Patch;
 import org.junit.After;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  * Unit tests for {@link PatchRepository}
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringMongoConfig.class)
+@ContextConfiguration(classes = SpringCoreTestConfig.class)
 public class TestPatchDao {
 
     private static final int TEST_BUILD_NUM = 1000000;

@@ -1,6 +1,7 @@
 package com.hearthintellect.dao;
 
 import com.hearthintellect.categories.DependOnRealData;
+import com.hearthintellect.config.SpringCoreTestConfig;
 import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
 import com.hearthintellect.utils.LocaleString;
@@ -23,7 +24,7 @@ import static org.junit.Assert.*;
  * Basic CURD unit tests for {@link CardRepository}
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringMongoConfig.class)
+@ContextConfiguration(classes = SpringCoreTestConfig.class)
 public class TestCardDao {
     private static final int TEST_ID = 100000;
 

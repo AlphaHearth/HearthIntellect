@@ -44,8 +44,8 @@ public class SpringMongoConfig {
     }
 
     @Bean
-    public Datastore datastore(MongoClient mongoClient) {
-        Datastore datastore = morphia().createDatastore(mongoClient, DATABASE_NAME);
+    public Datastore datastore(Morphia morphia, MongoClient mongoClient) {
+        Datastore datastore = morphia.createDatastore(mongoClient, DATABASE_NAME);
         datastore.ensureIndexes();
         return datastore;
     }
