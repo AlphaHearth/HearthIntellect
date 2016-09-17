@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringCoreTestConfig.class)
-public class TestPatchDao {
+public class TestPatchRepository {
 
     private static final int TEST_BUILD_NUM = 1000000;
     private static final String TEST_PATCH_CODE = "8.0";

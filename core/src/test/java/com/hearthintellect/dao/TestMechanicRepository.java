@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringCoreTestConfig.class)
-public class TestMechanicDao {
+public class TestMechanicRepository {
     private static final int TEST_ID = 100000;
 
     @Autowired

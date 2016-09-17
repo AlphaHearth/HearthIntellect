@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringCoreTestConfig.class)
-public class TestCardDao {
+public class TestCardRepository {
     private static final int TEST_ID = 100000;
 
     @Autowired

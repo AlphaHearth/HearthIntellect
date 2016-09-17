@@ -4,7 +4,9 @@ import java.util.function.Function;
 
 public class CollectionUtils {
 
-    public static <T, K extends Comparable> T binarySearch(List<? extends T> cols, K key, Function<T, K> getter) {
+    public static <T, K extends Comparable<? super K>> T binarySearch(List<? extends T> cols,
+                                                                      K key,
+                                                                      Function<T, K> getter) {
         if (cols.isEmpty())
             return null;
         int i = 0;
