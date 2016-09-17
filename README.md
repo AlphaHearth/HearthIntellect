@@ -3,13 +3,13 @@ A good helper for HearthStone ;-P
 
 ## Future tasks
 
+- [ ] Fully implement `CardService`.
+- [ ] Deploy version `0.1`.
 - [ ] Learn Mockito.
 - [ ] Add test cases for `CardRepository`, `PatchRepository` and `MechanicRepository`.
-- [ ] Learn Jersey for Advanced Resource Return Type.
-- [ ] Fully implement `CardService`.
 - [ ] Learn Jersey Testing Framework.
 - [ ] Add test cases for `CardService`.
-- [ ] Deploy version `0.1`.
+- [ ] Release version `0.1.1`.
 - [ ] Update `Card` model to support Wild mode, Arena mode and Standard mode.
 - [ ] Add RESTful service classes for `Deck`, `User` and `News`.
 - [ ] Release version `0.2`.
