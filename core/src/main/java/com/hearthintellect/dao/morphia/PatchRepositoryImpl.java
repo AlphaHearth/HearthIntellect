@@ -5,7 +5,7 @@ import com.hearthintellect.model.Patch;
 
 import java.time.ZonedDateTime;
 
-public class PatchRepositoryImpl extends MorphiaRepository<Patch> implements PatchRepository {
+public class PatchRepositoryImpl extends MorphiaRepository<Integer, Patch> implements PatchRepository {
     @Override
     protected Class<Patch> getEntityClass() {
         return Patch.class;

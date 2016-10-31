@@ -10,7 +10,7 @@ import org.mongodb.morphia.query.Query;
 /**
  * Common parent class for all Morphia Repository Implementation
  */
-public abstract class MorphiaRepository<T extends MongoEntity> implements Repository<T> {
+public abstract class MorphiaRepository<S, T extends MongoEntity<S>> implements Repository<S, T> {
 
     private Datastore datastore;
 
@@ -61,7 +61,7 @@ public abstract class MorphiaRepository<T extends MongoEntity> implements Reposi
     }
 
     @Override
-    public T findById(Object id) {
+    public T findById(S id) {
         return createQuery().field("_id").equal(id).get();
     }
 

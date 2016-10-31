@@ -3,4 +3,5 @@ target/
 **/build/
 .idea/
 assets/
+classes/
 *.iml

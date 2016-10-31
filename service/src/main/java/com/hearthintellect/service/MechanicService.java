@@ -10,11 +10,14 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static com.hearthintellect.utils.RsResponseUtils.badRequest;
+import static com.hearthintellect.utils.RsResponseUtils.notFound;
 import static com.hearthintellect.utils.RsResponseUtils.ok;
 
 /**
  * JAX-RS service class for {@link Mechanic}.
  */
+@Path("/mechanics")
 @Produces(MediaType.APPLICATION_JSON)
 public class MechanicService {
     private static final Logger LOG = LoggerFactory.getLogger(MechanicService.class);
@@ -22,13 +25,34 @@ public class MechanicService {
     private MechanicRepository mechanicRepository;
 
     @GET
-    @Path("/mechanics")
     public Response listMechanics() {
+        LOG.debug("GET  /mechanics");
+
         JSONArray jsonArr = new JSONArray();
         for (Mechanic mechanic : mechanicRepository.findAll())
             jsonArr.put(mechanic.toJson());
 
         return ok(jsonArr);
+    }
+
+    @GET
+    @Path("/{mechanicId}")
+    public Response getMechanic(@PathParam("mechanicId") String mechanicIdStr) {
+        if (mechanicIdStr.trim().isEmpty())
+            return badRequest("Mechanic ID cannot be empty.");
+
+        Integer mechanicId;
+        try {
+            mechanicId = Integer.valueOf(mechanicIdStr);
+        } catch (NumberFormatException ex) {
+            return notFound("Mechanic with ID `" + mechanicIdStr + "` does not exist.");
+        }
+
+        Mechanic mechanic = mechanicRepository.findById(mechanicId);
+        if (mechanic == null)
+            return notFound("Mechanic with ID `" + mechanicIdStr + "` does not exist.");
+
+        return ok(mechanic.toJson());
     }
 
     public MechanicRepository getMechanicRepository() {

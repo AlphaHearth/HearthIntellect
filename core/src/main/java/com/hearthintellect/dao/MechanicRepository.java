@@ -3,7 +3,7 @@ package com.hearthintellect.dao;
 import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.utils.Page;
 
-public interface MechanicRepository extends Repository<Mechanic> {
+public interface MechanicRepository extends Repository<Integer, Mechanic> {
 
     Iterable<Mechanic> findAll();
 

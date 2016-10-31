@@ -7,7 +7,7 @@ import com.hearthintellect.utils.Page;
 
 import java.util.Iterator;
 
-public interface DeckRepository extends Repository<Deck> {
+public interface DeckRepository extends Repository<Long, Deck> {
 
     default Iterator<Deck> findAllByClass(HeroClass heroClass) {
         return findAllByClass(heroClass, null, null);

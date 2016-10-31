@@ -10,7 +10,7 @@ import org.mongodb.morphia.query.Query;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 
-public class DeckRepositoryImpl extends MorphiaRepository<Deck> implements DeckRepository {
+public class DeckRepositoryImpl extends MorphiaRepository<Long, Deck> implements DeckRepository {
     @Override
     public Iterator<Deck> findAllByClass(HeroClass heroClass, String order, Page page) {
         Query<Deck> query = createQuery().field("classs").equal(heroClass);

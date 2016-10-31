@@ -4,7 +4,7 @@ import com.hearthintellect.model.User;
 
 import java.util.Iterator;
 
-public interface UserRepository extends Repository<User> {
+public interface UserRepository extends Repository<String, User> {
 
     User findByEmail(String email);
 

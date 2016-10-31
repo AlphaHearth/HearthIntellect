@@ -4,7 +4,7 @@ import com.hearthintellect.model.Patch;
 
 import java.time.ZonedDateTime;
 
-public interface PatchRepository extends Repository<Patch> {
+public interface PatchRepository extends Repository<Integer, Patch> {
 
     /**
      * Given a specific time point, finds out which {@link Patch} is it within.

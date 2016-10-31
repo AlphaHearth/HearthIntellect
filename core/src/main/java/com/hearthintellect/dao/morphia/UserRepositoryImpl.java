@@ -5,7 +5,7 @@ import com.hearthintellect.model.User;
 
 import java.util.Iterator;
 
-public class UserRepositoryImpl extends MorphiaRepository<User> implements UserRepository {
+public class UserRepositoryImpl extends MorphiaRepository<String, User> implements UserRepository {
     @Override
     protected Class<User> getEntityClass() {
         return User.class;
