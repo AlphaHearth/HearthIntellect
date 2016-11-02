@@ -3,7 +3,7 @@ A good helper for HearthStone ;-P
 
 ## Future tasks
 
-- [ ] Migrate from `org.json` to `gson`;
+- [x] Migrate from `org.json` to `gson`;
 - [ ] Fully implement `CardService`.
 - [ ] Deploy version `0.1`.
 - [ ] Learn Mockito.

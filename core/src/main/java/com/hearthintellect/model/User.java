@@ -1,6 +1,5 @@
 package com.hearthintellect.model;
 
-import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
 
@@ -8,7 +7,7 @@ import org.mongodb.morphia.utils.IndexType;
 @Indexes({
     @Index(fields = @Field(value = "email", type = IndexType.TEXT))
 })
-public class User extends MongoEntity<String> implements JsonEntity {
+public class User extends MongoEntity<String> {
     @Id
     private String email;
     private String nickname;
@@ -20,16 +19,6 @@ public class User extends MongoEntity<String> implements JsonEntity {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject result = new JSONObject();
-
-        result.put("email", email);
-        result.put("nickname", nickname);
-
-        return result;
     }
 
     public String getEmail() {

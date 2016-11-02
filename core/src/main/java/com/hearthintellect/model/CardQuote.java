@@ -1,14 +1,13 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.json.JSONObject;
 import org.mongodb.morphia.annotations.Embedded;
 
 /**
  * Quotes of a card
  */
 @Embedded
-public class CardQuote implements JsonEntity {
+public class CardQuote {
 
     private int HHID;
     private Type type;
@@ -21,17 +20,6 @@ public class CardQuote implements JsonEntity {
         this.type = type;
         this.line = line;
         this.audioUrl = audioUrl;
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject result = new JSONObject();
-
-        result.put("type", type.ordinal());
-        result.put("line", line);
-        result.put("audioUrl", audioUrl);
-
-        return result;
     }
 
     public void setHHID(int HHID) { this.HHID = HHID; }

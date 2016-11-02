@@ -1,7 +1,6 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.List;
     @Index(name = "race", fields = @Field("race")),
     @Index(name = "class", fields = @Field("class"))
 })
-public class Card extends MongoEntity<Integer> implements JsonEntity {
+public class Card extends MongoEntity<Integer> {
 
     @Id
     private int cardId;
@@ -60,45 +59,6 @@ public class Card extends MongoEntity<Integer> implements JsonEntity {
 
     @Embedded(concreteClass = ArrayList.class)
     List<HistoryCard> historyVersions = Collections.emptyList();
-
-    public JSONObject toBriefJson() {
-        JSONObject result = new JSONObject();
-
-        result.put("id", cardId);
-        result.put("name", name);
-        result.put("effect", effect);
-        result.put("type", type.ordinal());
-        result.put("cost", cost);
-        result.put("attack", attack);
-        result.put("health", health);
-        result.put("imageUrl", imageUrl);
-
-        return result;
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject result = new JSONObject();
-
-        result.put("id", cardId);
-        result.put("name", name);
-        result.put("effect", effect);
-        result.put("desc", desc);
-        result.put("cost", cost);
-        result.put("attack", attack);
-        result.put("health", health);
-        result.put("imageUrl", imageUrl);
-        result.put("heroClass", heroClass.ordinal());
-        result.put("collectible", collectible);
-        mechanics.forEach((mechanic) -> result.append("mechanics", mechanic.getId()));
-        quotes.forEach((quote) -> result.append("quotes", quote.toJson()));
-        result.put("quality", quality.ordinal());
-        result.put("type", type.ordinal());
-        result.put("set", set.ordinal());
-        result.put("race", race.ordinal());
-
-        return result;
-    }
 
     @Override
     public Integer getId() { return cardId; }

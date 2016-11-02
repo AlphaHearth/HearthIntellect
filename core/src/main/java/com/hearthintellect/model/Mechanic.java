@@ -1,12 +1,11 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "mechanics", noClassnameStored = true)
 @Indexes(@Index(name = "name", fields = @Field("name")))
-public class Mechanic extends MongoEntity<Integer> implements JsonEntity {
+public class Mechanic extends MongoEntity<Integer> {
 
 	@Id
     private int mechanicId;
@@ -46,16 +45,5 @@ public class Mechanic extends MongoEntity<Integer> implements JsonEntity {
     @Override
     public void setId(Integer id) {
         mechanicId = id;
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject result = new JSONObject();
-
-        result.put("id", mechanicId);
-        result.put("name", name);
-        result.put("description", description);
-
-        return result;
     }
 }

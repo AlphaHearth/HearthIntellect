@@ -1,13 +1,12 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.json.JSONObject;
 import org.mongodb.morphia.annotations.*;
 
 import java.time.ZonedDateTime;
 
 @Entity(value = "patches", noClassnameStored = true)
-public class Patch extends MongoEntity<Integer> implements JsonEntity {
+public class Patch extends MongoEntity<Integer> {
 
     @Id
     private int buildNum;
@@ -20,16 +19,6 @@ public class Patch extends MongoEntity<Integer> implements JsonEntity {
     public Patch(int buildNum, String patchCode) {
         this.buildNum = buildNum;
         this.patchCode = patchCode;
-    }
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject result = new JSONObject();
-
-        result.put("buildNum", buildNum);
-        result.put("patchCode", patchCode);
-
-        return result;
     }
 
     @Override

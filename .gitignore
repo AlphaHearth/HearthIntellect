@@ -1,7 +1,9 @@
+# Entries for Gradle
 .gradle/
-target/
 **/build/
-.idea/
-assets/
+
+# Entries for IntelliJ
 classes/
+target/
+.idea/
 *.iml

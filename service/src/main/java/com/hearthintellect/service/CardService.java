@@ -1,11 +1,12 @@
 package com.hearthintellect.service;
 
+import com.google.gson.Gson;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.utils.Page;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +23,8 @@ import static com.hearthintellect.utils.RsResponseUtils.ok;
 public class CardService {
     private static final Logger LOG = LoggerFactory.getLogger(CardService.class);
 
-    private CardRepository cardRepository;
+    @Autowired private CardRepository cardRepository;
+    @Autowired private Gson gson;
 
     // TODO Card Search Feature
     // 1. Search with card name  -> Text Search with MongoDB & Morphia
@@ -37,10 +39,7 @@ public class CardService {
                               @DefaultValue("20") @QueryParam("pageSize") int pageSize,
                               @QueryParam("order") String order) {
         Iterator<Card> cards = cardRepository.findAll(order, new Page(pageNum, pageSize));
-        JSONArray result = new JSONArray();
-        while (cards.hasNext())
-            result.put(cards.next().toBriefJson());
-        return ok(result);
+        return ok(gson.toJson(cards));
     }
 
     @GET
@@ -48,8 +47,8 @@ public class CardService {
     public Response getCard(@DefaultValue("-1") @PathParam("cardId") int cardId) {
         Card card = cardRepository.findById(cardId);
         if (card != null)
-            return ok(card.toJson());
-        return notFound();
+            return ok(gson.toJson(card));
+        return notFound("Card with ID `" + cardId + "` does not exist.");
     }
 
     public CardRepository getCardRepository() {
