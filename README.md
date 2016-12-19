@@ -1,18 +1,17 @@
 # HearthIntellect
-A good helper for HearthStone ;-P
+
+Hearthstone database website, written in Java and pure [Spring](https://spring.io/).
 
 ## Future tasks
 
-- [x] Migrate from `org.json` to `gson`;
-- [ ] Fully implement `CardService`.
-- [ ] Deploy version `0.1`.
-- [ ] Learn Mockito.
-- [ ] Add test cases for `CardRepository`, `PatchRepository` and `MechanicRepository`.
-- [ ] Learn Jersey Testing Framework.
-- [ ] Add test cases for `CardService`.
-- [ ] Release version `0.1.1`.
+- [ ] Update `crawler` module to support latest Hearthstone build.
 - [ ] Update `Card` model to support Wild mode, Arena mode and Standard mode.
-- [ ] Add RESTful service classes for `Deck`, `User` and `News`.
+- [ ] Implement `crawler` to up-to-date.
+- [ ] Migrate from Morphia to Spring Data.
+- [ ] Add test cases for `CardRepository`, `PatchRepository` and `MechanicRepository`.
+- [ ] Migrate from Jersey to SpringMVC.
+- [ ] Fully implement `CardController`, `MechanicController` and `PatchController`.
+- [ ] Add test cases for `CardController`, `MechanicController` and `PatchController`.
+- [ ] Deploy version `0.1`.
+- [ ] Add controller classes for `User` and `Deck`.
 - [ ] Release version `0.2`.
-- [ ] Implement Data Manager (JavaFX Client, directly connect to database without using the REST service).
-- [ ] Release version `0.2.1`.
