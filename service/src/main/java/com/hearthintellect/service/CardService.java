@@ -44,7 +44,7 @@ public class CardService {
 
     @GET
     @Path("/cards/{cardId: [0-9]+}")
-    public Response getCard(@DefaultValue("-1") @PathParam("cardId") int cardId) {
+    public Response getCard(@DefaultValue("") @PathParam("cardId") String cardId) {
         Card card = cardRepository.findById(cardId);
         if (card != null)
             return ok(gson.toJson(card));

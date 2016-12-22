@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringCoreTestConfig.class)
 public class TestCardRepository {
-    private static final int TEST_ID = 100000;
+    private static final String TEST_ID = "ROBERT_0762";
 
     @Autowired
     private CardRepository cardRepository;

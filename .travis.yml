@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - oraclejdk8
+script: "./gradlew test"
+
+notifications:
+  email: # only send an email if build fails
+    on_success: never
+    on_failure: always
+

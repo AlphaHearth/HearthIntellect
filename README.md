@@ -1,5 +1,7 @@
 # HearthIntellect
 
+[![Build Status](https://travis-ci.org/AlphaHearth/HearthIntellect.svg?branch=master)](https://travis-ci.org/AlphaHearth/HearthIntellect)
+
 Hearthstone database website written in Java.
 
 ## Future tasks
