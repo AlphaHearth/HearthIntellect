@@ -71,84 +71,6 @@ public class HearthHeadCardParser {
         CLASS_MAP.put(5, HeroClass.Priest);
     }
 
-    public static List<Card> parse(Path jsonPath) {
-        LOG.info("Reading card JSON from `{}`", jsonPath);
-        String json = null;
-        try {
-            json = new String(Files.readAllBytes(jsonPath));
-        } catch (IOException ex) {
-            LOG.error("Failed to read `" + jsonPath + "`", ex);
-            return Collections.emptyList();
-        }
-        JSONArray jsonCards = new JSONArray(json);
-
-        LOG.info("Parsing card JSON...");
-        List<Card> cards = new ArrayList<>(jsonCards.length());
-
-        Set<Integer> hhid = new HashSet<>();
-
-        for (int i = 0; i < jsonCards.length(); i++) {
-            JSONObject cardJson = jsonCards.getJSONObject(i);
-            Card card = new Card();
-
-            LOG.debug("Parsing card {} ...", cardJson.getString("name"));
-
-            try {
-                LocaleString name = new LocaleString();
-                name.put(CardCrawler.DEFAULT_LOCALE, cardJson.getString("name"));
-                card.setName(name);
-
-                card.setHHID(cardJson.getInt("id"));
-
-                if (cardJson.has("cost"))
-                    card.setCost(cardJson.getInt("cost"));
-                if (cardJson.has("attack"))
-                    card.setAttack(cardJson.getInt("attack"));
-                if (cardJson.has("health"))
-                    card.setHealth(cardJson.getInt("health"));
-                else if (cardJson.has("durability"))
-                    card.setHealth(cardJson.getInt("durability"));
-
-                if (cardJson.has("description")) {
-                    LocaleString effect = new LocaleString();
-                    effect.put(CardCrawler.DEFAULT_LOCALE, cardJson.getString("description"));
-                    card.setEffect(effect);
-                }
-
-                if (cardJson.has("collectible") && cardJson.getInt("collectible") == 1)
-                    card.setCollectible(true);
-
-                if (cardJson.has("quality"))
-                    card.setQuality(QUALITY_MAP.get(cardJson.getInt("quality")));
-                else
-                    card.setQuality(Card.Quality.Free);
-
-                card.setType(TYPE_MAP.get(cardJson.getInt("type")));
-                if (card.getType() == Card.Type.Minion) {
-                    if (cardJson.has("race"))
-                        card.setRace(RACE_MAP.get(cardJson.getInt("race")));
-                    else
-                        card.setRace(Card.Race.None);
-                }
-                card.setSet(SET_MAP.get(cardJson.getInt("set")));
-                if (cardJson.has("classs"))
-                    card.setHeroClass(CLASS_MAP.get(cardJson.getInt("classs")));
-                else
-                    card.setHeroClass(HeroClass.Neutral);
-
-                card.setImageUrl(cardJson.getString("image"));
-
-                if (!hhid.contains(card.getHHID())) {
-                    hhid.add(card.getHHID());
-                    cards.add(card);
-                }
-            } catch (Throwable ex) {
-                LOG.warn("Catch error: ", ex);
-            }
-        }
-        return cards;
-    }
-
     public static List<Mechanic> parseMechanics(Path jsonPath) {
         String json = null;
         try {
@@ -165,12 +87,11 @@ public class HearthHeadCardParser {
             JSONObject jsonMechanic = jsonMechanics.getJSONObject(i);
             Mechanic mechanic = new Mechanic();
             mechanic.setId(jsonMechanic.getInt("_id"));
-            mechanic.setHHID(jsonMechanic.getInt("HHID"));
             LocaleString name = new LocaleString();
             mechanic.setName(name);
-            name.put(CardCrawler.DEFAULT_LOCALE, jsonMechanic.getString("name"));
+            name.put(Constants.DEFAULT_LOCALE, jsonMechanic.getString("name"));
             LocaleString description = new LocaleString();
-            description.put(CardCrawler.DEFAULT_LOCALE, jsonMechanic.getString("description"));
+            description.put(Constants.DEFAULT_LOCALE, jsonMechanic.getString("description"));
             mechanic.setDescription(description);
             mechanics.add(mechanic);
         }

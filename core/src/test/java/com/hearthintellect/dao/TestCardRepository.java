@@ -2,10 +2,8 @@ package com.hearthintellect.dao;
 
 import com.hearthintellect.categories.DependOnRealData;
 import com.hearthintellect.config.SpringCoreTestConfig;
-import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.*;
 import com.hearthintellect.utils.LocaleString;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -47,7 +45,7 @@ public class TestCardRepository {
         LocaleString cardDesc = new LocaleString();
         cardDesc.put(Locale.US, "The Author of the website");
         cardDesc.put(Locale.CHINA, "网站作者");
-        card.setDesc(cardDesc);
+        card.setFlavor(cardDesc);
 
         card.setCost(2);
         card.setAttack(2);
@@ -77,7 +75,7 @@ public class TestCardRepository {
         assertEquals(TEST_ID, card.getCardId());
         assertEquals(cardName, card.getName());
         assertEquals(cardEffect, card.getEffect());
-        assertEquals(cardDesc, card.getDesc());
+        assertEquals(cardDesc, card.getFlavor());
         assertEquals(2, card.getCost());
         assertEquals(2, card.getAttack());
         assertEquals(3, card.getHealth());

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * JavaFX View for results of {@link CardCrawler}. Only launched from {@code CardCrawler}.
+ * JavaFX View for results of {@link MainCrawler}. Only launched from {@code MainCrawler}.
  */
 public class CardCrawlerView extends Application {
     static List<Card> cards;

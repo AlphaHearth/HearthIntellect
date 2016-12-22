@@ -1,21 +1,33 @@
 package com.hearthintellect.crawler;
 
+import com.hearthintellect.config.SpringCoreConfig;
+import com.hearthintellect.dao.CardRepository;
+import com.hearthintellect.dao.PatchRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;
+import com.hearthintellect.model.HistoryCard;
+import com.hearthintellect.model.Patch;
+import com.hearthintellect.utils.CollectionUtils;
+import com.hearthintellect.utils.ConcurrentUtils;
 import com.hearthintellect.utils.LocaleString;
-import com.hearthintellect.utils.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static com.hearthintellect.crawler.Constants.DEFAULT_LOCALE;
 
 public class HearthJsonCardParser {
     private static final Logger LOG = LoggerFactory.getLogger(HearthJsonCardParser.class);
@@ -72,6 +84,7 @@ public class HearthJsonCardParser {
         SET_MAP.put("OG", Card.Set.WhisperOfTheOldGods);
         SET_MAP.put("KARA", Card.Set.OneNightInKarazhan);
         SET_MAP.put("KARA_RESERVE", Card.Set.OneNightInKarazhan);
+        SET_MAP.put("GANGS", Card.Set.MeanStreetsOfGadgetzan);
 
         RACE_MAP.put("BEAST", Card.Race.Beast);
         RACE_MAP.put("DRAGON", Card.Race.Dragon);
@@ -94,23 +107,100 @@ public class HearthJsonCardParser {
         CLASS_MAP.put("NEUTRAL", HeroClass.Neutral);
     }
 
-    public static List<Card> parse(String jsonFileUrl) throws MalformedURLException {
-        LOG.info("Reading card JSON from `{}`", jsonFileUrl);
+    public static void main(String[] args) throws InterruptedException {
+        LOG.info("Parsing cards from Hearthstone JSON...");
+        Map<Integer, List<Card>> versionCards = new ConcurrentHashMap<>();
 
-        URL url = new URL(jsonFileUrl);
+        ExecutorService executor = Executors.newFixedThreadPool(30);
 
-        InputStream input = null;
-        try {
-            input = IOUtils.openConnWithRetry(url, 3, 1000);
-        } catch (IOException ex) {
-            LOG.error("Failed to open connection to `" + url + "`", ex);
-            System.exit(-1); // TODO Think twice
+        Map<Integer, Patch> patchEntities = new HashMap<>();
+        for (int patchNum : Constants.PATCHES) {
+            patchEntities.put(patchNum, new Patch(patchNum, ""));
+            executor.submit(() -> {
+                List<Card> cards;
+                try {
+                    cards = parse(Constants.HEARTHSTONE_JSON_PATH.resolve(String.valueOf(patchNum) + ".json"));
+                } catch (Throwable ex) {
+                    LOG.error("Caught exception: ", ex);
+                    return;
+                }
+                LOG.info("Fetched {} cards for version {}.", cards.size(), patchNum);
+                cards.sort((c1, c2) -> c1.getId().compareTo(c2.getId()));
+
+                versionCards.put(patchNum, cards);
+            });
+        }
+        ConcurrentUtils.shutdownAndWait(executor);
+
+        // Compare same card of different versions to generate card changes
+        int latestVersion = Constants.PATCHES[Constants.PATCHES.length - 1];
+        List<Card> cards = new ArrayList<>(versionCards.get(latestVersion));
+        LOG.info("Combining cards from different version...");
+        for (Card card : cards) {
+            LOG.debug("Scanning card `{}`", card.getName().get(DEFAULT_LOCALE));
+            HistoryCard earliestKnownVersion = new HistoryCard(card);
+            int currentPatchNum = latestVersion;
+            Patch currentPatch = patchEntities.get(currentPatchNum);
+            for (int i = Constants.PATCHES.length - 2; i >= 0; i--) {
+                List<Card> oldCards = versionCards.get(Constants.PATCHES[i]);
+                Card oldCard = CollectionUtils.binarySearch(oldCards, card.getImageUrl(), Card::getImageUrl);
+                if (oldCard == null) {
+                    LOG.debug("Cannot find card `{}` in version `{}`", card.getName().get(DEFAULT_LOCALE), currentPatchNum);
+                    if (card.getSincePatch() != null) {
+                        earliestKnownVersion.setSincePatch(currentPatch);
+                        if (card.getHistoryVersions().isEmpty())
+                            card.setHistoryVersions(new LinkedList<>());
+                        card.getHistoryVersions().add(0, earliestKnownVersion);
+                    } else
+                        card.setSincePatch(currentPatch);
+                    card.setAddedPatch(currentPatch);
+                    break;
+                }
+
+                if (!earliestKnownVersion.getEffect().isEmpty()
+                        && !earliestKnownVersion.getEffect().get(DEFAULT_LOCALE).equals(oldCard.getEffect().get(DEFAULT_LOCALE))
+                        || earliestKnownVersion.getCost() != oldCard.getCost()
+                        || earliestKnownVersion.getAttack() != oldCard.getAttack()
+                        || earliestKnownVersion.getHealth() != oldCard.getHealth()) {
+                    LOG.debug("Detected change of card `{}` in patch `{}`.", card.getName().get(DEFAULT_LOCALE),
+                            currentPatchNum);
+                    if (card.getSincePatch() == null) {
+                        card.setSincePatch(currentPatch);
+                    } else {
+                        earliestKnownVersion.setSincePatch(currentPatch);
+                        if (card.getHistoryVersions().isEmpty())
+                            card.setHistoryVersions(new LinkedList<>());
+                        card.getHistoryVersions().add(0, earliestKnownVersion);
+                    }
+                    earliestKnownVersion = new HistoryCard(oldCard);
+                }
+
+                currentPatchNum = Constants.PATCHES[i];
+                currentPatch = patchEntities.get(currentPatchNum);
+            }
         }
 
-        String json;
-        try (Scanner scanner = new Scanner(input).useDelimiter("\\A")) {
-            json = scanner.hasNext() ? scanner.next() : "";
-            LOG.info("Downloaded `{}`.", jsonFileUrl);
+        LOG.info("Initializing link to database...");
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
+
+        LOG.info("Saving Patches to database...");
+        PatchRepository patchRepository = context.getBean(PatchRepository.class);
+        patchEntities.values().forEach(patchRepository::insert);
+
+        LOG.info("Saving Cards to database...");
+        CardRepository cardRepository = context.getBean(CardRepository.class);
+        cards.forEach(cardRepository::insert);
+    }
+
+    public static List<Card> parse(Path jsonFilePath) throws MalformedURLException {
+        LOG.info("Reading card JSON from `{}`", jsonFilePath.toAbsolutePath().toString());
+
+        String json = null;
+        try {
+            json = FileUtils.readFileToString(jsonFilePath.toFile(), "UTF-8");
+        } catch (IOException ex) {
+            LOG.error("Failed to read Json file `" + jsonFilePath.toAbsolutePath() + "`: ", ex);
+            System.exit(1); // TODO Think twice
         }
 
         LOG.info("Parsing card JSON...");
@@ -128,13 +218,19 @@ public class HearthJsonCardParser {
 
             Card card = new Card();
 
-            LOG.debug("Parsing card {} ...", cardJson.getJSONObject("name").getString("enUS"));
+            try {
+                LOG.debug("Parsing card {} ...", cardJson.getJSONObject("name").getString("enUS"));
+            } catch (JSONException ex) {
+                LOG.error("Failed to locate `name` field for json object `{}`.", cardJson.toString());
+                continue;
+            }
 
             try {
                 LocaleString name = new LocaleString();
                 parseLocale(name, cardJson.getJSONObject("name"));
                 card.setName(name);
 
+                card.setId(cardJson.getString("id"));
                 card.setImageUrl(cardJson.getString("id"));
 
                 if (cardJson.has("cost"))
@@ -154,7 +250,7 @@ public class HearthJsonCardParser {
                 LocaleString description = new LocaleString();
                 if (cardJson.has("flavor"))
                     parseLocale(description, cardJson.getJSONObject("flavor"));
-                card.setDesc(description);
+                card.setFlavor(description);
 
                 if (cardJson.has("collectible") && cardJson.getBoolean("collectible"))
                     card.setCollectible(true);
@@ -194,14 +290,22 @@ public class HearthJsonCardParser {
 
                 cards.add(card);
             } catch (Throwable ex) {
-                LOG.warn("Catch error: ", ex);
+                LOG.warn("Caught error: ", ex);
             }
         }
+        LOG.info("Returning fetched cards of `{}`.", jsonFilePath.toAbsolutePath().toString());
         return cards;
     }
 
     private static void parseLocale(LocaleString localeStr, JSONObject json) {
-        for (Locale locale : LOCALE_MAP.keySet())
-            localeStr.put(locale, json.getString(LOCALE_MAP.get(locale)));
+        for (Locale locale : LOCALE_MAP.keySet()) {
+            try {
+                localeStr.put(locale, json.getString(LOCALE_MAP.get(locale)));
+            } catch (JSONException ex) {
+                LOG.error("Failed to locate `{}` locale field for JsonObject `{}`. Filling with empty value...",
+                        LOCALE_MAP.get(locale), json.toString());
+                localeStr.put(locale, "");
+            }
+        }
     }
 }

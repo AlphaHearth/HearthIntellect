@@ -20,15 +20,14 @@ import java.util.List;
     @Index(name = "race", fields = @Field("race")),
     @Index(name = "class", fields = @Field("class"))
 })
-public class Card extends MongoEntity<Integer> {
+public class Card extends MongoEntity<String> {
 
     @Id
-    private int cardId;
-    private int HHID;
+    private String cardId;
 
     private LocaleString name;
     private LocaleString effect;
-    private LocaleString desc;
+    private LocaleString flavor;
 
     private int cost;
     private int attack;
@@ -61,15 +60,13 @@ public class Card extends MongoEntity<Integer> {
     List<HistoryCard> historyVersions = Collections.emptyList();
 
     @Override
-    public Integer getId() { return cardId; }
+    public String getId() { return cardId; }
     @Override
-    public void setId(Integer id) { cardId = id; }
-    public int getHHID() { return HHID; }
-    public void setHHID(int HHID) { this.HHID = HHID; }
-    public int getCardId() {
+    public void setId(String id) { cardId = id; }
+    public String getCardId() {
         return cardId;
     }
-    public void setCardId(int cardId) {
+    public void setCardId(String cardId) {
         this.cardId = cardId;
     }
     public LocaleString getName() {
@@ -84,11 +81,11 @@ public class Card extends MongoEntity<Integer> {
     public void setEffect(LocaleString effect) {
         this.effect = effect;
     }
-    public LocaleString getDesc() {
-        return desc;
+    public LocaleString getFlavor() {
+        return flavor;
     }
-    public void setDesc(LocaleString desc) {
-        this.desc = desc;
+    public void setFlavor(LocaleString flavor) {
+        this.flavor = flavor;
     }
     public Card.Set getSet() {
         return set;
@@ -190,7 +187,7 @@ public class Card extends MongoEntity<Integer> {
     public enum Set {
         Basic, Classic, Reward, Missions, Promotion, Credits, AlternativeHeros, TavernBrawl,
         Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers,
-        WhisperOfTheOldGods, OneNightInKarazhan
+        WhisperOfTheOldGods, OneNightInKarazhan, MeanStreetsOfGadgetzan
     }
     public enum Race {
         None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem

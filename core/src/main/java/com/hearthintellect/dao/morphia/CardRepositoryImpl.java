@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 
-public class CardRepositoryImpl extends MorphiaRepository<Integer, Card> implements CardRepository {
+public class CardRepositoryImpl extends MorphiaRepository<String, Card> implements CardRepository {
     private static final Logger LOG = LoggerFactory.getLogger(CardRepositoryImpl.class);
 
     @Override

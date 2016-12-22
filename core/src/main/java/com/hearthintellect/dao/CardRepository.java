@@ -6,8 +6,9 @@ import com.hearthintellect.utils.Page;
 import com.hearthintellect.utils.Sort;
 
 import java.util.Iterator;
+import java.util.List;
 
-public interface CardRepository extends Repository<Integer, Card> {
+public interface CardRepository extends Repository<String, Card> {
 
     /**
      * Find the {@code Card} entity with the given {@code HHID}

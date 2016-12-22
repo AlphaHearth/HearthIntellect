@@ -7,3 +7,5 @@ classes/
 target/
 .idea/
 *.iml
+
+data/

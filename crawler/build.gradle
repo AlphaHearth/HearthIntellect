@@ -2,6 +2,7 @@
 description = ''
 dependencies {
   compile project(':core')
+  compile group: 'commons-io', name: 'commons-io', version: '2.5'
   compile group: 'org.jsoup', name: 'jsoup', version:'1.9.2'
   compile group: 'org.json', name: 'json', version: '20160810'
 }

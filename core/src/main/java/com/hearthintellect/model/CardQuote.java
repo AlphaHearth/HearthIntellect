@@ -9,7 +9,6 @@ import org.mongodb.morphia.annotations.Embedded;
 @Embedded
 public class CardQuote {
 
-    private int HHID;
     private Type type;
     private LocaleString line;
     private String audioUrl;
@@ -22,8 +21,6 @@ public class CardQuote {
         this.audioUrl = audioUrl;
     }
 
-    public void setHHID(int HHID) { this.HHID = HHID; }
-    public int getHHID() { return HHID; }
     public Type getType() {
         return type;
     }

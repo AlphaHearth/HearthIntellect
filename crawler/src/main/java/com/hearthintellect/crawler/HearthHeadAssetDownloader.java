@@ -24,14 +24,15 @@ public class HearthHeadAssetDownloader {
     private static final Logger LOG = LoggerFactory.getLogger(HearthHeadAssetDownloader.class);
 
     private static final Locale[] DOWNLOAD_LOCALES = {
-        new Locale("en", "US"), new Locale("zh", "CN")
+        new Locale("en", "US")
     };
 
     private static Map<Locale, Path> imageDests;
     private static Map<Locale, Path> soundDests;
 
-    public static void main(String[] args) throws IOException {
-        Path downloadDest = args.length > 1 ? Paths.get(args[1]) : Paths.get("assets");
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Path downloadDest = Constants.ASSETS_PATH;
+        Files.createDirectories(downloadDest);
         // Recursively delete the directory
         Files.walkFileTree(downloadDest, new SimpleFileVisitor<Path>() {
             @Override
@@ -89,9 +90,7 @@ public class HearthHeadAssetDownloader {
             executor.submit(() -> downloadCardImage(imageId));
         for (String soundId : soundIds)
             executor.submit(() -> downloadCardSound(soundId));
-        try {
-            ConcurrentUtils.shutdownAndWait(executor);
-        } catch (InterruptedException ex) {}
+        ConcurrentUtils.shutdownAndWait(executor);
 
         LOG.info("Finished!");
     }
@@ -117,14 +116,9 @@ public class HearthHeadAssetDownloader {
 
     private static void downloadCardSound(String cardSoundId) {
         for (Locale locale : DOWNLOAD_LOCALES) {
-            // Download MP3
-            String urlStr = Constants.hearthheadCardSoundUrl(cardSoundId, true, locale);
-            Path dest = soundDests.get(locale).resolve(cardSoundId + ".mp3");
-            downloadFile(urlStr, dest);
-
             // Download OGG
-            urlStr = Constants.hearthheadCardSoundUrl(cardSoundId, false, locale);
-            dest = soundDests.get(locale).resolve(cardSoundId + ".ogg");
+            String urlStr = Constants.hearthheadCardSoundUrl(cardSoundId, false, locale);
+            Path dest = soundDests.get(locale).resolve(cardSoundId + ".ogg");
             downloadFile(urlStr, dest);
         }
     }
@@ -141,6 +135,7 @@ public class HearthHeadAssetDownloader {
             if (LOG.isDebugEnabled())
                 LOG.debug("Downloading `{}` to `{}`...", remoteUrl, destPath.toRealPath());
             Files.copy(conn.getInputStream(), destPath, StandardCopyOption.REPLACE_EXISTING);
+            LOG.info("Downloaded `{}` to `{}`.", remoteUrl, destPath.toRealPath());
         } catch (MalformedURLException ex) {
             LOG.warn("URL `{}` is in invalid form.", remoteUrl);
         } catch (IOException ex) {
