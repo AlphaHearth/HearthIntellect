@@ -3,7 +3,7 @@ package com.hearthintellect.crawler;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.hearthintellect.config.SpringCoreConfig;
+import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.CardQuote;
@@ -39,7 +39,7 @@ public class HearthHeadCardCrawler {
 
     public static void main(String[] args) throws InterruptedException {
         LOG.info("Initializing link to database...");
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 
         LOG.info("Reading Cards from database...");
         CardRepository cardRepository = context.getBean(CardRepository.class);

@@ -7,7 +7,7 @@ import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MechanicRepositoryImpl extends MorphiaRepository<Integer, Mechanic> implements MechanicRepository {
+public class MechanicRepositoryImpl extends MorphiaRepository<String, Mechanic> implements MechanicRepository {
     private static final Logger LOG = LoggerFactory.getLogger(MechanicRepositoryImpl.class);
 
     @Override

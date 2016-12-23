@@ -43,19 +43,7 @@ public class Constants {
         return String.format("http://www.hearthhead.com/cards/%s", hearthheadId);
     }
 
-    public static String hearthheadCardUrl(int hearthheadId, Locale locale) {
-        return String.format("http://%s.hearthhead.com/card=%d",
-            locale.getCountry().toLowerCase(), hearthheadId);
-    }
-
-    public static String hearthheadCardSoundUrl(String cardSoundId, boolean isMp3) {
-        String formatSuffix = isMp3 ? "mp3" : "ogg";
-        return String.format("http://wow.zamimg.com/hearthhead/sounds/%s.%s", cardSoundId, formatSuffix);
-    }
-
     public static String hearthheadCardSoundUrl(String cardSoundId, boolean isMp3, Locale locale) {
-        if (locale.getLanguage().equalsIgnoreCase("en") && locale.getCountry().equalsIgnoreCase("us"))
-            return hearthheadCardSoundUrl(cardSoundId, isMp3);
         String formatSuffix = isMp3 ? "mp3" : "ogg";
         return String.format("http://media.services.zam.com/v1/media/byName/hs/sounds/%s%s/%s.%s",
             locale.getLanguage(), locale.getCountry().toLowerCase(), cardSoundId, formatSuffix);

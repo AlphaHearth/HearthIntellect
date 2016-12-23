@@ -5,18 +5,18 @@ import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "mechanics", noClassnameStored = true)
 @Indexes(@Index(name = "name", fields = @Field("name")))
-public class Mechanic extends MongoEntity<Integer> {
+public class Mechanic extends MongoEntity<String> {
 
 	@Id
-    private int mechanicId;
+    private String mechanicId;
 
     private LocaleString name;
     private LocaleString description;
 
-    public int getMechanicId() {
+    public String getMechanicId() {
         return mechanicId;
     }
-    public void setMechanicId(int mechanicId) {
+    public void setMechanicId(String mechanicId) {
         this.mechanicId = mechanicId;
     }
     public LocaleString getName() {
@@ -32,11 +32,11 @@ public class Mechanic extends MongoEntity<Integer> {
         this.description = description;
     }
     @Override
-    public Integer getId() {
+    public String getId() {
         return mechanicId;
     }
     @Override
-    public void setId(Integer id) {
+    public void setId(String id) {
         mechanicId = id;
     }
 }

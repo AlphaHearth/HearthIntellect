@@ -1,7 +1,5 @@
 package com.hearthintellect.crawler;
 
-import com.hearthintellect.model.Card;
-import com.hearthintellect.model.Patch;
 import com.hearthintellect.utils.ConcurrentUtils;
 import com.hearthintellect.utils.IOUtils;
 import org.apache.commons.io.FileUtils;

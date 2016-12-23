@@ -1,12 +1,11 @@
 package com.hearthintellect.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity for Deck

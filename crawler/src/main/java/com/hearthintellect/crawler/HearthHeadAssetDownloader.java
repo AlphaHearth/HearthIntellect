@@ -1,6 +1,6 @@
 package com.hearthintellect.crawler;
 
-import com.hearthintellect.config.SpringCoreConfig;
+import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.CardQuote;
@@ -65,7 +65,7 @@ public class HearthHeadAssetDownloader {
         }
 
         LOG.info("Initializing link to database...");
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 
         LOG.info("Reading Card entities from database...");
         CardRepository cardRepository = context.getBean(CardRepository.class);

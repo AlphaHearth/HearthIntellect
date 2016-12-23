@@ -7,13 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import static com.hearthintellect.utils.RsResponseUtils.badRequest;
-import static com.hearthintellect.utils.RsResponseUtils.notFound;
-import static com.hearthintellect.utils.RsResponseUtils.ok;
+import static com.hearthintellect.utils.RsResponseUtils.*;
 
 /**
  * JAX-RS service class for {@link Mechanic}.
@@ -39,14 +40,7 @@ public class MechanicService {
         if (mechanicIdStr.trim().isEmpty())
             return badRequest("Mechanic ID cannot be empty.");
 
-        Integer mechanicId;
-        try {
-            mechanicId = Integer.valueOf(mechanicIdStr);
-        } catch (NumberFormatException ex) {
-            return notFound("Mechanic with ID `" + mechanicIdStr + "` does not exist.");
-        }
-
-        Mechanic mechanic = mechanicRepository.findById(mechanicId);
+        Mechanic mechanic = mechanicRepository.findById(mechanicIdStr);
         if (mechanic == null)
             return notFound("Mechanic with ID `" + mechanicIdStr + "` does not exist.");
 

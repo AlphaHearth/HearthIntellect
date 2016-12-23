@@ -7,16 +7,22 @@ Hearthstone database website written in Java.
 ## Future tasks
 
 - [x] Update `crawler` module to support the latest [HearthHead](http://www.hearthhead.com/) web site.
-- [ ] Add test cases for `CardRepository`, `PatchRepository` and `MechanicRepository`.
+- [x] Add test cases for `CardRepository` and `MechanicRepository`.
 - [ ] Migrate from Jersey to SpringMVC.
-- [ ] Fully implement `CardController`, `MechanicController` and `PatchController`.
-- [ ] Add test cases for `CardController`, `MechanicController` and `PatchController`.
-- [ ] Write web pages for `Card`, `Mechanic` and `Patch`.
+- [ ] Implement `CardController`.
+- [ ] Write home page and web page for `Card`.
 - [ ] Deploy version `0.1`.
-- [ ] Migrate `User` and `Deck` from Morphia and MongoDB to MyBatis and MySQL.
-- [ ] Add controller classes for `User` and `Deck`.
+- [ ] Migrate `User` from Morphia and MongoDB to MyBatis and MySQL.
+- [ ] Add controller classes for `User`.
+- [ ] Implement user authentication and authorization framework.
+- [ ] Add test cases for `PatchRepository`.
+- [ ] Implement `MechanicController` and `PatchController`.
+- [ ] Implement Admin interfaces.
+- [ ] Use Admin interface to populate `Mechanic` and `Patch` data.
 - [ ] Release version `0.2`.
 - [ ] Update `Card` model to support Wild mode, Arena mode and Standard mode.
+- [ ] Migrate `Deck` from Morphia and MongoDB to MyBatis and MySQL.
+- [ ] Add controller classes for `Deck`.
 
 ## Technologies
 

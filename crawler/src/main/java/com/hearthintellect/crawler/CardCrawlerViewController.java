@@ -54,11 +54,11 @@ public class CardCrawlerViewController {
 
         String type;
         switch (card.getType()) {
-            case Hero: type = "Hero"; break;
-            case Minion: type = "Minion"; break;
-            case Spell: type = "Spell"; break;
-            case Weapon: type = "Weapon"; break;
-            case HeroPower: type = "Hero Power"; break;
+            case HERO: type = "Hero"; break;
+            case MINION: type = "Minion"; break;
+            case SPELL: type = "Spell"; break;
+            case WEAPON: type = "Weapon"; break;
+            case POWER: type = "Hero Power"; break;
             default: type = "";
         }
         cardType.setText(type);

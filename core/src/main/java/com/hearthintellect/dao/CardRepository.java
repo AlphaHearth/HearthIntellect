@@ -1,22 +1,14 @@
 package com.hearthintellect.dao;
 
-import com.hearthintellect.model.*;
+import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;
+import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.utils.Page;
 import com.hearthintellect.utils.Sort;
 
 import java.util.Iterator;
-import java.util.List;
 
 public interface CardRepository extends Repository<String, Card> {
-
-    /**
-     * Find the {@code Card} entity with the given {@code HHID}
-     *
-     * @param HHID the given {@code HHID}
-     * @return the {@code Card} with the given {@code HHID}
-     */
-    Card findByHHID(int HHID);
 
     /**
      * Find all {@code Card} that have the given name

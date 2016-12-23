@@ -1,6 +1,6 @@
 package com.hearthintellect.crawler;
 
-import com.hearthintellect.config.SpringCoreConfig;
+import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.dao.PatchRepository;
 import com.hearthintellect.model.Card;
@@ -55,56 +55,56 @@ public class HearthJsonCardParser {
         LOCALE_MAP.put(new Locale("zh", "CN"), "zhCN");
         LOCALE_MAP.put(new Locale("zh", "TW"), "zhTW");
 
-        QUALITY_MAP.put("FREE", Card.Quality.Free);
-        QUALITY_MAP.put("COMMON", Card.Quality.Common);
-        QUALITY_MAP.put("RARE", Card.Quality.Rare);
-        QUALITY_MAP.put("EPIC", Card.Quality.Epic);
-        QUALITY_MAP.put("LEGENDARY", Card.Quality.Legendary);
-        QUALITY_MAP.put("UNKNOWN_6", Card.Quality.Free);
+        QUALITY_MAP.put("FREE", Card.Quality.FREE);
+        QUALITY_MAP.put("COMMON", Card.Quality.COMMON);
+        QUALITY_MAP.put("RARE", Card.Quality.RARE);
+        QUALITY_MAP.put("EPIC", Card.Quality.EPIC);
+        QUALITY_MAP.put("LEGENDARY", Card.Quality.LEGENDARY);
+        QUALITY_MAP.put("UNKNOWN_6", Card.Quality.FREE);
 
-        TYPE_MAP.put("MINION", Card.Type.Minion);
-        TYPE_MAP.put("SPELL", Card.Type.Spell);
-        TYPE_MAP.put("HERO_POWER", Card.Type.HeroPower);
-        TYPE_MAP.put("HERO", Card.Type.Hero);
-        TYPE_MAP.put("WEAPON", Card.Type.Weapon);
+        TYPE_MAP.put("MINION", Card.Type.MINION);
+        TYPE_MAP.put("SPELL", Card.Type.SPELL);
+        TYPE_MAP.put("HERO_POWER", Card.Type.POWER);
+        TYPE_MAP.put("HERO", Card.Type.HERO);
+        TYPE_MAP.put("WEAPON", Card.Type.WEAPON);
 
-        SET_MAP.put("CORE", Card.Set.Basic);
-        SET_MAP.put("EXPERT1", Card.Set.Classic);
-        SET_MAP.put("REWARD", Card.Set.Reward);
-        SET_MAP.put("MISSIONS", Card.Set.Missions);
-        SET_MAP.put("PROMO", Card.Set.Promotion);
-        SET_MAP.put("NAXX", Card.Set.Naxxramas);
-        SET_MAP.put("GVG", Card.Set.GoblinsVsGnomes);
-        SET_MAP.put("BRM", Card.Set.BlackrockMountain);
-        SET_MAP.put("TGT", Card.Set.TheGrandTournament);
-        SET_MAP.put("HERO_SKINS", Card.Set.AlternativeHeros);
-        SET_MAP.put("CREDITS", Card.Set.Credits);
-        SET_MAP.put("LOE", Card.Set.LeagueOfExplorers);
-        SET_MAP.put("TB", Card.Set.TavernBrawl);
-        SET_MAP.put("OG", Card.Set.WhisperOfTheOldGods);
-        SET_MAP.put("KARA", Card.Set.OneNightInKarazhan);
-        SET_MAP.put("KARA_RESERVE", Card.Set.OneNightInKarazhan);
-        SET_MAP.put("GANGS", Card.Set.MeanStreetsOfGadgetzan);
+        SET_MAP.put("CORE", Card.Set.BASIC);
+        SET_MAP.put("EXPERT1", Card.Set.CLASSIC);
+        SET_MAP.put("REWARD", Card.Set.REWARD);
+        SET_MAP.put("MISSIONS", Card.Set.MISSIONS);
+        SET_MAP.put("PROMO", Card.Set.PROMOTION);
+        SET_MAP.put("NAXX", Card.Set.NAXX);
+        SET_MAP.put("GVG", Card.Set.GVG);
+        SET_MAP.put("BRM", Card.Set.BRM);
+        SET_MAP.put("TGT", Card.Set.TGT);
+        SET_MAP.put("HERO_SKINS", Card.Set.HEROS);
+        SET_MAP.put("CREDITS", Card.Set.CREDITS);
+        SET_MAP.put("LOE", Card.Set.LOE);
+        SET_MAP.put("TB", Card.Set.BRAWL);
+        SET_MAP.put("OG", Card.Set.OG);
+        SET_MAP.put("KARA", Card.Set.KARAZHAN);
+        SET_MAP.put("KARA_RESERVE", Card.Set.KARAZHAN);
+        SET_MAP.put("GANGS", Card.Set.GADGETZAN);
 
-        RACE_MAP.put("BEAST", Card.Race.Beast);
-        RACE_MAP.put("DRAGON", Card.Race.Dragon);
-        RACE_MAP.put("MURLOC", Card.Race.Murloc);
-        RACE_MAP.put("MECHANICAL", Card.Race.Mech);
-        RACE_MAP.put("DEMON", Card.Race.Demon);
-        RACE_MAP.put("TOTEM", Card.Race.Totem);
-        RACE_MAP.put("PIRATE", Card.Race.Pirate);
+        RACE_MAP.put("BEAST", Card.Race.BEAST);
+        RACE_MAP.put("DRAGON", Card.Race.DRAGON);
+        RACE_MAP.put("MURLOC", Card.Race.MURLOC);
+        RACE_MAP.put("MECHANICAL", Card.Race.MECH);
+        RACE_MAP.put("DEMON", Card.Race.DEMON);
+        RACE_MAP.put("TOTEM", Card.Race.TOTEM);
+        RACE_MAP.put("PIRATE", Card.Race.PIRATE);
 
-        CLASS_MAP.put("DREAM", HeroClass.Dream);
-        CLASS_MAP.put("PALADIN", HeroClass.Paladin);
-        CLASS_MAP.put("WARLOCK", HeroClass.Warlock);
-        CLASS_MAP.put("HUNTER", HeroClass.Hunter);
-        CLASS_MAP.put("SHAMAN", HeroClass.Shaman);
-        CLASS_MAP.put("ROGUE", HeroClass.Rogue);
-        CLASS_MAP.put("DRUID", HeroClass.Druid);
-        CLASS_MAP.put("MAGE", HeroClass.Mage);
-        CLASS_MAP.put("WARRIOR", HeroClass.Warrior);
-        CLASS_MAP.put("PRIEST", HeroClass.Priest);
-        CLASS_MAP.put("NEUTRAL", HeroClass.Neutral);
+        CLASS_MAP.put("DREAM", HeroClass.DREAM);
+        CLASS_MAP.put("PALADIN", HeroClass.PALADIN);
+        CLASS_MAP.put("WARLOCK", HeroClass.WARLOCK);
+        CLASS_MAP.put("HUNTER", HeroClass.HUNTER);
+        CLASS_MAP.put("SHAMAN", HeroClass.SHAMAN);
+        CLASS_MAP.put("ROGUE", HeroClass.ROGUE);
+        CLASS_MAP.put("DRUID", HeroClass.DRUID);
+        CLASS_MAP.put("MAGE", HeroClass.MAGE);
+        CLASS_MAP.put("WARRIOR", HeroClass.WARRIOR);
+        CLASS_MAP.put("PRIEST", HeroClass.PRIEST);
+        CLASS_MAP.put("NEUTRAL", HeroClass.NEUTRAL);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -181,7 +181,7 @@ public class HearthJsonCardParser {
         }
 
         LOG.info("Initializing link to database...");
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringCoreConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 
         LOG.info("Saving Patches to database...");
         PatchRepository patchRepository = context.getBean(PatchRepository.class);
@@ -258,14 +258,14 @@ public class HearthJsonCardParser {
                 if (cardJson.has("rarity"))
                     card.setQuality(QUALITY_MAP.get(cardJson.getString("rarity")));
                 else
-                    card.setQuality(Card.Quality.Free);
+                    card.setQuality(Card.Quality.FREE);
 
                 card.setType(TYPE_MAP.get(cardJson.getString("type")));
-                if (card.getType() == Card.Type.Minion) {
+                if (card.getType() == Card.Type.MINION) {
                     if (cardJson.has("race"))
                         card.setRace(RACE_MAP.get(cardJson.getString("race")));
                     else
-                        card.setRace(Card.Race.None);
+                        card.setRace(Card.Race.NONE);
                 }
 
                 if (cardJson.has("set"))
@@ -274,7 +274,7 @@ public class HearthJsonCardParser {
                 if (cardJson.has("playerClass"))
                     card.setHeroClass(CLASS_MAP.get(cardJson.getString("playerClass")));
                 else
-                    card.setHeroClass(HeroClass.Neutral);
+                    card.setHeroClass(HeroClass.NEUTRAL);
 
                 // Validate
                 if (card.getSet() == null)
@@ -283,7 +283,7 @@ public class HearthJsonCardParser {
                     LOG.error("Failed to set Card.Type for card {}.", cardJson.toString());
                 if (card.getQuality() == null)
                     LOG.error("Failed to set Card.Quality for card {}.", cardJson.toString());
-                if (card.getType() == Card.Type.Minion && card.getRace() == null)
+                if (card.getType() == Card.Type.MINION && card.getRace() == null)
                     LOG.error("Failed to set Card.Race for card {}.", cardJson.toString());
                 if (card.getHeroClass() == null)
                     LOG.error("Failed to set HeroClass for card {}.", cardJson.toString());

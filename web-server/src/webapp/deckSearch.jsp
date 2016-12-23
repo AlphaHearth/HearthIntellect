@@ -1,4 +1,4 @@
-<%@ page import="java.util.List, com.hearthintellect.model.Card"
+<%@ page import="com.hearthintellect.model.Card, java.util.List"
 	contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>

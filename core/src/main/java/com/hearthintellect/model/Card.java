@@ -179,17 +179,41 @@ public class Card extends MongoEntity<String> {
     }
 
     public enum Quality {
-        Free, Common, Rare, Epic, Legendary
+        FREE,
+        COMMON,
+        RARE,
+        EPIC,
+        LEGENDARY
     }
     public enum Type {
-        Hero, Minion, Spell, Weapon, HeroPower
+        HERO, MINION, SPELL, WEAPON,
+        /** Hero Power */
+        POWER
     }
     public enum Set {
-        Basic, Classic, Reward, Missions, Promotion, Credits, AlternativeHeros, TavernBrawl,
-        Naxxramas, GoblinsVsGnomes, BlackrockMountain, TheGrandTournament, LeagueOfExplorers,
-        WhisperOfTheOldGods, OneNightInKarazhan, MeanStreetsOfGadgetzan
+        BASIC, CLASSIC, REWARD, MISSIONS, PROMOTION, CREDITS,
+        /** Hero skins */
+        HEROS,
+        /** Tavern Brawl */
+        BRAWL,
+        /** Naxxramas */
+        NAXX,
+        /** Goblins vs. Gnomes */
+        GVG,
+        /** Blackrock Mountain */
+        BRM,
+        /** The Grand Tournament */
+        TGT,
+        /** League of Explorers */
+        LOE,
+        /** Whisper of the Old Gods */
+        OG,
+        /** One Night in Karazhan */
+        KARAZHAN,
+        /** Mean Streets of Gadgetzan */
+        GADGETZAN
     }
     public enum Race {
-        None, Beast, Demon, Dragon, Mech, Murloc, Pirate, Totem
+        NONE, BEAST, DEMON, DRAGON, MECH, MURLOC, PIRATE, TOTEM
     }
 }

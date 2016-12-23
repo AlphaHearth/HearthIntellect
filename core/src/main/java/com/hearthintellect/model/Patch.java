@@ -1,7 +1,8 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.mongodb.morphia.annotations.*;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 import java.time.ZonedDateTime;
 

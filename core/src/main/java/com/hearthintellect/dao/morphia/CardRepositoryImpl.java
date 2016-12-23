@@ -1,7 +1,9 @@
 package com.hearthintellect.dao.morphia;
 
 import com.hearthintellect.dao.CardRepository;
-import com.hearthintellect.model.*;
+import com.hearthintellect.model.Card;
+import com.hearthintellect.model.HeroClass;
+import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.utils.Page;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
@@ -15,11 +17,6 @@ public class CardRepositoryImpl extends MorphiaRepository<String, Card> implemen
     @Override
     protected Class<Card> getEntityClass() {
         return Card.class;
-    }
-
-    @Override
-    public Card findByHHID(int HHID) {
-        return createQuery().field("HHID").equal(HHID).get();
     }
 
     @Override
