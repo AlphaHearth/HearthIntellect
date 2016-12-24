@@ -1,0 +1,15 @@
+#content-wrapper {
+	width: 100%;
+}
+
+#left-wrapper {
+	width: 80%;
+	min-width: 1000px;
+	float: left;
+}
+
+#right-wrapper {
+	position: fixed;
+	width: 20%;
+	right: 0px;
+}

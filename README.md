@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/AlphaHearth/HearthIntellect.svg?branch=master)](https://travis-ci.org/AlphaHearth/HearthIntellect)
 
-Hearthstone database website written in Java.
+Hearthstone database website written in Java and pure [Spring](http://spring.io/).
 
 ## Future tasks
 
@@ -12,7 +12,8 @@ Hearthstone database website written in Java.
 - [ ] Implement `CardController`.
 - [ ] Write home page and web page for `Card`.
 - [ ] Deploy version `0.1`.
-- [ ] Migrate `User` from Morphia and MongoDB to MyBatis and MySQL.
+- [ ] Migrate from Morphia to Spring Data.
+- [ ] Migrate `User` from Morphia and MongoDB to MyBatis and MySQL using Spring Data and Spring Transaction.
 - [ ] Add controller classes for `User`.
 - [ ] Implement user authentication and authorization framework.
 - [ ] Add test cases for `PatchRepository`.
@@ -29,4 +30,4 @@ Hearthstone database website written in Java.
 - Spring for Dependency Injection
 - SpringMVC and FreeMarker for Front End
 - Spring Data, MyBatis and MySQL for Relational Data Persistence
-- Morphia and MongoDB for Non-relational Data Persistence
+- Spring Data, MongoDB Java Driver and MongoDB for Non-relational Data Persistence
