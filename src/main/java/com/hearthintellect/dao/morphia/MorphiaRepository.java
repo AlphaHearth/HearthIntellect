@@ -6,13 +6,14 @@ import com.hearthintellect.utils.Page;
 import com.hearthintellect.utils.Sort;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Common parent class for all Morphia Repository Implementation
  */
 public abstract class MorphiaRepository<S, T extends MongoEntity<S>> implements Repository<S, T> {
 
-    private Datastore datastore;
+    @Autowired private Datastore datastore;
 
     public void setDatastore(Datastore datastore) {
         this.datastore = datastore;

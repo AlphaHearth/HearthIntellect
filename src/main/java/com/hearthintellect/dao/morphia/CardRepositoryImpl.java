@@ -8,9 +8,11 @@ import com.hearthintellect.utils.Page;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
-import java.util.Iterator;
+import java.util.List;
 
+@Repository
 public class CardRepositoryImpl extends MorphiaRepository<String, Card> implements CardRepository {
     private static final Logger LOG = LoggerFactory.getLogger(CardRepositoryImpl.class);
 
@@ -20,66 +22,66 @@ public class CardRepositoryImpl extends MorphiaRepository<String, Card> implemen
     }
 
     @Override
-    public Iterator<Card> findAll(String order, Page page) {
+    public List<Card> findAll(String order, Page page) {
         Query<Card> query = createQuery();
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllByName(String name, String order, Page page) {
+    public List<Card> findAllByName(String name, String order, Page page) {
         Query<Card> query = createQuery().field("name").equal(name);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllByClass(HeroClass heroClass, String order, Page page) {
+    public List<Card> findAllByClass(HeroClass heroClass, String order, Page page) {
         Query<Card> query = createQuery().field("class").equal(heroClass);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllByRace(Card.Race race, String order, Page page) {
+    public List<Card> findAllByRace(Card.Race race, String order, Page page) {
         Query<Card> query = createQuery().field("race").equal(race);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllBySet(Card.Set set, String order, Page page) {
+    public List<Card> findAllBySet(Card.Set set, String order, Page page) {
         Query<Card> query = createQuery().field("set").equal(set);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllByQuality(Card.Quality quality, String order, Page page) {
+    public List<Card> findAllByQuality(Card.Quality quality, String order, Page page) {
         Query<Card> query = createQuery().field("quality").equal(quality);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllByMechanic(Mechanic mechanic, String order, Page page) {
+    public List<Card> findAllByMechanic(Mechanic mechanic, String order, Page page) {
         Query<Card> query = createQuery().field("mechanics").hasThisElement(mechanic);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 
     @Override
-    public Iterator<Card> findAllByMechanicId(int mechanicId, String order, Page page) {
+    public List<Card> findAllByMechanicId(int mechanicId, String order, Page page) {
         Query<Card> query = createQuery().field("mechanics").hasThisElement(mechanicId);
         processOrderAndPage(query, order, page);
 
-        return query.iterator();
+        return query.asList();
     }
 }

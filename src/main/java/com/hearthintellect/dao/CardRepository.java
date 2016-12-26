@@ -6,7 +6,7 @@ import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.utils.Page;
 import com.hearthintellect.utils.Sort;
 
-import java.util.Iterator;
+import java.util.List;
 
 public interface CardRepository extends Repository<String, Card> {
 
@@ -16,12 +16,12 @@ public interface CardRepository extends Repository<String, Card> {
      * @param name the given name
      * @return {@code Card} that have the given name
      */
-    default Iterator<Card> findAllByName(String name) {
+    default List<Card> findAllByName(String name) {
         return findAllByName(name, null, null);
     }
 
     /** Find all {@code Card} */
-    default Iterator<Card> findAll() {
+    default List<Card> findAll() {
         return findAll(null, null);
     }
 
@@ -48,7 +48,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAll(String order, Page page);
+    List<Card> findAll(String order, Page page);
 
     /**
      * <p>
@@ -74,7 +74,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllByName(String name, String order, Page page);
+    List<Card> findAllByName(String name, String order, Page page);
 
     /**
      * Find all {@code Card} that belong to the given hero class
@@ -84,7 +84,7 @@ public interface CardRepository extends Repository<String, Card> {
      *
      * @see HeroClass
      */
-    default Iterator<Card> findAllByClass(HeroClass heroClass) {
+    default List<Card> findAllByClass(HeroClass heroClass) {
         return findAllByClass(heroClass, null, null);
     }
 
@@ -112,7 +112,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllByClass(HeroClass heroClass, String order, Page page);
+    List<Card> findAllByClass(HeroClass heroClass, String order, Page page);
 
     /**
      * Find all {@code Card} that belong to the given race
@@ -122,7 +122,7 @@ public interface CardRepository extends Repository<String, Card> {
      *
      * @see Card.Race
      */
-    default Iterator<Card> findAllByRace(Card.Race race) {
+    default List<Card> findAllByRace(Card.Race race) {
         return findAllByRace(race, null, null);
     }
 
@@ -150,7 +150,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllByRace(Card.Race race, String order, Page page);
+    List<Card> findAllByRace(Card.Race race, String order, Page page);
 
     /**
      * Find all {@code Card} that belong to the given set
@@ -160,7 +160,7 @@ public interface CardRepository extends Repository<String, Card> {
      *
      * @see Card.Set
      */
-    default Iterator<Card> findAllBySet(Card.Set set) {
+    default List<Card> findAllBySet(Card.Set set) {
         return findAllBySet(set, null, null);
     }
 
@@ -189,7 +189,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllBySet(Card.Set set, String order, Page page);
+    List<Card> findAllBySet(Card.Set set, String order, Page page);
 
     /**
      * Find all {@code Card} that have the given quality
@@ -199,7 +199,7 @@ public interface CardRepository extends Repository<String, Card> {
      *
      * @see Card.Quality
      */
-    default Iterator<Card> findAllByQuality(Card.Quality quality) {
+    default List<Card> findAllByQuality(Card.Quality quality) {
         return findAllByQuality(quality, null, null);
     }
 
@@ -228,7 +228,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllByQuality(Card.Quality quality, String order, Page page);
+    List<Card> findAllByQuality(Card.Quality quality, String order, Page page);
 
     /**
      * Find all {@code Card} that have the given mechanic
@@ -238,7 +238,7 @@ public interface CardRepository extends Repository<String, Card> {
      *
      * @see Mechanic
      */
-    default Iterator<Card> findAllByMechanic(Mechanic mechanic) {
+    default List<Card> findAllByMechanic(Mechanic mechanic) {
         return findAllByMechanic(mechanic, null, null);
     }
 
@@ -267,7 +267,7 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllByMechanic(Mechanic mechanic, String order, Page page);
+    List<Card> findAllByMechanic(Mechanic mechanic, String order, Page page);
 
     /**
      * <p>
@@ -294,5 +294,5 @@ public interface CardRepository extends Repository<String, Card> {
      * @see Page
      * @see Sort#of(String)
      */
-    Iterator<Card> findAllByMechanicId(int mechanicId, String order, Page page);
+    List<Card> findAllByMechanicId(int mechanicId, String order, Page page);
 }

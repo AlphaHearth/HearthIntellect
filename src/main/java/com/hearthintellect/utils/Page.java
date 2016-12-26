@@ -34,4 +34,23 @@ public class Page {
     public int getOffset() {
         return numPerPage * (pageNum - 1);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Page page = (Page) o;
+
+        if (pageNum != page.pageNum) return false;
+        return numPerPage == page.numPerPage;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = pageNum;
+        result = 31 * result + numPerPage;
+        return result;
+    }
 }

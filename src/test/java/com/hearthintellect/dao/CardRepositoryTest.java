@@ -1,6 +1,6 @@
 package com.hearthintellect.dao;
 
-import com.hearthintellect.config.SpringMongoTestConfig;
+import com.hearthintellect.config.InMemoryMongoConfig;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.CardQuote;
 import com.hearthintellect.model.HeroClass;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
  * Basic CURD unit tests for {@link CardRepository}
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringMongoTestConfig.class)
+@ContextConfiguration(classes = InMemoryMongoConfig.class)
 public class CardRepositoryTest {
     private static final String TEST_ID = "ROBERT_0762";
 

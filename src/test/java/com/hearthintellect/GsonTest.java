@@ -1,7 +1,7 @@
 package com.hearthintellect;
 
 import com.google.gson.Gson;
-import com.hearthintellect.config.SpringCoreConfig;
+import com.hearthintellect.config.SpringWebConfig;
 import com.hearthintellect.utils.LocaleString;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +19,9 @@ import static org.junit.Assert.assertThat;
 /**
  * Unit test cases for the {@link Gson} instance used by whole system.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringCoreConfig.class)
 public class GsonTest {
 
-    @Autowired private Gson gson;
+    private final Gson gson = new SpringWebConfig().gson();
 
     @Test
     public void testLocalDateConversion() {

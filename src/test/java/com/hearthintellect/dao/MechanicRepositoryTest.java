@@ -1,6 +1,6 @@
 package com.hearthintellect.dao;
 
-import com.hearthintellect.config.SpringMongoTestConfig;
+import com.hearthintellect.config.InMemoryMongoConfig;
 import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.utils.LocaleString;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertThat;
  * Basic CURD unit tests for {@link MechanicRepository}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringMongoTestConfig.class)
+@ContextConfiguration(classes = InMemoryMongoConfig.class)
 public class MechanicRepositoryTest {
     private static final String TEST_ID = "TEST_MECHANIC";
 

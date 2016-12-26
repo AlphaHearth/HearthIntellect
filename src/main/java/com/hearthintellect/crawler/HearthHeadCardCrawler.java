@@ -17,7 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -43,10 +46,7 @@ public class HearthHeadCardCrawler {
 
         LOG.info("Reading Cards from database...");
         CardRepository cardRepository = context.getBean(CardRepository.class);
-        Iterator<Card> cardIterator = cardRepository.findAll();
-        List<Card> cards = new ArrayList<>(2262); // 2262 Cards in Hearthstone
-        while (cardIterator.hasNext())
-            cards.add(cardIterator.next());
+        List<Card> cards = cardRepository.findAll();
 
         LOG.info("Crawling cards from HearthHead...");
         ExecutorService executor = Executors.newFixedThreadPool(50);

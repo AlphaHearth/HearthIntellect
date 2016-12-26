@@ -1,6 +1,6 @@
 package com.hearthintellect.dao;
 
-import com.hearthintellect.config.SpringMongoTestConfig;
+import com.hearthintellect.config.InMemoryMongoConfig;
 import com.hearthintellect.model.Patch;
 import org.junit.After;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Unit tests for {@link PatchRepository}
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringMongoTestConfig.class)
+@ContextConfiguration(classes = InMemoryMongoConfig.class)
 public class PatchRepositoryTest {
 
     private static final int TEST_BUILD_NUM = 1000000;

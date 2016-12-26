@@ -6,10 +6,12 @@ import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.User;
 import com.hearthintellect.utils.Page;
 import org.mongodb.morphia.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
 
+@Repository
 public class DeckRepositoryImpl extends MorphiaRepository<Long, Deck> implements DeckRepository {
     @Override
     public Iterator<Deck> findAllByClass(HeroClass heroClass, String order, Page page) {

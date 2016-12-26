@@ -8,16 +8,18 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 
 - [x] Update `crawler` module to support the latest [HearthHead](http://www.hearthhead.com/) web site.
 - [x] Add test cases for `CardRepository` and `MechanicRepository`.
-- [ ] Migrate from Jersey to SpringMVC.
-- [ ] Implement `CardController`.
-- [ ] Write home page and web page for `Card`.
-- [ ] Deploy version `0.1`.
+- [x] Migrate from Jersey to SpringMVC.
 - [ ] Migrate from Morphia to Spring Data.
-- [ ] Migrate `User` from Morphia and MongoDB to MyBatis and MySQL using Spring Data and Spring Transaction.
+- [ ] Deploy version `0.1`.
+- [ ] Add locale support.
+- [ ] Deploy version `0.1.1`.
+- [ ] Implement advanced filtering for Card browsing.
+- [ ] Deploy version `0.1.2`.
+- [ ] Migrate `User` from MongoDB to MyBatis and MySQL using Spring Data and Spring Transaction.
 - [ ] Add controller classes for `User`.
-- [ ] Implement user authentication and authorization framework.
 - [ ] Add test cases for `PatchRepository`.
 - [ ] Implement `MechanicController` and `PatchController`.
+- [ ] Implement user authentication and authorization framework using Spring Security.
 - [ ] Implement Admin interfaces.
 - [ ] Use Admin interface to populate `Mechanic` and `Patch` data.
 - [ ] Release version `0.2`.
