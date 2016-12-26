@@ -3,7 +3,6 @@ package com.hearthintellect.config;
 import com.hearthintellect.dao.CardRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import static org.mockito.Mockito.mock;
 

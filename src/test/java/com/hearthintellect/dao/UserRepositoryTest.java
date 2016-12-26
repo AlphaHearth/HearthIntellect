@@ -1,7 +1,7 @@
 package com.hearthintellect.dao;
 
-import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.config.InMemoryMongoConfig;
+import com.hearthintellect.config.SpringMongoConfig;
 import com.hearthintellect.model.MongoEntity;
 import com.hearthintellect.model.User;
 import com.mongodb.MongoClient;

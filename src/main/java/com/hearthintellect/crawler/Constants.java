@@ -70,5 +70,4 @@ public class Constants {
         /** 300*450 golden gif */
         Premium
     }
-
 }
