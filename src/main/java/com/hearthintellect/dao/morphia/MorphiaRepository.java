@@ -4,6 +4,7 @@ import com.hearthintellect.dao.Repository;
 import com.hearthintellect.model.MongoEntity;
 import com.hearthintellect.utils.Page;
 import com.hearthintellect.utils.Sort;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public abstract class MorphiaRepository<S, T extends MongoEntity<S>> implements 
      * @see Sort#of(String)
      */
     protected Query<T> processOrderAndPage(Query<T> query, String order, Page page) {
-        if (order != null)
+        if (order != null && !StringUtils.isBlank(order))
             query.order(order);
 
         if (page != null)

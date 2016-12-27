@@ -112,7 +112,6 @@ public class HearthHeadCardCrawler {
                 }
             }
             card.setQuotes(cardQuotes);
-            card.setId(hhid);
             LOG.info("Fetched {} card quotes for card `{}` with HHID=`{}`.", cardQuotes.size(), cardName, hhid);
         } catch (Exception ex) {
             LOG.error("Ah oh: ", ex);

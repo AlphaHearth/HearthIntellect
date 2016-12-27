@@ -9,8 +9,8 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 - [x] Update `crawler` module to support the latest [HearthHead](http://www.hearthhead.com/) web site.
 - [x] Add test cases for `CardRepository` and `MechanicRepository`.
 - [x] Migrate from Jersey to SpringMVC.
+- [x] Deploy version `0.1`.
 - [ ] Migrate from Morphia to Spring Data.
-- [ ] Deploy version `0.1`.
 - [ ] Add locale support.
 - [ ] Deploy version `0.1.1`.
 - [ ] Implement advanced filtering for Card browsing.

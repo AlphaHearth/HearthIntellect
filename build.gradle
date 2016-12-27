@@ -50,9 +50,26 @@ test {
     }
 }
 
-task execute(type:JavaExec) {
-    main = mainClass
+task downloadHearthJson(type: JavaExec) {
+    main = 'com.hearthintellect.crawler.HearthJsonDownloader'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task parseHearthJson(type: JavaExec, dependsOn: downloadHearthJson) {
+    main = 'com.hearthintellect.crawler.HearthJsonCardParser'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task crawlHearthHead(type: JavaExec, dependsOn: parseHearthJson) {
+    main = 'com.hearthintellect.crawler.HearthHeadCardCrawler'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task downloadAssets(type: JavaExec, dependsOn: crawlHearthHead) {
+    main = 'com.hearthintellect.crawler.HearthHeadAssetDownloader'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task prepareData(dependsOn: downloadAssets)
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
