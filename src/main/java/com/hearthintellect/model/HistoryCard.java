@@ -1,13 +1,13 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.mongodb.morphia.annotations.Reference;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
  * Cards of history version.
  */
 public class HistoryCard {
-    @Reference(idOnly = true)
+    @DBRef
     private Patch sincePatch;
     private LocaleString effect;
     private int cost;

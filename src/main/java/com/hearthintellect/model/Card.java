@@ -2,9 +2,12 @@ package com.hearthintellect.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.hearthintellect.utils.LocaleString;
-import org.mongodb.morphia.annotations.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,19 +16,11 @@ import java.util.List;
  *
  * @author Robert Peng
  */
-@Entity(value = "cards", noClassnameStored = true)
-@Indexes({
-    @Index(name = "set", fields = @Field("set")),
-    @Index(name = "type", fields = @Field("type")),
-    @Index(name = "quality", fields = @Field("quality")),
-    @Index(name = "race", fields = @Field("race")),
-    @Index(name = "class", fields = @Field("class"))
-})
-public class Card extends MongoEntity<String> {
+@Document(collection = "cards")
+public class Card {
 
-    @Id
     @SerializedName("id")
-    private String cardId;
+    private @Id String cardId;
 
     private LocaleString name;
     private LocaleString effect;
@@ -35,36 +30,23 @@ public class Card extends MongoEntity<String> {
     private int attack;
     private int health;
 
-    @Property("image")
-    private String imageUrl;
-    @Property("class")
-    private HeroClass heroClass;
+    private @Field("image") String imageUrl;
+    private @Indexed @Field("class") HeroClass heroClass;
 
-    private boolean collectible;
-    private Quality quality;
-    private Type type;
-    private Set set;
-    private Race race;
+    private @Indexed boolean collectible;
+    private @Indexed Quality quality;
+    private @Indexed Type type;
+    private @Indexed Set set;
+    private @Indexed Race race;
 
-    @Reference(idOnly = true)
-    private Patch sincePatch;
+    private @DBRef Patch sincePatch;
+    private @DBRef Patch addedPatch;
 
-    @Reference(idOnly = true)
-    private Patch addedPatch;
+    @DBRef(lazy = true)
+    private List<Mechanic> mechanics = Collections.emptyList();
+    private List<CardQuote> quotes = Collections.emptyList();
+    private List<HistoryCard> historyVersions = Collections.emptyList();
 
-    @Reference(lazy = true, idOnly = true)
-    List<Mechanic> mechanics = Collections.emptyList();
-
-    @Embedded(concreteClass = ArrayList.class)
-    List<CardQuote> quotes = Collections.emptyList();
-
-    @Embedded(concreteClass = ArrayList.class)
-    List<HistoryCard> historyVersions = Collections.emptyList();
-
-    @Override
-    public String getId() { return cardId; }
-    @Override
-    public void setId(String id) { cardId = id; }
     public String getCardId() {
         return cardId;
     }

@@ -1,18 +1,15 @@
 package com.hearthintellect.config;
 
-import com.hearthintellect.morphia.converters.LocalDateTimeConverter;
-import com.hearthintellect.morphia.converters.LocaleStringConverter;
-import com.hearthintellect.morphia.converters.ZonedDateTimeConverter;
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,8 +22,8 @@ import java.util.Properties;
  * Spring configuration class for Morphia
  */
 @Configuration
-@ComponentScan("com.hearthintellect.repository.morphia")
-public class SpringMongoConfig {
+@EnableMongoRepositories("com.hearthintellect.repository")
+public class SpringMongoConfig extends AbstractMongoConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(SpringMongoConfig.class);
 
     /** Name of package where the mapping classes are */
@@ -128,22 +125,21 @@ public class SpringMongoConfig {
         );
     }
 
-    @Bean
-    public Morphia morphia() {
-        Morphia morphia = new Morphia();
-        morphia.mapPackage(MODEL_PACKAGE_NAME);
-
-        morphia.getMapper().getConverters().addConverter(new LocalDateTimeConverter());
-        morphia.getMapper().getConverters().addConverter(new ZonedDateTimeConverter());
-        morphia.getMapper().getConverters().addConverter(new LocaleStringConverter());
-
-        return morphia;
+    @Override
+    protected String getDatabaseName() {
+        return mongoDatabase(dbConfig());
     }
 
-    @Bean
-    public Datastore datastore(Morphia morphia, MongoClient mongoClient, String mongoDatabase) {
-        Datastore datastore = morphia.createDatastore(mongoClient, mongoDatabase);
-        datastore.ensureIndexes();
-        return datastore;
+    @Override
+    public Mongo mongo() throws Exception {
+        return mongoClient(
+                mongoHost(dbConfig()), mongoPort(dbConfig()), mongoDatabase(dbConfig()),
+                mongoUsername(dbConfig()), mongoPassword(dbConfig())
+        );
+    }
+
+    @Override
+    protected String getMappingBasePackage() {
+        return MODEL_PACKAGE_NAME;
     }
 }

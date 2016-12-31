@@ -46,7 +46,7 @@ public class HearthHeadCardCrawler {
 
         LOG.info("Reading Cards from database...");
         CardRepository cardRepository = context.getBean(CardRepository.class);
-        List<Card> cards = cardRepository.findAll();
+        Iterable<Card> cards = cardRepository.findAll();
 
         LOG.info("Crawling cards from HearthHead...");
         ExecutorService executor = Executors.newFixedThreadPool(50);
@@ -56,7 +56,7 @@ public class HearthHeadCardCrawler {
         ConcurrentUtils.shutdownAndWait(executor);
 
         LOG.info("Inserting new data to database...");
-        cards.forEach(cardRepository::update);
+        cardRepository.save(cards);
     }
 
     private static void crawlCard(Card card) {

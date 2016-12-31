@@ -1,12 +1,10 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.mongodb.morphia.annotations.Embedded;
 
 /**
  * Quotes of a card
  */
-@Embedded
 public class CardQuote {
 
     private Type type;

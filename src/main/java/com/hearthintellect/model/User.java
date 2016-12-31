@@ -1,51 +1,32 @@
 package com.hearthintellect.model;
 
-import org.mongodb.morphia.annotations.*;
-import org.mongodb.morphia.utils.IndexType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity(value = "users", noClassnameStored = true)
-@Indexes({
-    @Index(fields = @Field(value = "email", type = IndexType.TEXT))
-})
-public class User extends MongoEntity<String> {
-    @Id
-    private String email;
-    private String nickname;
+@Document(collection = "users")
+public class User {
+    private @Id String username;
     private String password;
+    private String email;
+    private @TextIndexed String nickname;
 
     public User() {}
 
-    public User(String email, String nickname, String password) {
+    public User(String username, String email, String nickname, String password) {
+        this.username = username;
         this.email = email;
         this.nickname = nickname;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public String getNickname() {
-        return nickname;
-    }
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String getId() {
-        return email;
-    }
-    @Override
-    public void setId(String id) {
-        email = id;
-    }
+    /* Getters and Setters */
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
 }

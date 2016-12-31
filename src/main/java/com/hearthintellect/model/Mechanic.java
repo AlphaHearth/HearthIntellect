@@ -1,11 +1,11 @@
 package com.hearthintellect.model;
 
 import com.hearthintellect.utils.LocaleString;
-import org.mongodb.morphia.annotations.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity(value = "mechanics", noClassnameStored = true)
-@Indexes(@Index(name = "name", fields = @Field("name")))
-public class Mechanic extends MongoEntity<String> {
+@Document(collection = "mechanics")
+public class Mechanic {
 
 	@Id
     private String mechanicId;
@@ -30,13 +30,5 @@ public class Mechanic extends MongoEntity<String> {
     }
     public void setDescription(LocaleString description) {
         this.description = description;
-    }
-    @Override
-    public String getId() {
-        return mechanicId;
-    }
-    @Override
-    public void setId(String id) {
-        mechanicId = id;
     }
 }

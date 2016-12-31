@@ -1,16 +1,13 @@
 package com.hearthintellect.model;
 
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Reference;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
  * An entry for a deck, merely a tuple of `(card, count)`
  */
-@Embedded
 public class DeckEntry {
 
-    @Reference(idOnly = true)
-    private Card card;
+    private @DBRef Card card;
     private int count;
 
     public DeckEntry(Card card, int count) {

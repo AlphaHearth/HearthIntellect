@@ -1,19 +1,6 @@
 package com.hearthintellect.repository;
 
 import com.hearthintellect.model.User;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Iterator;
-
-public interface UserRepository extends Repository<String, User> {
-
-    User findByEmail(String email);
-
-    /**
-     * Find all {@link User} that have the similar nickname
-     *
-     * @param nickname the given nickname
-     * @return {@link User} that have the similar nickname
-     */
-    Iterator<User> findAllByNickname(String nickname);
-
-}
+public interface UserRepository extends CrudRepository<User, String> {}

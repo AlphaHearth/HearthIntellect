@@ -125,7 +125,7 @@ public class HearthJsonCardParser {
                     return;
                 }
                 LOG.info("Fetched {} cards for version {}.", cards.size(), patchNum);
-                cards.sort((c1, c2) -> c1.getId().compareTo(c2.getId()));
+                cards.sort((c1, c2) -> c1.getCardId().compareTo(c2.getCardId()));
 
                 versionCards.put(patchNum, cards);
             });
@@ -185,11 +185,11 @@ public class HearthJsonCardParser {
 
         LOG.info("Saving Patches to database...");
         PatchRepository patchRepository = context.getBean(PatchRepository.class);
-        patchEntities.values().forEach(patchRepository::insert);
+        patchRepository.save(patchEntities.values());
 
         LOG.info("Saving Cards to database...");
         CardRepository cardRepository = context.getBean(CardRepository.class);
-        cards.forEach(cardRepository::insert);
+        cardRepository.save(cards);
     }
 
     public static List<Card> parse(Path jsonFilePath) throws MalformedURLException {
@@ -230,7 +230,7 @@ public class HearthJsonCardParser {
                 parseLocale(name, cardJson.getJSONObject("name"));
                 card.setName(name);
 
-                card.setId(cardJson.getString("id"));
+                card.setCardId(cardJson.getString("id"));
                 card.setImageUrl(cardJson.getString("id"));
 
                 if (cardJson.has("cost"))

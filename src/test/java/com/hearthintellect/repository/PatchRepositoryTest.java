@@ -28,7 +28,7 @@ public class PatchRepositoryTest {
     public void setUpTestPatch() {
         Patch aFuturePatch = new Patch(TEST_BUILD_NUM, TEST_PATCH_CODE);
 
-        patchRepository.insert(aFuturePatch);
+        patchRepository.save(aFuturePatch);
     }
 
     @Test

@@ -1,12 +1,6 @@
 package com.hearthintellect.repository;
 
 import com.hearthintellect.model.Mechanic;
-import com.hearthintellect.utils.Page;
+import org.springframework.data.repository.CrudRepository;
 
-public interface MechanicRepository extends Repository<String, Mechanic> {
-
-    Iterable<Mechanic> findAll();
-
-    Iterable<Mechanic> findAll(Page page, String order);
-
-}
+public interface MechanicRepository extends CrudRepository<Mechanic, String> {}

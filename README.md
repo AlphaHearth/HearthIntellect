@@ -6,12 +6,8 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 
 ## Future tasks
 
-- [x] Update `crawler` module to support the latest [HearthHead](http://www.hearthhead.com/) web site.
-- [x] Add test cases for `CardRepository` and `MechanicRepository`.
-- [x] Migrate from Jersey to SpringMVC.
 - [x] Deploy version `0.1`.
-- [ ] Migrate from Morphia to Spring Data.
-- [ ] Add `insertAll` and `updateAll` methods for `Card`, `Mechanic` and `Patch`.
+- [x] Migrate from Morphia to Spring Data.
 - [ ] Implement text searching on card name.
 - [ ] Implement `UserController`.
 - [ ] Add test cases for `PatchRepository`.
@@ -27,7 +23,7 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 
 ## Technologies
 
-- Spring for Dependency Injection.
+- Spring Core for Dependency Injection.
 - Spring MVC for RESTful API.
 - Spring Security for User Authentication and Authorization.
-- Spring Data, MongoDB Java Driver and MongoDB for Non-relational Data Persistence.
+- Spring Data Mongo and MongoDB for Non-relational Data Persistence.

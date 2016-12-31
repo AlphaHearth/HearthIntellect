@@ -42,14 +42,14 @@ public class MechanicRepositoryTest {
         mechanicDesc.put(Locale.CHINESE, "当你打出这张卡时，触发效果");
         testMechanic.setDescription(mechanicDesc);
 
-        mechanicRepository.insert(testMechanic);
+        mechanicRepository.save(testMechanic);
     }
 
 
     @Test
     public void testMechanicDaoInsertAndRead() {
         // The entity was inserted in `@Before` method
-        Mechanic mechanic = mechanicRepository.findById(TEST_ID);
+        Mechanic mechanic = mechanicRepository.findOne(TEST_ID);
 
         assertThat(mechanic.getMechanicId(), is(testMechanic.getMechanicId()));
         assertThat(mechanic.getName(), is(testMechanic.getName()));
@@ -58,7 +58,7 @@ public class MechanicRepositoryTest {
 
     @Test
     public void testMechanicDaoUpdate() {
-        Mechanic mechanic = mechanicRepository.findById(TEST_ID);
+        Mechanic mechanic = mechanicRepository.findOne(TEST_ID);
 
         LocaleString mechanicName = new LocaleString();
         mechanicName.put(Locale.ENGLISH, "Deathrattle");
@@ -69,8 +69,8 @@ public class MechanicRepositoryTest {
         mechanicDesc.put(Locale.CHINESE, "当这张卡死亡时，触发效果");
         mechanic.setDescription(mechanicDesc);
 
-        mechanicRepository.update(mechanic);
-        mechanic = mechanicRepository.findById(TEST_ID);
+        mechanicRepository.save(mechanic);
+        mechanic = mechanicRepository.findOne(TEST_ID);
 
         assertThat(mechanic.getMechanicId(), is(testMechanic.getMechanicId()));
         assertThat(mechanic.getName(), not(is(testMechanic.getName())));
@@ -85,7 +85,7 @@ public class MechanicRepositoryTest {
         mechanic.setMechanicId(TEST_ID);
 
         mechanicRepository.delete(mechanic);
-        mechanic = mechanicRepository.findById(TEST_ID);
+        mechanic = mechanicRepository.findOne(TEST_ID);
 
         assertThat(mechanic, nullValue());
     }

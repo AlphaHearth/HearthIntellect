@@ -71,13 +71,13 @@ public class CardRepositoryTest {
         deathQuote.put(Locale.US, "This is just the beginning!");
         quotes.add(new CardQuote(CardQuote.Type.Death, deathQuote, "url3"));
         testCard.setQuotes(quotes);
-        cardRepository.insert(testCard);
+        cardRepository.save(testCard);
     }
 
     @Test
     public void testCardDaoInsertAndRead() {
         // The entity was inserted in the `@Before` method
-        Card card = cardRepository.findById(TEST_ID);
+        Card card = cardRepository.findOne(TEST_ID);
 
         assertThat(card.getCardId(), is(testCard.getCardId()));
         assertThat(card.getName(), is(testCard.getName()));
@@ -95,14 +95,14 @@ public class CardRepositoryTest {
 
     @Test
     public void testCardDaoUpdate() {
-        Card card = cardRepository.findById(TEST_ID);
+        Card card = cardRepository.findOne(TEST_ID);
 
         LocaleString cardName = new LocaleString();
         cardName.put(Locale.US, "Mr-Dai");
         cardName.put(Locale.CHINA, "呆呆");
         card.setName(cardName);
-        cardRepository.update(card);
-        card = cardRepository.findById(TEST_ID);
+        cardRepository.save(card);
+        card = cardRepository.findOne(TEST_ID);
 
         assertThat(card.getCardId(), is(testCard.getCardId()));
         assertThat(card.getName(), not(is(testCard.getName())));
@@ -116,7 +116,7 @@ public class CardRepositoryTest {
 
         cardRepository.delete(card);
 
-        card = cardRepository.findById(TEST_ID);
+        card = cardRepository.findOne(TEST_ID);
         assertThat(card, nullValue());
     }
 }

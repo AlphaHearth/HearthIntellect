@@ -69,7 +69,7 @@ public class HearthHeadAssetDownloader {
 
         LOG.info("Reading Card entities from database...");
         CardRepository cardRepository = context.getBean(CardRepository.class);
-        List<Card> cards = cardRepository.findAll();
+        Iterable<Card> cards = cardRepository.findAll();
         List<String> imageIds = new LinkedList<>();
         List<String> soundIds = new LinkedList<>();
         for (Card card : cards) {
