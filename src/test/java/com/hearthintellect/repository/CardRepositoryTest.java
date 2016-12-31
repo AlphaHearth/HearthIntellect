@@ -1,4 +1,4 @@
-package com.hearthintellect.dao;
+package com.hearthintellect.repository;
 
 import com.hearthintellect.config.InMemoryMongoConfig;
 import com.hearthintellect.model.Card;
@@ -20,7 +20,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- * Basic CURD unit tests for {@link CardRepository}
+ * Basic CURD unit tests for {@link CardRepository}, strictly-written in a manner that does not rely on any
+ * specific database access technique but the interface declaration itself.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = InMemoryMongoConfig.class)

@@ -1,7 +1,7 @@
-package com.hearthintellect.dao.morphia;
+package com.hearthintellect.repository.morphia;
 
-import com.hearthintellect.dao.Repository;
 import com.hearthintellect.model.MongoEntity;
+import com.hearthintellect.repository.Repository;
 import com.hearthintellect.utils.Page;
 import com.hearthintellect.utils.Sort;
 import org.apache.commons.lang3.StringUtils;

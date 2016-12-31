@@ -1,7 +1,7 @@
-package com.hearthintellect.dao.morphia;
+package com.hearthintellect.repository.morphia;
 
-import com.hearthintellect.dao.PatchRepository;
 import com.hearthintellect.model.Patch;
+import com.hearthintellect.repository.PatchRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.ZonedDateTime;

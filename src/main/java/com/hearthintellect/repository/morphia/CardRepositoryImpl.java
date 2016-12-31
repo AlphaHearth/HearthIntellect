@@ -1,9 +1,9 @@
-package com.hearthintellect.dao.morphia;
+package com.hearthintellect.repository.morphia;
 
-import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.Mechanic;
+import com.hearthintellect.repository.CardRepository;
 import com.hearthintellect.utils.Page;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;

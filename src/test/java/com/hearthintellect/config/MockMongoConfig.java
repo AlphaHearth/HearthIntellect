@@ -1,6 +1,6 @@
 package com.hearthintellect.config;
 
-import com.hearthintellect.dao.CardRepository;
+import com.hearthintellect.repository.CardRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

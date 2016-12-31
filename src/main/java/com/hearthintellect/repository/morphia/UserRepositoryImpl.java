@@ -1,7 +1,7 @@
-package com.hearthintellect.dao.morphia;
+package com.hearthintellect.repository.morphia;
 
-import com.hearthintellect.dao.UserRepository;
 import com.hearthintellect.model.User;
+import com.hearthintellect.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;

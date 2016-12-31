@@ -1,4 +1,4 @@
-package com.hearthintellect.dao;
+package com.hearthintellect.repository;
 
 import com.hearthintellect.config.InMemoryMongoConfig;
 import com.hearthintellect.model.Patch;

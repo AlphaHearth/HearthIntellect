@@ -1,4 +1,4 @@
-package com.hearthintellect.dao;
+package com.hearthintellect.repository;
 
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;

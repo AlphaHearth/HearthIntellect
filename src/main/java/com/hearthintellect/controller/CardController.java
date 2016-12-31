@@ -1,8 +1,8 @@
 package com.hearthintellect.controller;
 
 import com.hearthintellect.controller.exception.CardNotFoundException;
-import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
+import com.hearthintellect.repository.CardRepository;
 import com.hearthintellect.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,5 +1,6 @@
 package com.hearthintellect.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.hearthintellect.utils.LocaleString;
 import org.mongodb.morphia.annotations.*;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class Card extends MongoEntity<String> {
 
     @Id
+    @SerializedName("id")
     private String cardId;
 
     private LocaleString name;

@@ -1,11 +1,12 @@
 package com.hearthintellect.config;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hearthintellect.json.LocalDateTimeTypeAdapter;
 import com.hearthintellect.json.LocalDateTypeAdapter;
 import com.hearthintellect.json.LocaleStringTypeAdapter;
+import com.hearthintellect.json.PatchDeserializer;
+import com.hearthintellect.model.Patch;
 import com.hearthintellect.utils.LocaleString;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,7 +35,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
                 .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
                 .registerTypeAdapter(LocaleString.class, new LocaleStringTypeAdapter())
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(Patch.class, new PatchDeserializer())
                 .setPrettyPrinting()
                 .create();
     }

@@ -1,9 +1,9 @@
-package com.hearthintellect.dao.morphia;
+package com.hearthintellect.repository.morphia;
 
-import com.hearthintellect.dao.DeckRepository;
 import com.hearthintellect.model.Deck;
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.User;
+import com.hearthintellect.repository.DeckRepository;
 import com.hearthintellect.utils.Page;
 import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Repository;

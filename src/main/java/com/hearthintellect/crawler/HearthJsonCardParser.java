@@ -1,12 +1,12 @@
 package com.hearthintellect.crawler;
 
 import com.hearthintellect.config.SpringMongoConfig;
-import com.hearthintellect.dao.CardRepository;
-import com.hearthintellect.dao.PatchRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HeroClass;
 import com.hearthintellect.model.HistoryCard;
 import com.hearthintellect.model.Patch;
+import com.hearthintellect.repository.CardRepository;
+import com.hearthintellect.repository.PatchRepository;
 import com.hearthintellect.utils.CollectionUtils;
 import com.hearthintellect.utils.ConcurrentUtils;
 import com.hearthintellect.utils.LocaleString;

@@ -1,9 +1,9 @@
 package com.hearthintellect.crawler;
 
 import com.hearthintellect.config.SpringMongoConfig;
-import com.hearthintellect.dao.CardRepository;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.CardQuote;
+import com.hearthintellect.repository.CardRepository;
 import com.hearthintellect.utils.ConcurrentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
