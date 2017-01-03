@@ -7,6 +7,10 @@ import com.hearthintellect.json.LocalDateTypeAdapter;
 import com.hearthintellect.json.LocaleStringTypeAdapter;
 import com.hearthintellect.json.PatchDeserializer;
 import com.hearthintellect.model.Patch;
+import com.hearthintellect.security.MD5TokenIDGenerator;
+import com.hearthintellect.security.PasswordEncoder;
+import com.hearthintellect.security.SaltedMD5Encoder;
+import com.hearthintellect.security.TokenIDGenerator;
 import com.hearthintellect.utils.LocaleString;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,6 +42,16 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
                 .registerTypeAdapter(Patch.class, new PatchDeserializer())
                 .setPrettyPrinting()
                 .create();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new SaltedMD5Encoder();
+    }
+
+    @Bean
+    public TokenIDGenerator tokenIDGenerator() {
+        return new MD5TokenIDGenerator();
     }
 
     @Bean

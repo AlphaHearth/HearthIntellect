@@ -1,7 +1,10 @@
 package com.hearthintellect;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hearthintellect.config.SpringWebConfig;
+import com.hearthintellect.model.Patch;
+import com.hearthintellect.model.User;
 import com.hearthintellect.utils.LocaleString;
 import org.junit.Test;
 
@@ -47,5 +50,20 @@ public class GsonTest {
         System.out.println(serializedLocaleString);
         LocaleString deserializedLocaleString = gson.fromJson(serializedLocaleString, LocaleString.class);
         assertThat(deserializedLocaleString, is(testLocaleString));
+    }
+
+    @Test
+    public void testGsonNotSerializingNull() {
+        User user = new User("robert.peng", "robert.peng@example", "Robert Peng", null);
+        JsonObject jsonObject = gson.toJsonTree(user).getAsJsonObject();
+        assertThat(jsonObject.has("password"), is(false));
+    }
+
+    @Test
+    public void testGsonCamelNamingStrategy() {
+        Patch patch = new Patch(12345, "200.0.0.12345");
+        JsonObject jsonObject = gson.toJsonTree(patch).getAsJsonObject();
+        assertThat(jsonObject.has("buildNum"), is(true));
+        assertThat(jsonObject.has("build_num"), is(false));
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * @author Robert Peng
  */
 @Document(collection = "cards")
-public class Card {
+public class Card implements Entity<String> {
 
     @SerializedName("id")
     private @Id String cardId;
@@ -160,6 +160,16 @@ public class Card {
     }
     public void setAddedPatch(Patch addedPatch) {
         this.addedPatch = addedPatch;
+    }
+
+    @Override
+    public String getID() {
+        return cardId;
+    }
+
+    @Override
+    public void setID(String s) {
+        cardId = s;
     }
 
     public enum Quality {

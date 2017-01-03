@@ -21,5 +21,4 @@ public abstract class SortUtils {
         }
         return new Sort(orderList);
     }
-
 }

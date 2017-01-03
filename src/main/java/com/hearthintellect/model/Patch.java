@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.ZonedDateTime;
 
 @Document(collection = "patches")
-public class Patch {
+public class Patch implements Entity<Integer> {
 
     private @Id int buildNum;
     private String patchCode;
@@ -30,4 +30,14 @@ public class Patch {
     public void setReleaseDate(ZonedDateTime releaseDate) { this.releaseDate = releaseDate; }
     public LocaleString getReleaseNote() { return releaseNote; }
     public void setReleaseNote(LocaleString releaseNote) { this.releaseNote = releaseNote; }
+
+    @Override
+    public Integer getID() {
+        return buildNum;
+    }
+
+    @Override
+    public void setID(Integer integer) {
+        buildNum = integer;
+    }
 }

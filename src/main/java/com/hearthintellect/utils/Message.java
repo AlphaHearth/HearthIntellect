@@ -1,4 +1,4 @@
-package com.hearthintellect.model;
+package com.hearthintellect.utils;
 
 public class Message {
     private final int statusCode;

@@ -1,15 +1,18 @@
 package com.hearthintellect.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "users")
-public class User {
+public class User implements Entity<String> {
     private @Id String username;
     private String password;
     private String email;
-    private @TextIndexed String nickname;
+    private String nickname;
+
+    private List<String> roles;
 
     public User() {}
 
@@ -29,4 +32,16 @@ public class User {
     public void setEmail(String email) { this.email = email; }
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
+    public List<String> getRoles() { return roles; }
+    public void setRoles(List<String> roles) { this.roles = roles; }
+
+    @Override
+    public String getID() {
+        return username;
+    }
+
+    @Override
+    public void setID(String s) {
+        username = s;
+    }
 }

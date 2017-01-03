@@ -1,10 +1,10 @@
 package com.hearthintellect.controller.exception;
 
 /**
- * Specialized {@link EntityNotFoundException} for {@link com.hearthintellect.model.Card Card}.
+ * Specialized {@link NotFoundException} for {@link com.hearthintellect.model.Card Card}.
  */
-public class CardNotFoundException extends EntityNotFoundException {
-    public CardNotFoundException(String entityId) {
-        super("Card", entityId);
+public class CardNotFoundException extends NotFoundException {
+    public CardNotFoundException(String cardId) {
+        super("Card", cardId);
     }
 }

@@ -16,15 +16,14 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- * Basic CURD unit tests for {@link MechanicRepository}.
+ * Basic CRUD unit tests for {@link MechanicRepository}.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = InMemoryMongoConfig.class)
 public class MechanicRepositoryTest {
     private static final String TEST_ID = "TEST_MECHANIC";
 
-    @Autowired
-    private MechanicRepository mechanicRepository;
+    private @Autowired MechanicRepository mechanicRepository;
 
     private Mechanic testMechanic;
 
@@ -47,7 +46,7 @@ public class MechanicRepositoryTest {
 
 
     @Test
-    public void testMechanicDaoInsertAndRead() {
+    public void testInsertAndRead() {
         // The entity was inserted in `@Before` method
         Mechanic mechanic = mechanicRepository.findOne(TEST_ID);
 
@@ -57,7 +56,7 @@ public class MechanicRepositoryTest {
     }
 
     @Test
-    public void testMechanicDaoUpdate() {
+    public void testUpdate() {
         Mechanic mechanic = mechanicRepository.findOne(TEST_ID);
 
         LocaleString mechanicName = new LocaleString();
@@ -80,7 +79,7 @@ public class MechanicRepositoryTest {
     }
 
     @Test
-    public void testMechanicDaoDelete() {
+    public void testDelete() {
         Mechanic mechanic = new Mechanic();
         mechanic.setMechanicId(TEST_ID);
 

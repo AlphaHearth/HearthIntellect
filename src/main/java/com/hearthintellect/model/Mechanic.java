@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "mechanics")
-public class Mechanic {
+public class Mechanic implements Entity<String> {
 
 	@Id
     private String mechanicId;
@@ -30,5 +30,15 @@ public class Mechanic {
     }
     public void setDescription(LocaleString description) {
         this.description = description;
+    }
+
+    @Override
+    public String getID() {
+        return mechanicId;
+    }
+
+    @Override
+    public void setID(String s) {
+        this.mechanicId = s;
     }
 }

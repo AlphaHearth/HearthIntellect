@@ -14,7 +14,8 @@ import org.springframework.context.annotation.Import;
 public class InMemoryMongoConfig {
 
     @Bean
-    public MongoClient mongoClient() {
+    public MongoClient mongoClient(String mongoHost, Integer mongoPort, String mongoDatabase,
+                                   String mongoUsername, String mongoPassword) {
         return new Fongo("In Memory Mongo").getMongo();
     }
 }

@@ -34,7 +34,8 @@ public class CardController {
             @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
             @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
             @RequestParam(value = "order", defaultValue = "") String order) {
-        Page<Card> requestedPage = cardRepository.findAll(new PageRequest(pageNum, pageSize, SortUtils.parseSort(order)));
+        Page<Card> requestedPage =
+                cardRepository.findAll(new PageRequest(pageNum, pageSize, SortUtils.parseSort(order)));
         return IterableUtils.toList(requestedPage);
     }
 
