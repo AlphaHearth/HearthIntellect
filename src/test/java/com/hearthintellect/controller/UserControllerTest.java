@@ -2,18 +2,15 @@ package com.hearthintellect.controller;
 
 import com.hearthintellect.model.Token;
 import com.hearthintellect.model.User;
+import com.hearthintellect.utils.Message;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.MediaType;
 
 import java.time.LocalDateTime;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserControllerTest extends ControllerTest {
 
@@ -29,31 +26,25 @@ public class UserControllerTest extends ControllerTest {
     public void testGettingExistedUser() throws Exception {
         String username = testUser.getUsername();
         testUser.setPassword(null);
-        mockMvc.perform(get("/users/" + username).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().json(gson.toJson(testUser), true));
+        getWithAssertion("/users/" + username, 200, testUser);
     }
 
     @Test
     public void testGettingNotExistedUser() throws Exception {
-        mockMvc.perform(get("/users/NotReallyMatter").accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isNotFound());
+        String username = "NOT_REALLY_EXIST";
+        Message expectedMessage = new Message(404, "User with given ID `" + username + "` does not exist.");
+        getWithAssertion("/users/" + username, 404, expectedMessage);
     }
 
     @Test
     public void testCreatingNotExistedUser() throws Exception {
         testUser.setUsername("SomethingInteresting.");
-        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(gson.toJson(testUser)).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isCreated());
+        postWithAssertion("/users", testUser, 201, null);
     }
 
     @Test
     public void testCreatingExistedUser() throws Exception {
-        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(gson.toJson(testUser)).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isForbidden());
+        postWithAssertion("/users", testUser, 403, null);
     }
 
     @Test
@@ -81,17 +72,9 @@ public class UserControllerTest extends ControllerTest {
 
         User expectedUser = new User(testUser.getUsername(), newEmail, oldNickname, null);
 
-        mockMvc.perform(put("/users/" + testUser.getUsername() + "?token=" + token.getID())
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(gson.toJson(testUser)).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isCreated());
-        mockMvc.perform(get("/users/" + testUser.getUsername()).contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson(expectedUser), true));
-        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(gson.toJson(new TokenController.LoginRequest(testUser.getUsername(), oldPassword)))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+        putWithAssertion("/users/" + testUser.getUsername() + "?token=" + token.getID(), testUser, 201, null);
+        getWithAssertion("/users/" + testUser.getUsername(), 200, expectedUser);
+        postWithAssertion("/login", new TokenController.LoginRequest(testUser.getUsername(), oldPassword), 200, null);
     }
 
     @Test
@@ -103,10 +86,7 @@ public class UserControllerTest extends ControllerTest {
                 .filter((u) -> u.getUsername().equals(token.getUsername()))
                 .findFirst().get();
 
-        mockMvc.perform(put("/users/" + testUser.getUsername() + "?token=" + token.getID())
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(gson.toJson(testUser)).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isUnauthorized());
+        putWithAssertion("/users/" + testUser.getUsername() + "?token=" + token.getID(), testUser, 401, null);
     }
 
     @Test
@@ -115,9 +95,6 @@ public class UserControllerTest extends ControllerTest {
         Token token = testTokens.stream()
                 .filter((t) -> t.getExpireTime().isAfter(LocalDateTime.now()))
                 .findFirst().get();
-        mockMvc.perform(put("/users/" + testUsername + "?token=" + token.getID())
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(gson.toJson(testUser)).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isNotFound());
+        putWithAssertion("/users/" + testUsername + "?token=" + token.getID(), testUser, 404, null);
     }
 }

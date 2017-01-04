@@ -4,14 +4,14 @@ import com.hearthintellect.utils.LocaleString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 @Document(collection = "patches")
 public class Patch implements Entity<Integer> {
 
     private @Id int buildNum;
     private String patchCode;
-    private ZonedDateTime releaseDate;
+    private LocalDate releaseDate;
     private LocaleString releaseNote;
 
     public Patch() {}
@@ -26,8 +26,8 @@ public class Patch implements Entity<Integer> {
     public void setBuildNum(int buildNum) { this.buildNum = buildNum; }
     public String getPatchCode() { return patchCode; }
     public void setPatchCode(String patchCode) { this.patchCode = patchCode; }
-    public ZonedDateTime getReleaseDate() { return releaseDate; }
-    public void setReleaseDate(ZonedDateTime releaseDate) { this.releaseDate = releaseDate; }
+    public LocalDate getReleaseDate() { return releaseDate; }
+    public void setReleaseDate(LocalDate releaseDate) { this.releaseDate = releaseDate; }
     public LocaleString getReleaseNote() { return releaseNote; }
     public void setReleaseNote(LocaleString releaseNote) { this.releaseNote = releaseNote; }
 

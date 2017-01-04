@@ -26,6 +26,5 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 
 ## Technologies
 
-- Spring Core for Dependency Injection.
 - Spring MVC for RESTful API.
 - Spring Data Mongo and MongoDB for Non-relational Data Persistence.

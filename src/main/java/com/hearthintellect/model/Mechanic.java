@@ -1,5 +1,6 @@
 package com.hearthintellect.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.hearthintellect.utils.LocaleString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "mechanics")
 public class Mechanic implements Entity<String> {
 
-	@Id
-    private String mechanicId;
+	@SerializedName("id")
+    private @Id String mechanicId;
 
     private LocaleString name;
     private LocaleString description;
