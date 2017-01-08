@@ -47,12 +47,6 @@ dependencies {
     testCompile group: 'org.skyscreamer', name: 'jsonassert', version: '1.4.0'
 }
 
-test {
-    useJUnit {
-        excludeCategories 'com.hearthintellect.categories.DependOnRealData'
-    }
-}
-
 task downloadHearthJson(type: JavaExec) {
     main = 'com.hearthintellect.crawler.HearthJsonDownloader'
     classpath = sourceSets.main.runtimeClasspath

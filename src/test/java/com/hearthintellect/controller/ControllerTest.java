@@ -86,7 +86,7 @@ public abstract class ControllerTest {
         Token adminToken = ResourceUtils.readResrouceJsonAsEntity("admin_token.json", Token.class, gson);
         assertThat(adminToken, notNullValue());
         tokenRepository.save(adminToken);
-        assertThat(tokenRepository.adminVerify(adminToken.getID()), is(true));
+        tokenRepository.adminVerify(adminToken.getID());
         adminTokenID = adminToken.getID();
 
         testMechanics = ResourceUtils.readResrouceJsonAsEntity("mechanics.json", TypeTokens.mechanicListType, gson);
@@ -158,11 +158,11 @@ public abstract class ControllerTest {
     }
 
     protected Message entityNotFoundMessage(String entityName, Object entityID) {
-        return new Message(404, entityName + " with given ID `" + entityID + "` does not exist.");
+        return new Message(404, entityName + " with ID `" + entityID + "` does not exist.");
     }
 
     protected Message duplicateEntityMessage(String entityName, Object entityID) {
-        return new Message(403, entityName + "with given ID `" + entityID + "` already exists.");
+        return new Message(403, entityName + "with ID `" + entityID + "` already exists.");
     }
 
     protected Message entityCreatedMessage(String entityName, Object entityID, String entityUrl) {
