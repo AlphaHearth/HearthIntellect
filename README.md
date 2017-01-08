@@ -18,8 +18,9 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 - [ ] Use admin interface to populate `Mechanic` and `Patch` data.
 - [ ] Implement advanced filtering for Card browsing.
 - [ ] Update `Card` model to support Wild mode, Arena mode and Standard mode.
-- [ ] Add controller classes for `Deck`.
+- [ ] Implement `DeckController` with basic deck browsing, creating and updating.
 - [ ] Deploy version `0.3`.
+- [ ] Implement locale support.
 - [ ] Implement text searching on card name.
 - [ ] Implement text searching on deck name.
 

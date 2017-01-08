@@ -13,8 +13,6 @@ public class CardControllerTest extends ControllerTest {
     @Test
     public void testCardListing() throws Exception {
         String testOrder = "cost";
-        int testPageNum = 1;
-        int testPageSize = 2;
         PageRequest testPage = new PageRequest(1, 2, SortUtils.parseSort(testOrder));
 
         getWithAssertion(

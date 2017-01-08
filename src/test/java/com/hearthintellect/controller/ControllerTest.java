@@ -8,6 +8,9 @@ import com.hearthintellect.repository.*;
 import com.hearthintellect.security.PasswordEncoder;
 import com.hearthintellect.util.ResourceUtils;
 import com.hearthintellect.util.TypeTokens;
+import com.hearthintellect.utils.CreatedMessage;
+import com.hearthintellect.utils.DeletedMessage;
+import com.hearthintellect.utils.Message;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -144,5 +147,33 @@ public abstract class ControllerTest {
             err.setStackTrace(new StackTraceElement[0]);
             throw err;
         }
+    }
+
+    protected Message emptyTokenMessage() {
+        return new Message(401, "Token cannot be empty.");
+    }
+
+    protected Message invalidTokenMessage(String tokenID) {
+        return new Message(401, "The given token `" + tokenID + "` is invalid for this API or has expired.");
+    }
+
+    protected Message entityNotFoundMessage(String entityName, Object entityID) {
+        return new Message(404, entityName + " with given ID `" + entityID + "` does not exist.");
+    }
+
+    protected Message duplicateEntityMessage(String entityName, Object entityID) {
+        return new Message(403, entityName + "with given ID `" + entityID + "` already exists.");
+    }
+
+    protected Message entityCreatedMessage(String entityName, Object entityID, String entityUrl) {
+        return new CreatedMessage(entityUrl, entityName + " with ID `" + entityID + "` was created.");
+    }
+
+    protected Message entityUpdatedMessage(String entityName, Object entityID, String entityUrl) {
+        return new CreatedMessage(entityUrl, entityName + " with ID `" + entityID + "` was updated.");
+    }
+
+    protected Message entityDeletedMessage(String entityName, Object entityID) {
+        return new DeletedMessage(entityName + " with ID `" + entityID + "` was deleted.");
     }
 }
