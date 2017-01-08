@@ -13,4 +13,8 @@ public interface TokenRepository extends CrudRepository<Token, String> {
     default boolean tokenMatches(String token, String username) {
         return countByIdAndUsernameAndExpireTimeGreaterThan(token, username, LocalDateTime.now()) > 0;
     }
+
+    default boolean isAdmin(String token) {
+        return tokenMatches(token, "admin");
+    }
 }

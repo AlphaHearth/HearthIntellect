@@ -4,6 +4,7 @@ import com.hearthintellect.model.Card;
 import com.hearthintellect.utils.Message;
 import com.hearthintellect.utils.SortUtils;
 import org.apache.commons.collections4.IterableUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.data.domain.PageRequest;
 
@@ -22,7 +23,21 @@ public class CardControllerTest extends ControllerTest {
     }
 
     @Test
-    public void testGettingExistedCard() throws Exception {
+    @Ignore
+    public void testCardIDExistenceQueryWithExistedCard() {
+        for (Card card : testCards)
+            headWithAssertion("/cards/" + card.getID(), 200);
+    }
+
+    @Test
+    @Ignore
+    public void testCardIDExistenceQueryWithNotExistedCard() {
+        String testCardID = "NOT_REALLY_EXIST";
+        headWithAssertion("/cards/" + testCardID, 404);
+    }
+
+    @Test
+    public void testGettingExistedCard() {
         Card testCard = testCards.get(0);
         String testCardID = testCard.getCardId();
 
@@ -30,7 +45,7 @@ public class CardControllerTest extends ControllerTest {
     }
 
     @Test
-    public void testGettingNotExistedCard() throws Exception {
+    public void testGettingNotExistedCard() {
         String testCardID = "NOT_REALLY_EXIST";
         Message expectedMessage = new Message(404, "Card with given ID `" + testCardID + "` does not exist.");
         getWithAssertion("/cards/" + testCardID, 404, expectedMessage);

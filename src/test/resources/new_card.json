@@ -1,0 +1,77 @@
+{
+  "id": "AT_012",
+  "name": {
+    "de-DE": "Ausgeburt der Schatten",
+    "en-US": "Spawn of Shadows",
+    "zh-TW": "暗影爪牙",
+    "ko-KR": "어둠의 종복",
+    "pt-BR": "Cria das Sombras",
+    "es-ES": "Engendro de las Sombras",
+    "zh-CN": "暗影子嗣",
+    "es-MX": "Engendro de las sombras",
+    "it-IT": "Figlio delle Ombre",
+    "ru-RU": "Исчадие теней",
+    "pl-PL": "Pomiot Cieni",
+    "fr-FR": "Rejeton des Ombres",
+    "ja-JP": "シャドースポーン",
+    "th-TH": "ผู้กำเนิดจากความมืด"
+  },
+  "effect": {
+    "de-DE": "\u003cb\u003eInspiration:\u003c/b\u003e Fügt jedem Helden 4 Schaden zu.",
+    "en-US": "\u003cb\u003eInspire:\u003c/b\u003e Deal 4 damage to each hero.",
+    "zh-TW": "\u003cb\u003e激勵：\u003c/b\u003e對雙方英雄造成4點傷害",
+    "ko-KR": "\u003cb\u003e격려:\u003c/b\u003e 각 영웅에게\n피해를 4씩 줍니다.",
+    "pt-BR": "\u003cb\u003eInspirar:\u003c/b\u003e Cause 4 de dano a cada herói.",
+    "es-ES": "\u003cb\u003eInspirar:\u003c/b\u003e Inflige 4 p. de daño a cada héroe.",
+    "zh-CN": "\u003cb\u003e激励：\u003c/b\u003e对每个英雄造成4点伤害。",
+    "es-MX": "\u003cb\u003eInspirar:\u003c/b\u003e inflige 4 de daño a cada héroe.",
+    "it-IT": "\u003cb\u003eIspirazione:\u003c/b\u003e infligge 4 danni a entrambi gli eroi.",
+    "ru-RU": "\u003cb\u003eВоодушевление:\u003c/b\u003e наносит 4 ед. урона каждому герою.",
+    "pl-PL": "\u003cb\u003eInspiracja:\u003c/b\u003e Zadaj 4 pkt. obrażeń każdemu bohaterowi.",
+    "fr-FR": "\u003cb\u003eExaltation :\u003c/b\u003e inflige 4 points de dégâts à chaque héros.",
+    "ja-JP": "\u003cb\u003e激励:\u003c/b\u003e 各ヒーローに\n4ダメージを与える。",
+    "th-TH": "\u003cb\u003eจุดประกาย:\u003c/b\u003e สร้างความเสียหาย 4 แต้ม[b]ให้ฮีโร่ทั้งหมด"
+  },
+  "flavor": {
+    "de-DE": "Was hattet Ihr von einer Ausgeburt der Schatten erwartet? Er muss seinem Ruf gerecht werden.",
+    "en-US": "What did you expect to happen?  He's a Spawn.  Of Shadows.",
+    "zh-TW": "毫無反應，就是個暗影爪牙。",
+    "ko-KR": "분명 격려를 했는데 왜 내 명치가 아플까요.",
+    "pt-BR": "Ele vai te meter numa fria das sombras.",
+    "es-ES": "¿Qué esperabas? Es un engendro, y encima de las Sombras.",
+    "zh-CN": "只要跟暗影两字沾边的，多半不是什么好人，也不会有什么好事。",
+    "es-MX": "¿Qué esperabas? Es un engendro. De las sombras.",
+    "it-IT": "È davvero un gran Figlio... delle Ombre.",
+    "ru-RU": "А вы чего ждали? Это же исчадие. Да еще и теней.",
+    "pl-PL": "A czego innego można się spodziewać? Przecież to Pomiot. Cieni Pomiot!",
+    "fr-FR": "Les ombres ne l’ont pas vraiment rejeté, c’est juste qu’il n’a pas été très gentil avec ses petits camarades.",
+    "ja-JP": "シャドー・スポーン？それともシャドース・ポーン？しゃー、どーっすかね。",
+    "th-TH": "เขาเป็นผู้กำเนิดจากความมืด  คิดว่าเขาเกิดมาได้ยังไงล่ะ"
+  },
+  "cost": 4,
+  "attack": 5,
+  "health": 4,
+  "image": "AT_012",
+  "class": "PRIEST",
+  "collectible": true,
+  "quality": "RARE",
+  "type": "MINION",
+  "set": "TGT",
+  "race": "NONE",
+  "sincePatch": 9786,
+  "addedPatch": 9786,
+  "quotes": [
+    {
+      "type": "Attack",
+      "audioUrl": "VO_AT_012_ATTACK_02"
+    },
+    {
+      "type": "Death",
+      "audioUrl": "VO_AT_012_DEATH_03"
+    },
+    {
+      "type": "Play",
+      "audioUrl": "VO_AT_012_PLAY_01"
+    }
+  ]
+}

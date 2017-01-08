@@ -1,4 +1,5 @@
 [
   { "username": "robert-peng", "password": "Robert's Password", "email": "robert.peng@example.com", "nickname": "Robert Peng" },
-  { "username": "ccwindy", "password": "Windy's Password", "email": "ccwindy@example.com", "nickname": "CCWindy" }
+  { "username": "ccwindy", "password": "Windy's Password", "email": "ccwindy@example.com", "nickname": "CCWindy" },
+  { "username": "admin", "password": "Admin's Password", "email": "admin@example.com", "nickname": "Admin" }
 ]

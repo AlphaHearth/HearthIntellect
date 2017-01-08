@@ -11,11 +11,10 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 - [x] Implement `UserController` with basic user authentication functionality.
 - [ ] Implement `MechanicController` and `PatchController`.
 - [ ] Implement admin controllers `CardAdminController`, `MechanicAdminController` and `PatchAdminController`.
-- [ ] Write admin interfaces using FreeMarker.
-- [ ] Write integration test cases.
 - [ ] Write complete test cases for all existing classes.
 - [ ] Write complete documentation for all existing classes.
-- [ ] Deploy version `0.2`.
+- [ ] Deploy version `0.2` on `HTTPS`.
+- [ ] Write admin user interface.
 - [ ] Use admin interface to populate `Mechanic` and `Patch` data.
 - [ ] Implement advanced filtering for Card browsing.
 - [ ] Update `Card` model to support Wild mode, Arena mode and Standard mode.

@@ -25,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -54,6 +55,8 @@ public abstract class ControllerTest {
     List<Token> testTokens;
     List<Mechanic> testMechanics;
 
+    String adminTokenID;
+
     @Before
     public void setUp() {
         mockMvc = webAppContextSetup(context).build();
@@ -77,6 +80,11 @@ public abstract class ControllerTest {
         testTokens = ResourceUtils.readResrouceJsonAsEntity("tokens.json", TypeTokens.tokenListType, gson);
         assertThat(testTokens.isEmpty(), is(false));
         tokenRepository.save(testTokens);
+        Token adminToken = ResourceUtils.readResrouceJsonAsEntity("admin_token.json", Token.class, gson);
+        assertThat(adminToken, notNullValue());
+        tokenRepository.save(adminToken);
+        assertThat(tokenRepository.isAdmin(adminToken.getID()), is(true));
+        adminTokenID = adminToken.getID();
 
         testMechanics = ResourceUtils.readResrouceJsonAsEntity("mechanics.json", TypeTokens.mechanicListType, gson);
         assertThat(testTokens.isEmpty(), is(false));
@@ -91,6 +99,14 @@ public abstract class ControllerTest {
         userRepository.deleteAll();
         tokenRepository.deleteAll();
         mechanicRepository.deleteAll();
+    }
+
+    protected void headWithAssertion(String url, int expectedStatus) {
+        requestWithAssertion(HttpMethod.HEAD, url, null, expectedStatus, null);
+    }
+
+    protected void deleteWithAssertion(String url, int expectedStatus, Object expectedBody) {
+        requestWithAssertion(HttpMethod.DELETE, url, null, expectedStatus, expectedBody);
     }
 
     protected void getWithAssertion(String url, int expectedStatus, Object expectedBody) {
