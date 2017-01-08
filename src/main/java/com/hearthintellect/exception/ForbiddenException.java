@@ -1,4 +1,4 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 public class ForbiddenException extends ErrorResponseException {
     public ForbiddenException(String message) {

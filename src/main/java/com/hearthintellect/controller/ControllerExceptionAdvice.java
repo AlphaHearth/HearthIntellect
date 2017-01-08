@@ -1,6 +1,6 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.controller.exception.ErrorResponseException;
+import com.hearthintellect.exception.ErrorResponseException;
 import com.hearthintellect.utils.Message;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

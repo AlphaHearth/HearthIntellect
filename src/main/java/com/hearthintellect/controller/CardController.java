@@ -1,6 +1,6 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.controller.exception.CardNotFoundException;
+import com.hearthintellect.exception.CardNotFoundException;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.repository.CardRepository;
 import com.hearthintellect.utils.SortUtils;

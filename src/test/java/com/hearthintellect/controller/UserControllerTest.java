@@ -32,7 +32,7 @@ public class UserControllerTest extends ControllerTest {
     @Test
     public void testGettingNotExistedUser() throws Exception {
         String username = "NOT_REALLY_EXIST";
-        Message expectedMessage = new Message(404, "User with given ID `" + username + "` does not exist.");
+        Message expectedMessage = entityNotFoundMessage("User", username);
         getWithAssertion("/users/" + username, 404, expectedMessage);
     }
 

@@ -1,4 +1,4 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 /**
  * Triggered when a client is trying to log in with invalid user credential.

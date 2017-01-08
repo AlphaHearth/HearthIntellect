@@ -1,4 +1,4 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 /**
  * Specialized {@link NotFoundException} for {@link com.hearthintellect.model.Card Card}.

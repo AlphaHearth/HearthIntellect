@@ -1,6 +1,6 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.controller.exception.*;
+import com.hearthintellect.exception.*;
 import com.hearthintellect.model.User;
 import com.hearthintellect.repository.TokenRepository;
 import com.hearthintellect.repository.UserRepository;
@@ -40,13 +40,10 @@ public class UserController {
     @RequestMapping(path = "/{username}", method = { RequestMethod.PUT, RequestMethod.PATCH })
     public ResponseEntity<CreatedMessage> updateUser(@RequestParam String token, @PathVariable String username,
                                                      @RequestBody User user) {
-        if (StringUtils.isBlank(token))
-            throw new EmptyTokenException();
-        User userInDB = userRepository.findOne(username);
+        tokenRepository.tokenVerify(token, username);
+        User userInDB = userRepository.findByUsername(username);
         if (userInDB == null)
             throw new UserNotFoundException(username);
-        if (!tokenRepository.tokenMatches(token, username))
-            throw new TokenInvalidOrExpiredException(token);
 
         if (StringUtils.isNotBlank(user.getEmail()))
             userInDB.setEmail(user.getEmail());

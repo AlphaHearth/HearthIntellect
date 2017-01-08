@@ -1,4 +1,4 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 /**
  * Triggered when an invalid request is received.

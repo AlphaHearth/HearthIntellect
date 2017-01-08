@@ -1,7 +1,7 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.controller.exception.InvalidUserCredentialException;
-import com.hearthintellect.controller.exception.TokenNotFoundException;
+import com.hearthintellect.exception.InvalidUserCredentialException;
+import com.hearthintellect.exception.TokenNotFoundException;
 import com.hearthintellect.model.Token;
 import com.hearthintellect.model.User;
 import com.hearthintellect.repository.TokenRepository;

@@ -38,7 +38,7 @@ public class MechanicControllerTest extends ControllerTest {
     @Ignore
     public void testGettingNotExistedMechanic() throws Exception {
         String testMechanicID = "NOT_REALLY_EXIST";
-        Message expectedMessage = new Message(404, "Mechanic with given ID `" + testMechanicID + "` does not exist.");
+        Message expectedMessage = entityNotFoundMessage("Mechanic", testMechanicID);
         getWithAssertion("/mechanics/" + testMechanicID, 404, expectedMessage);
     }
 }

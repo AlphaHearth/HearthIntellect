@@ -45,7 +45,7 @@ public class CardControllerTest extends ControllerTest {
     @Test
     public void testGettingNotExistedCard() {
         String testCardID = "NOT_REALLY_EXIST";
-        Message expectedMessage = new Message(404, "Card with given ID `" + testCardID + "` does not exist.");
+        Message expectedMessage = entityNotFoundMessage("Card", testCardID);
         getWithAssertion("/cards/" + testCardID, 404, expectedMessage);
     }
 }

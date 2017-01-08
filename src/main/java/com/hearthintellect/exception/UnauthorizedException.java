@@ -1,4 +1,4 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 public class UnauthorizedException extends ErrorResponseException {
     public UnauthorizedException(String message) {

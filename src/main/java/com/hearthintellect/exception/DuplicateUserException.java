@@ -1,4 +1,4 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 public class DuplicateUserException extends DuplicateEntityException {
     public DuplicateUserException(String username) {

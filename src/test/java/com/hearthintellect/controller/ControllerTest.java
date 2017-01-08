@@ -86,7 +86,7 @@ public abstract class ControllerTest {
         Token adminToken = ResourceUtils.readResrouceJsonAsEntity("admin_token.json", Token.class, gson);
         assertThat(adminToken, notNullValue());
         tokenRepository.save(adminToken);
-        assertThat(tokenRepository.isAdmin(adminToken.getID()), is(true));
+        assertThat(tokenRepository.adminVerify(adminToken.getID()), is(true));
         adminTokenID = adminToken.getID();
 
         testMechanics = ResourceUtils.readResrouceJsonAsEntity("mechanics.json", TypeTokens.mechanicListType, gson);
@@ -150,7 +150,7 @@ public abstract class ControllerTest {
     }
 
     protected Message emptyTokenMessage() {
-        return new Message(401, "Token cannot be empty.");
+        return new Message(401, "Token must be provided to use this API.");
     }
 
     protected Message invalidTokenMessage(String tokenID) {

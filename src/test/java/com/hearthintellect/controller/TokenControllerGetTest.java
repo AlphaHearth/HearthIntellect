@@ -36,14 +36,14 @@ public class TokenControllerGetTest extends ControllerTest {
 
     @Test
     public void testGettingExpiredToken() throws Exception {
-        Message expectedMessage = new Message(404, "Token with given ID `" + expiredToken.getID() + "` does not exist.");
+        Message expectedMessage = entityNotFoundMessage("Token", expiredToken.getID());
         getWithAssertion("/tokens/" + expiredToken.getID(), 404, expectedMessage);
     }
 
     @Test
     public void testGettingNotExistedToken() throws Exception {
         String testTokenID = "NOT_REALLY_EXIST";
-        Message expectedMessage = new Message(404, "Token with given ID `" + testTokenID + "` does not exist.");
+        Message expectedMessage = entityNotFoundMessage("Token", testTokenID);
         getWithAssertion("/tokens/" + testTokenID, 404, expectedMessage);
     }
 }

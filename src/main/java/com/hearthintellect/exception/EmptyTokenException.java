@@ -1,7 +1,7 @@
-package com.hearthintellect.controller.exception;
+package com.hearthintellect.exception;
 
 public class EmptyTokenException extends BadRequestException {
     public EmptyTokenException() {
-        super("Token cannot be empty.");
+        super("Token must be provided to use this API.");
     }
 }

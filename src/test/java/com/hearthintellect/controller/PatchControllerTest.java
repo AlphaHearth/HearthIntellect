@@ -18,7 +18,7 @@ public class PatchControllerTest extends ControllerTest {
     @Ignore
     public void testGettingNotExistedPatch() throws Exception {
         int testPatchID = 123;
-        Message expectedMessage = new Message(404, "Patch with given ID `" + testPatchID + "` does not exist.");
+        Message expectedMessage = entityNotFoundMessage("Patch", testPatchID);
         getWithAssertion("/patches/" + testPatchID, 404, expectedMessage);
     }
 
