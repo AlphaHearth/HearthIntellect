@@ -150,7 +150,7 @@ public abstract class ControllerTest {
     }
 
     protected Message emptyTokenMessage() {
-        return new Message(401, "Token must be provided to use this API.");
+        return new Message(400, "Token must be provided to use this API.");
     }
 
     protected Message invalidTokenMessage(String tokenID) {
@@ -162,7 +162,7 @@ public abstract class ControllerTest {
     }
 
     protected Message duplicateEntityMessage(String entityName, Object entityID) {
-        return new Message(403, entityName + "with ID `" + entityID + "` already exists.");
+        return new Message(403, entityName + " with ID `" + entityID + "` already exists.");
     }
 
     protected Message entityCreatedMessage(String entityName, Object entityID, String entityUrl) {

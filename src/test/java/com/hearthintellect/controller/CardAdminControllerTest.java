@@ -6,7 +6,6 @@ import com.hearthintellect.util.ResourceUtils;
 import com.hearthintellect.utils.LocaleString;
 import com.hearthintellect.utils.Message;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Locale;
@@ -22,14 +21,12 @@ public class CardAdminControllerTest extends ControllerTest {
     }
 
     @Test
-    @Ignore
     public void testCreatingCardWithoutToken() {
         Message expectedMessage = emptyTokenMessage();
-        postWithAssertion("/cards", newCard, 401, expectedMessage);
+        postWithAssertion("/cards", newCard, 400, expectedMessage);
     }
 
     @Test
-    @Ignore
     public void testCreatingCardWithNonAdminToken() {
         Token testToken = testTokens.get(0);
         Message expectedMessage = invalidTokenMessage(testToken.getID());
@@ -37,63 +34,54 @@ public class CardAdminControllerTest extends ControllerTest {
     }
 
     @Test
-    @Ignore
-    public void testCreatingNotExistedCard() {
+        public void testCreatingNotExistedCard() {
         Message expectedMessage = entityCreatedMessage("Card", newCard.getID(), "/cards/" + newCard.getID());
         postWithAssertion("/cards?token=" + adminTokenID, newCard, 201, expectedMessage);
         getWithAssertion("/cards/" + newCard.getID(), 200, newCard);
     }
 
     @Test
-    @Ignore
-    public void testCreatingExistedCard() {
+        public void testCreatingExistedCard() {
         Card testCard = testCards.get(0);
         Message expectedMessage = duplicateEntityMessage("Card", testCard.getID());
         postWithAssertion("/cards?token=" + adminTokenID, testCard, 403, expectedMessage);
     }
 
     @Test
-    @Ignore
-    public void testDeletingCardWithoutToken() {
+        public void testDeletingCardWithoutToken() {
         Message expectedMessage = emptyTokenMessage();
-        deleteWithAssertion("/cards/" + newCard.getID(), 401, expectedMessage);
+        deleteWithAssertion("/cards/" + newCard.getID(), 400, expectedMessage);
     }
 
     @Test
-    @Ignore
-    public void testDeletingCardWithNonAdminToken() {
+        public void testDeletingCardWithNonAdminToken() {
         Token testToken = testTokens.get(0);
         Message expectedMessage = invalidTokenMessage(testToken.getID());
-        deleteWithAssertion("/cards/" + newCard.getID() + "?token=" + adminTokenID, 401, expectedMessage);
+        deleteWithAssertion("/cards/" + newCard.getID() + "?token=" + testToken.getID(), 401, expectedMessage);
     }
 
     @Test
-    @Ignore
-    public void testDeletingNotExistedCard() {
+        public void testDeletingNotExistedCard() {
         Message expectedMessage = entityNotFoundMessage("Card", newCard.getID());
         deleteWithAssertion("/cards/" + newCard.getID() + "?token=" + adminTokenID, 404, expectedMessage);
     }
 
     @Test
-    @Ignore
-    public void testDeletingExistedCard() {
+        public void testDeletingExistedCard() {
         Card testCard = testCards.get(0);
-        Message expectedMessage = entityDeletedMessage("Card", testCard.getID());
-        deleteWithAssertion("/cards/" + testCard.getID() + "?token=" + adminTokenID, 204, expectedMessage);
+        deleteWithAssertion("/cards/" + testCard.getID() + "?token=" + adminTokenID, 204, null);
         headWithAssertion("/cards/" + testCard.getID(), 404);
     }
 
     @Test
-    @Ignore
-    public void testUpdatingCardWithoutToken() {
+        public void testUpdatingCardWithoutToken() {
         Card testCard = testCards.get(0);
         Message expectedMessage = emptyTokenMessage();
-        putWithAssertion("/cards/" + testCard.getID(), testCard, 401, expectedMessage);
+        putWithAssertion("/cards/" + testCard.getID(), testCard, 400, expectedMessage);
     }
 
     @Test
-    @Ignore
-    public void testUpdatingCardWithNonAdminToken() {
+        public void testUpdatingCardWithNonAdminToken() {
         Token testToken = testTokens.get(0);
         Message expectedMessage = invalidTokenMessage(testToken.getID());
         Card testCard = testCards.get(0);
@@ -101,15 +89,13 @@ public class CardAdminControllerTest extends ControllerTest {
     }
 
     @Test
-    @Ignore
-    public void testUpdatingNotExistedCard() {
+        public void testUpdatingNotExistedCard() {
         Message expectedMessage = entityNotFoundMessage("Card", newCard.getID());
         putWithAssertion("/cards/" + newCard.getID() + "?token=" + adminTokenID, newCard, 404, expectedMessage);
     }
 
     @Test
-    @Ignore
-    public void testUpdatingExistedCard() {
+        public void testUpdatingExistedCard() {
         Card testCard = testCards.get(0);
         Card sentCardBody = new Card();
 
@@ -120,6 +106,7 @@ public class CardAdminControllerTest extends ControllerTest {
         testCard.getName().put(Locale.CHINA, "");
         sentCardBody.setCost(3);
         testCard.setCost(3);
+        sentCardBody.setCollectible(testCard.getCollectible());
 
         // TODO Add test on more fields
 

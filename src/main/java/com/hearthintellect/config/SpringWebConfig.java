@@ -2,9 +2,9 @@ package com.hearthintellect.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hearthintellect.json.LocalDateTimeTypeAdapter;
-import com.hearthintellect.json.LocalDateTypeAdapter;
-import com.hearthintellect.json.LocaleStringTypeAdapter;
+import com.hearthintellect.json.*;
+import com.hearthintellect.model.Mechanic;
+import com.hearthintellect.model.Patch;
 import com.hearthintellect.security.MD5TokenIDGenerator;
 import com.hearthintellect.security.PasswordEncoder;
 import com.hearthintellect.security.SaltedMD5Encoder;
@@ -37,6 +37,8 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
                 .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
                 .registerTypeAdapter(LocaleString.class, new LocaleStringTypeAdapter())
+                .registerTypeAdapter(Mechanic.class, new MechanicDeserializer())
+                .registerTypeAdapter(Patch.class, new PatchDeserializer())
                 .setPrettyPrinting()
                 .create();
     }

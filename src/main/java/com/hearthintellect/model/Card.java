@@ -45,7 +45,7 @@ public class Card implements Entity<String> {
     @DBRef(lazy = true)
     private List<Mechanic> mechanics = Collections.emptyList();
     private List<CardQuote> quotes = Collections.emptyList();
-    private List<HistoryCard> historyVersions = Collections.emptyList();
+    private List<HistoryCard> versions = Collections.emptyList();
 
     public String getCardId() {
         return cardId;
@@ -143,11 +143,11 @@ public class Card implements Entity<String> {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    public List<HistoryCard> getHistoryVersions() {
-        return historyVersions;
+    public List<HistoryCard> getVersions() {
+        return versions;
     }
-    public void setHistoryVersions(List<HistoryCard> historyVersions) {
-        this.historyVersions = historyVersions;
+    public void setVersions(List<HistoryCard> versions) {
+        this.versions = versions;
     }
     public Patch getSincePatch() {
         return sincePatch;

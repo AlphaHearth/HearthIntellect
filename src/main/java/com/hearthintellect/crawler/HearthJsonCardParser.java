@@ -148,9 +148,9 @@ public class HearthJsonCardParser {
                     LOG.debug("Cannot find card `{}` in version `{}`", card.getName().get(DEFAULT_LOCALE), currentPatchNum);
                     if (card.getSincePatch() != null) {
                         earliestKnownVersion.setSincePatch(currentPatch);
-                        if (card.getHistoryVersions().isEmpty())
-                            card.setHistoryVersions(new LinkedList<>());
-                        card.getHistoryVersions().add(0, earliestKnownVersion);
+                        if (card.getVersions().isEmpty())
+                            card.setVersions(new LinkedList<>());
+                        card.getVersions().add(0, earliestKnownVersion);
                     } else
                         card.setSincePatch(currentPatch);
                     card.setAddedPatch(currentPatch);
@@ -168,9 +168,9 @@ public class HearthJsonCardParser {
                         card.setSincePatch(currentPatch);
                     } else {
                         earliestKnownVersion.setSincePatch(currentPatch);
-                        if (card.getHistoryVersions().isEmpty())
-                            card.setHistoryVersions(new LinkedList<>());
-                        card.getHistoryVersions().add(0, earliestKnownVersion);
+                        if (card.getVersions().isEmpty())
+                            card.setVersions(new LinkedList<>());
+                        card.getVersions().add(0, earliestKnownVersion);
                     }
                     earliestKnownVersion = new HistoryCard(oldCard);
                 }
