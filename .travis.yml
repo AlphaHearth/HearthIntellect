@@ -1,7 +1,14 @@
 language: java
 jdk:
   - oraclejdk8
-script: "./gradlew test"
+before_script:
+  - chmod +x gradlew
+script:
+  - ./gradlew clean
+  - ./gradlew check
+after_success:
+  - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: # only send an email if build fails

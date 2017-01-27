@@ -4,6 +4,7 @@ version = '0.1'
 apply plugin: 'maven'
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'jacoco'
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 sourceCompatibility = 1.8
@@ -12,6 +13,12 @@ targetCompatibility = 1.8
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
 
 ext {
