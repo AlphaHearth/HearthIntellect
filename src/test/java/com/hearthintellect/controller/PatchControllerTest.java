@@ -2,7 +2,6 @@ package com.hearthintellect.controller;
 
 import com.hearthintellect.model.Patch;
 import com.hearthintellect.utils.Message;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PatchControllerTest extends ControllerTest {

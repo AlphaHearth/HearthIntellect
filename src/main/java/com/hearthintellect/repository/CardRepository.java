@@ -32,4 +32,11 @@ public interface CardRepository extends PagingAndSortingRepository<Card, String>
     }
 
     List<Card> findByQuality(Card.Quality quality, Pageable page);
+
+    default List<Card> findByMechanic(String mechanicId) {
+        return findByMechanics_MechanicIdContains(mechanicId);
+    }
+
+    List<Card> findByMechanics_MechanicIdContains(String mechanicId);
+
 }

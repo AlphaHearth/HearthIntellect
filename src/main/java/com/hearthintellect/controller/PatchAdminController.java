@@ -10,7 +10,6 @@ import com.hearthintellect.repository.PatchRepository;
 import com.hearthintellect.repository.TokenRepository;
 import com.hearthintellect.utils.CreatedMessage;
 import com.hearthintellect.utils.LocaleStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +50,9 @@ public class PatchAdminController {
         tokenRepository.adminVerify(token);
         if (!patchRepository.exists(buildNum))
             throw new PatchNotFoundException(buildNum);
+
+        // TODO Return error message if this patch is referenced by some cards
+
         patchRepository.delete(buildNum);
         return ResponseEntity.noContent().build();
     }
@@ -94,8 +96,8 @@ public class PatchAdminController {
             patchRepository.delete(buildNum);
         }
 
-        return ResponseEntity.created(URI.create("/patches/" + buildNum))
-                .body(new CreatedMessage("/patches/" + buildNum, "Patch with ID `" + buildNum + "` was updated."));
+        return ResponseEntity.created(URI.create("/patches/" + patchInDB.getBuildNum()))
+                .body(new CreatedMessage("/patches/" + patchInDB.getBuildNum(), "Patch with ID `" + buildNum + "` was updated."));
     }
 
 }

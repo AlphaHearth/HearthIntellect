@@ -12,7 +12,6 @@ import com.hearthintellect.repository.MechanicRepository;
 import com.hearthintellect.repository.PatchRepository;
 import com.hearthintellect.repository.TokenRepository;
 import com.hearthintellect.utils.CreatedMessage;
-import com.hearthintellect.utils.DeletedMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
