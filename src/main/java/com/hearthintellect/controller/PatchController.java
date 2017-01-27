@@ -1,6 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.PatchNotFoundException;
 import com.hearthintellect.model.Patch;
 import com.hearthintellect.repository.PatchRepository;
 import com.hearthintellect.utils.SortUtils;
@@ -11,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.hearthintellect.exception.Exceptions.patchNotFoundException;
 
 @RestController
 @RequestMapping("/patches")
@@ -37,7 +38,7 @@ public class PatchController {
     public Patch getPatch(@PathVariable int buildNum) {
         Patch patch = patchRepository.findOne(buildNum);
         if (patch == null)
-            throw new PatchNotFoundException(buildNum);
+            throw patchNotFoundException(buildNum);
         return patch;
     }
 }

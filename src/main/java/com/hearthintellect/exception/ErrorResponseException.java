@@ -3,7 +3,7 @@ package com.hearthintellect.exception;
 public class ErrorResponseException extends RuntimeException {
     private final int statusCode;
 
-    public ErrorResponseException(int statusCode, String message) {
+    ErrorResponseException(int statusCode, String message) {
         super(message);
         this.statusCode = statusCode;
     }

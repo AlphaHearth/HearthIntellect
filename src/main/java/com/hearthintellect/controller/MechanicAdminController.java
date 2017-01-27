@@ -1,7 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.DuplicateMechanicException;
-import com.hearthintellect.exception.MechanicNotFoundException;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.repository.CardRepository;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+
+import static com.hearthintellect.exception.Exceptions.duplicateMechanicException;
+import static com.hearthintellect.exception.Exceptions.mechanicNotFoundException;
 
 @RestController
 @RequestMapping("/mechanics")
@@ -39,7 +40,7 @@ public class MechanicAdminController {
         tokenRepository.adminVerify(token);
         String mechanicId = mechanic.getMechanicId();
         if (mechanicRepository.exists(mechanicId))
-            throw new DuplicateMechanicException(mechanicId);
+            throw duplicateMechanicException(mechanicId);
         mechanicRepository.save(mechanic);
         return ResponseEntity.created(URI.create("/mechanics/" + mechanicId))
                 .body(new CreatedMessage("/mechanics/" + mechanicId, "Mechanic with ID `" + mechanicId + "` was created."));
@@ -49,7 +50,7 @@ public class MechanicAdminController {
     public ResponseEntity deleteMechanic(@PathVariable String id, @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         if (!mechanicRepository.exists(id))
-            throw new MechanicNotFoundException(id);
+            throw mechanicNotFoundException(id);
 
         // TODO Return error message if this mechanic is referenced by some cards
 
@@ -63,12 +64,12 @@ public class MechanicAdminController {
         tokenRepository.adminVerify(token);
         Mechanic mechanicInDB = mechanicRepository.findOne(id);
         if (mechanicInDB == null)
-            throw new MechanicNotFoundException(id);
+            throw mechanicNotFoundException(id);
 
         // Update ID if set
         if (StringUtils.isNotBlank(mechanic.getID()) && !id.equals(mechanic.getID())) {
             if (mechanicRepository.exists(mechanic.getID()))
-                throw new DuplicateMechanicException(mechanic.getID());
+                throw duplicateMechanicException(mechanic.getID());
             mechanicInDB.setID(mechanic.getID());
         }
         // Update other fields

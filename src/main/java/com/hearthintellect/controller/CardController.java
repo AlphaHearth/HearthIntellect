@@ -1,6 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.CardNotFoundException;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.repository.CardRepository;
 import com.hearthintellect.utils.SortUtils;
@@ -11,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.hearthintellect.exception.Exceptions.cardNotFoundException;
 
 @RestController
 @RequestMapping("/cards")
@@ -43,7 +44,7 @@ public class CardController {
     public Card getCard(@PathVariable String cardId) {
         Card card = cardRepository.findOne(cardId);
         if (card == null)
-            throw new CardNotFoundException(cardId);
+            throw cardNotFoundException(cardId);
         return card;
     }
 }

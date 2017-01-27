@@ -1,7 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.DuplicatePatchException;
-import com.hearthintellect.exception.PatchNotFoundException;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.HistoryCard;
 import com.hearthintellect.model.Patch;
@@ -15,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+
+import static com.hearthintellect.exception.Exceptions.duplicatePatchException;
+import static com.hearthintellect.exception.Exceptions.patchNotFoundException;
 
 @RestController
 @RequestMapping("/patches")
@@ -38,7 +39,7 @@ public class PatchAdminController {
         tokenRepository.adminVerify(token);
         int buildNum = patch.getBuildNum();
         if (patchRepository.exists(buildNum))
-            throw new DuplicatePatchException(buildNum);
+            throw duplicatePatchException(buildNum);
         patchRepository.save(patch);
         return ResponseEntity.created(URI.create("/patches/" + buildNum))
                 .body(new CreatedMessage("/patches/" + buildNum, "Patch with ID `" + buildNum + "` was created."));
@@ -49,7 +50,7 @@ public class PatchAdminController {
                                       @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         if (!patchRepository.exists(buildNum))
-            throw new PatchNotFoundException(buildNum);
+            throw patchNotFoundException(buildNum);
 
         // TODO Return error message if this patch is referenced by some cards
 
@@ -63,12 +64,12 @@ public class PatchAdminController {
         tokenRepository.adminVerify(token);
         Patch patchInDB = patchRepository.findOne(buildNum);
         if (patchInDB == null)
-            throw new PatchNotFoundException(buildNum);
+            throw patchNotFoundException(buildNum);
 
         // Update ID if set
         if (patch.getBuildNum() != 0 && patch.getBuildNum() != buildNum) {
             if (patchRepository.exists(patch.getBuildNum()))
-                throw new DuplicatePatchException(patch.getBuildNum());
+                throw duplicatePatchException(patch.getBuildNum());
             patchInDB.setBuildNum(patch.getBuildNum());
         }
 

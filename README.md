@@ -11,7 +11,7 @@ Hearthstone database website written in Java and pure [Spring](http://spring.io/
 - [x] Implement `UserController` with basic user authentication functionality.
 - [x] Implement `MechanicController` and `PatchController`.
 - [x] Implement admin controllers `CardAdminController`, `MechanicAdminController` and `PatchAdminController`.
-- [ ] Refactor controller exceptions.
+- [x] Refactor controller exceptions.
 - [ ] Write complete test cases for all existing classes.
 - [ ] Write complete documentation for all existing classes.
 - [ ] Deploy version `0.2` on `HTTPS`.

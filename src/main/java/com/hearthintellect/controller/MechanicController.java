@@ -1,6 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.MechanicNotFoundException;
 import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.repository.MechanicRepository;
 import com.hearthintellect.utils.SortUtils;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static com.hearthintellect.exception.Exceptions.mechanicNotFoundException;
 
 @RestController
 @RequestMapping("/mechanics")
@@ -34,7 +35,7 @@ public class MechanicController {
     public Mechanic getMechanic(@PathVariable String id) {
         Mechanic mechanic = mechanicRepository.findOne(id);
         if (mechanic == null)
-            throw new MechanicNotFoundException(id);
+            throw mechanicNotFoundException(id);
         return mechanic;
     }
 }

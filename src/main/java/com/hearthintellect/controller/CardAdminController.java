@@ -1,9 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.CardNotFoundException;
-import com.hearthintellect.exception.DuplicateCardException;
-import com.hearthintellect.exception.MechanicNotFoundException;
-import com.hearthintellect.exception.PatchNotFoundException;
 import com.hearthintellect.model.Card;
 import com.hearthintellect.model.Mechanic;
 import com.hearthintellect.model.Patch;
@@ -20,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 
+import static com.hearthintellect.exception.Exceptions.*;
 import static com.hearthintellect.utils.LocaleStringUtils.merge;
 
 @RestController
@@ -45,7 +42,7 @@ public class CardAdminController {
         tokenRepository.adminVerify(token);
         String cardId = card.getCardId();
         if (cardRepository.exists(cardId))
-            throw new DuplicateCardException(cardId);
+            throw duplicateCardException(cardId);
         cardRepository.save(card);
         return ResponseEntity.created(URI.create("/cards/" + cardId))
                 .body(new CreatedMessage("/cards/" + cardId, "Card with ID `" + cardId + "` was created."));
@@ -56,7 +53,7 @@ public class CardAdminController {
                                      @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         if (!cardRepository.exists(cardId))
-            throw new CardNotFoundException(cardId);
+            throw cardNotFoundException(cardId);
         cardRepository.delete(cardId);
         return ResponseEntity.noContent().build();
     }
@@ -67,11 +64,11 @@ public class CardAdminController {
         tokenRepository.adminVerify(token);
         Card cardInDB = cardRepository.findOne(cardId);
         if (cardInDB == null)
-            throw new CardNotFoundException(cardId);
+            throw cardNotFoundException(cardId);
         // Update ID if set
         if (StringUtils.isNotBlank(card.getCardId()) && !cardId.equals(card.getCardId())) {
             if (cardRepository.exists(card.getCardId()))
-                throw new DuplicateCardException(card.getCardId());
+                throw duplicateCardException(card.getCardId());
             cardInDB.setCardId(card.getCardId());
         }
 
@@ -100,13 +97,13 @@ public class CardAdminController {
         if (card.getSincePatch() != null) {
             Patch referencedPatch = patchRepository.findOne(card.getSincePatch().getBuildNum());
             if (referencedPatch == null)
-                throw new PatchNotFoundException(card.getSincePatch().getBuildNum());
+                throw patchNotFoundException(card.getSincePatch().getBuildNum());
             cardInDB.setSincePatch(referencedPatch);
         }
         if (card.getAddedPatch() != null) {
             Patch referencedPatch = patchRepository.findOne(card.getAddedPatch().getBuildNum());
             if (referencedPatch == null)
-                throw new PatchNotFoundException(card.getAddedPatch().getBuildNum());
+                throw patchNotFoundException(card.getAddedPatch().getBuildNum());
             cardInDB.setAddedPatch(referencedPatch);
         }
 
@@ -115,7 +112,7 @@ public class CardAdminController {
             for (Mechanic mechanic : card.getMechanics()) {
                 Mechanic mechanicInDB = mechanicRepository.findOne(mechanic.getMechanicId());
                 if (mechanicInDB == null)
-                    throw new MechanicNotFoundException(mechanic.getMechanicId());
+                    throw mechanicNotFoundException(mechanic.getMechanicId());
                 cardInDB.getMechanics().add(mechanicInDB);
             }
         }

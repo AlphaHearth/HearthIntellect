@@ -1,12 +1,13 @@
 package com.hearthintellect.repository;
 
-import com.hearthintellect.exception.EmptyTokenException;
-import com.hearthintellect.exception.TokenInvalidOrExpiredException;
 import com.hearthintellect.model.Token;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDateTime;
+
+import static com.hearthintellect.exception.Exceptions.emptyTokenException;
+import static com.hearthintellect.exception.Exceptions.invalidOrExpiredTokenException;
 
 public interface TokenRepository extends CrudRepository<Token, String> {
     Token findByUsername(String username);
@@ -15,10 +16,10 @@ public interface TokenRepository extends CrudRepository<Token, String> {
 
     default void tokenVerify(String token, String username) {
         if (StringUtils.isBlank(token))
-            throw new EmptyTokenException();
+            throw emptyTokenException();
         long count = countByIdAndUsernameAndExpireTimeGreaterThan(token, username, LocalDateTime.now());
         if (count == 0)
-            throw new TokenInvalidOrExpiredException(token);
+            throw invalidOrExpiredTokenException(token);
     }
 
     default void adminVerify(String token) {

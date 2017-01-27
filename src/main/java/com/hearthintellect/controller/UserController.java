@@ -1,9 +1,5 @@
 package com.hearthintellect.controller;
 
-import com.hearthintellect.exception.BadRequestException;
-import com.hearthintellect.exception.DuplicateUserException;
-import com.hearthintellect.exception.InvalidUserCredentialException;
-import com.hearthintellect.exception.UserNotFoundException;
 import com.hearthintellect.model.User;
 import com.hearthintellect.repository.TokenRepository;
 import com.hearthintellect.repository.UserRepository;
@@ -15,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+
+import static com.hearthintellect.exception.Exceptions.*;
 
 @RestController
 @RequestMapping("/users")
@@ -35,7 +33,7 @@ public class UserController {
     public User getUser(@PathVariable String username) {
         User user = userRepository.findByUsername(username);
         if (user == null)
-            throw new UserNotFoundException(username);
+            throw userNotFoundException(username);
         user.setPassword(null);
         return user;
     }
@@ -45,7 +43,7 @@ public class UserController {
                                                      @RequestBody User user) {
         User userInDB = userRepository.findByUsername(username);
         if (userInDB == null)
-            throw new UserNotFoundException(username);
+            throw userNotFoundException(username);
         tokenRepository.tokenVerify(token, username);
 
         if (StringUtils.isNotBlank(user.getEmail()))
@@ -65,11 +63,11 @@ public class UserController {
     public ResponseEntity<CreatedMessage> createUser(@RequestBody User user) {
         String username = user.getUsername();
         if (StringUtils.isBlank(username))
-            throw new BadRequestException("Username cannot be empty.");
+            throw badRequestException("Username cannot be empty.");
         if (userRepository.exists(username))
-            throw new DuplicateUserException(user.getUsername());
+            throw duplicateUserException(user.getUsername());
         if (StringUtils.isBlank(user.getPassword()))
-            throw new BadRequestException("User password cannot be empty.");
+            throw badRequestException("User password cannot be empty.");
 
         user.setPassword(passwordEncoder.encode(user.getUsername(), user.getPassword()));
 
@@ -84,11 +82,11 @@ public class UserController {
                                                              @RequestBody PasswordUpdateRequest request) {
         User userInDB = userRepository.findOne(username);
         if (userInDB == null)
-            throw new UserNotFoundException(username);
+            throw userNotFoundException(username);
         if (!passwordEncoder.matches(username, request.oldPassword, userInDB.getPassword()))
-            throw new InvalidUserCredentialException();
+            throw invalidCredentialException();
         if (StringUtils.isBlank(request.newPassword))
-            throw new BadRequestException("New password cannot be empty.");
+            throw badRequestException("New password cannot be empty.");
 
         userInDB.setPassword(request.newPassword);
         passwordEncoder.encodeUserPassword(userInDB);
