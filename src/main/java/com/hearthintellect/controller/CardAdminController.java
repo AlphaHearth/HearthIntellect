@@ -53,8 +53,8 @@ public class CardAdminController {
     }
 
     @RequestMapping(path = "/{cardId}", method = RequestMethod.DELETE)
-    public ResponseEntity<DeletedMessage> deleteCard(@PathVariable String cardId,
-                                                     @RequestParam(defaultValue = "") String token) {
+    public ResponseEntity deleteCard(@PathVariable String cardId,
+                                     @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         if (!cardRepository.exists(cardId))
             throw new CardNotFoundException(cardId);
@@ -64,7 +64,7 @@ public class CardAdminController {
 
     @RequestMapping(path = "/{cardId}", method = { RequestMethod.PUT, RequestMethod.PATCH })
     public ResponseEntity<CreatedMessage> updateCard(@PathVariable String cardId, @RequestBody Card card,
-                                                     @RequestParam(defaultValue = "")    String token) {
+                                                     @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         Card cardInDB = cardRepository.findOne(cardId);
         if (cardInDB == null)

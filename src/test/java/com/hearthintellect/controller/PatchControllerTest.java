@@ -8,14 +8,12 @@ import org.junit.Test;
 public class PatchControllerTest extends ControllerTest {
 
     @Test
-    @Ignore
     public void testGettingExistedPatch() throws Exception {
         Patch testPatch = testPatches.get(0);
         getWithAssertion("/patches/" + testPatch.getID(), 200, testPatch);
     }
 
     @Test
-    @Ignore
     public void testGettingNotExistedPatch() throws Exception {
         int testPatchID = 123;
         Message expectedMessage = entityNotFoundMessage("Patch", testPatchID);
