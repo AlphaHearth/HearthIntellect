@@ -9,7 +9,6 @@ import com.hearthintellect.security.PasswordEncoder;
 import com.hearthintellect.util.ResourceUtils;
 import com.hearthintellect.util.TypeTokens;
 import com.hearthintellect.utils.CreatedMessage;
-import com.hearthintellect.utils.DeletedMessage;
 import com.hearthintellect.utils.Message;
 import org.junit.After;
 import org.junit.Before;
@@ -171,9 +170,5 @@ public abstract class ControllerTest {
 
     protected Message entityUpdatedMessage(String entityName, Object entityID, String entityUrl) {
         return new CreatedMessage(entityUrl, entityName + " with ID `" + entityID + "` was updated.");
-    }
-
-    protected Message entityDeletedMessage(String entityName, Object entityID) {
-        return new DeletedMessage(entityName + " with ID `" + entityID + "` was deleted.");
     }
 }

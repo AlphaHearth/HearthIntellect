@@ -2,7 +2,6 @@ package com.hearthintellect.repository;
 
 import com.hearthintellect.model.Token;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDateTime;
 

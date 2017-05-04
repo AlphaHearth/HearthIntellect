@@ -9,6 +9,7 @@ import com.hearthintellect.repository.TokenRepository;
 import com.hearthintellect.utils.CreatedMessage;
 import com.hearthintellect.utils.LocaleStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +39,11 @@ public class PatchAdminController {
                                                       @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         int buildNum = patch.getBuildNum();
-        if (patchRepository.exists(buildNum))
+        try {
+            patchRepository.insert(patch);
+        } catch (DuplicateKeyException ex) {
             throw duplicatePatchException(buildNum);
-        patchRepository.save(patch);
+        }
         return ResponseEntity.created(URI.create("/patches/" + buildNum))
                 .body(new CreatedMessage("/patches/" + buildNum, "Patch with ID `" + buildNum + "` was created."));
     }

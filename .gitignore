@@ -9,3 +9,6 @@ target/
 *.iml
 
 data/
+.classpath
+.project
+.settings/

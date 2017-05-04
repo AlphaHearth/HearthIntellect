@@ -10,6 +10,7 @@ import com.hearthintellect.repository.TokenRepository;
 import com.hearthintellect.utils.CreatedMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,9 +42,11 @@ public class CardAdminController {
                                                      @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         String cardId = card.getCardId();
-        if (cardRepository.exists(cardId))
+        try {
+            cardRepository.insert(card);
+        } catch (DuplicateKeyException ex) {
             throw duplicateCardException(cardId);
-        cardRepository.save(card);
+        }
         return ResponseEntity.created(URI.create("/cards/" + cardId))
                 .body(new CreatedMessage("/cards/" + cardId, "Card with ID `" + cardId + "` was created."));
     }

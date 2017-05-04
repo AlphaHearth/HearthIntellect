@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Util class for concurrent classes. Do not instantiate this class.
@@ -21,12 +22,7 @@ public class ConcurrentUtils {
     public static void shutdownAndWait(ExecutorService executor) throws InterruptedException {
         executor.submit(() -> LOG.info("Executor shutting down..."));
         executor.shutdown();
-        while (true) {
-            if (executor.isTerminated())
-                break;
-            LOG.debug("The executor is not terminated. Wait for 1000ms...");
-            Thread.sleep(1000);
-        }
+        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS); // Wait indefinitely
         LOG.debug("The executor is terminated.");
     }
 }

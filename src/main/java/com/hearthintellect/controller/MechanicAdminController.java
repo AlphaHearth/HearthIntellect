@@ -9,6 +9,7 @@ import com.hearthintellect.utils.CreatedMessage;
 import com.hearthintellect.utils.LocaleStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,9 +40,11 @@ public class MechanicAdminController {
                                                          @RequestParam(defaultValue = "") String token) {
         tokenRepository.adminVerify(token);
         String mechanicId = mechanic.getMechanicId();
-        if (mechanicRepository.exists(mechanicId))
+        try {
+            mechanicRepository.insert(mechanic);
+        } catch (DuplicateKeyException ex) {
             throw duplicateMechanicException(mechanicId);
-        mechanicRepository.save(mechanic);
+        }
         return ResponseEntity.created(URI.create("/mechanics/" + mechanicId))
                 .body(new CreatedMessage("/mechanics/" + mechanicId, "Mechanic with ID `" + mechanicId + "` was created."));
     }
@@ -66,6 +69,7 @@ public class MechanicAdminController {
         if (mechanicInDB == null)
             throw mechanicNotFoundException(id);
 
+        // TODO Synchronization problem might occur when modifying different cards to the same ID at the same time
         // Update ID if set
         if (StringUtils.isNotBlank(mechanic.getID()) && !id.equals(mechanic.getID())) {
             if (mechanicRepository.exists(mechanic.getID()))

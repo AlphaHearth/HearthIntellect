@@ -7,6 +7,8 @@ public abstract class Exceptions {
     private static final String INVALID_CREDENTIAL_MESSAGE = "The provided username or password is invalid.";
     private static final String INVALID_OR_EXPIRED_TOKEN_MESSAGE = "The given token `%s` is invalid for this API or has expired.";
 
+    /* Public exceptions */
+
     public static ErrorResponseException cardNotFoundException(String cardID) {
         return entityNotFoundException("Card", cardID);
     }

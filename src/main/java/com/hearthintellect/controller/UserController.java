@@ -7,6 +7,7 @@ import com.hearthintellect.security.PasswordEncoder;
 import com.hearthintellect.utils.CreatedMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,14 +65,16 @@ public class UserController {
         String username = user.getUsername();
         if (StringUtils.isBlank(username))
             throw badRequestException("Username cannot be empty.");
-        if (userRepository.exists(username))
-            throw duplicateUserException(user.getUsername());
         if (StringUtils.isBlank(user.getPassword()))
             throw badRequestException("User password cannot be empty.");
 
         user.setPassword(passwordEncoder.encode(user.getUsername(), user.getPassword()));
 
-        userRepository.save(user);
+        try {
+            userRepository.insert(user);
+        } catch (DuplicateKeyException ex) {
+            throw duplicateUserException(user.getUsername());
+        }
 
         return ResponseEntity.created(URI.create("/users/" + username))
                 .body(new CreatedMessage("/users/" + username, "User `" + username + "` created."));

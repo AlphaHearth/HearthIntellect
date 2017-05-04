@@ -8,6 +8,7 @@ import com.hearthintellect.security.PasswordEncoder;
 import com.hearthintellect.security.TokenIDGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -48,8 +49,13 @@ public class TokenController {
         if (token != null && token.getExpireTime().isAfter(LocalDateTime.now()))
             return token;
         token = new Token(loginRequest.username);
-        tokenIDGenerator.setTokenID(token);
-        tokenRepository.save(token);
+        while (true) {
+            try {
+                tokenIDGenerator.setTokenID(token);
+                tokenRepository.insert(token);
+                break;
+            } catch (DuplicateKeyException ex) {} // Retry if duplicate
+        }
         return token;
     }
 

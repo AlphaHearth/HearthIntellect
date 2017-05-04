@@ -7,7 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface CardRepository extends PagingAndSortingRepository<Card, String> {
+public interface CardRepository extends PagingAndSortingRepository<Card, String>, CrudRepository<Card, String> {
 
     default List<Card> findByClass(HeroClass heroClass) {
         return findByClass(heroClass, null);
