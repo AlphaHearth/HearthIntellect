@@ -38,6 +38,7 @@ public class Card implements Entity<String> {
     private @Indexed Type type;
     private @Indexed Set set;
     private @Indexed Race race;
+    private @Indexed boolean arenaAvailable = true;
 
     private @DBRef Patch sincePatch;
     private @DBRef Patch addedPatch;
@@ -47,131 +48,51 @@ public class Card implements Entity<String> {
     private List<CardQuote> quotes = Collections.emptyList();
     private List<HistoryCard> versions = Collections.emptyList();
 
-    public String getCardId() {
-        return cardId;
-    }
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
-    }
-    public LocaleString getName() {
-        return name;
-    }
-    public void setName(LocaleString name) {
-        this.name = name;
-    }
-    public LocaleString getEffect() {
-        return effect;
-    }
-    public void setEffect(LocaleString effect) {
-        this.effect = effect;
-    }
-    public LocaleString getFlavor() {
-        return flavor;
-    }
-    public void setFlavor(LocaleString flavor) {
-        this.flavor = flavor;
-    }
-    public Card.Set getSet() {
-        return set;
-    }
-    public void setSet(Card.Set set) {
-        this.set = set;
-    }
-    public Card.Type getType() {
-        return type;
-    }
-    public void setType(Card.Type type) {
-        this.type = type;
-    }
-    public Card.Quality getQuality() {
-        return quality;
-    }
-    public void setQuality(Card.Quality quality) {
-        this.quality = quality;
-    }
-    public Race getRace() {
-        return race;
-    }
-    public void setRace(Race race) {
-        this.race = race;
-    }
-    public HeroClass getHeroClass() {
-        return heroClass;
-    }
-    public void setHeroClass(HeroClass heroClass) {
-        this.heroClass = heroClass;
-    }
-    public int getHealth() {
-        return health;
-    }
-    public void setHealth(int health) {
-        this.health = health;
-    }
-    public int getAttack() {
-        return attack;
-    }
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-    public int getCost() {
-        return cost;
-    }
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-    public boolean getCollectible() {
-        return collectible;
-    }
-    public void setCollectible(boolean collectible) {
-        this.collectible = collectible;
-    }
-    public List<Mechanic> getMechanics() {
-        return mechanics;
-    }
-    public void setMechanics(List<Mechanic> mechanics) {
-        this.mechanics = mechanics;
-    }
-    public List<CardQuote> getQuotes() {
-        return quotes;
-    }
-    public void setQuotes(List<CardQuote> quotes) {
-        this.quotes = quotes;
-    }
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-    public List<HistoryCard> getVersions() {
-        return versions;
-    }
-    public void setVersions(List<HistoryCard> versions) {
-        this.versions = versions;
-    }
-    public Patch getSincePatch() {
-        return sincePatch;
-    }
-    public void setSincePatch(Patch sincePatch) {
-        this.sincePatch = sincePatch;
-    }
-    public Patch getAddedPatch() {
-        return addedPatch;
-    }
-    public void setAddedPatch(Patch addedPatch) {
-        this.addedPatch = addedPatch;
-    }
+    /* Getters and Setters */
+    public String getCardId() { return cardId; }
+    public void setCardId(String cardId) { this.cardId = cardId; }
+    public LocaleString getName() { return name; }
+    public void setName(LocaleString name) { this.name = name; }
+    public LocaleString getEffect() { return effect; }
+    public void setEffect(LocaleString effect) { this.effect = effect; }
+    public LocaleString getFlavor() { return flavor; }
+    public void setFlavor(LocaleString flavor) { this.flavor = flavor; }
+    public Card.Set getSet() { return set; }
+    public void setSet(Card.Set set) { this.set = set; }
+    public Card.Type getType() { return type; }
+    public void setType(Card.Type type) { this.type = type; }
+    public Card.Quality getQuality() { return quality; }
+    public void setQuality(Card.Quality quality) { this.quality = quality; }
+    public Race getRace() { return race; }
+    public void setRace(Race race) { this.race = race; }
+    public HeroClass getHeroClass() { return heroClass; }
+    public void setHeroClass(HeroClass heroClass) { this.heroClass = heroClass; }
+    public int getHealth() { return health; }
+    public void setHealth(int health) { this.health = health; }
+    public int getAttack() { return attack; }
+    public void setAttack(int attack) { this.attack = attack; }
+    public int getCost() { return cost; }
+    public void setCost(int cost) { this.cost = cost; }
+    public boolean isCollectible() { return collectible; }
+    public void setCollectible(boolean collectible) { this.collectible = collectible; }
+    public List<Mechanic> getMechanics() { return mechanics; }
+    public void setMechanics(List<Mechanic> mechanics) { this.mechanics = mechanics; }
+    public List<CardQuote> getQuotes() { return quotes; }
+    public void setQuotes(List<CardQuote> quotes) { this.quotes = quotes; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public List<HistoryCard> getVersions() { return versions; }
+    public void setVersions(List<HistoryCard> versions) { this.versions = versions; }
+    public Patch getSincePatch() { return sincePatch; }
+    public void setSincePatch(Patch sincePatch) { this.sincePatch = sincePatch; }
+    public Patch getAddedPatch() { return addedPatch; }
+    public void setAddedPatch(Patch addedPatch) { this.addedPatch = addedPatch; }
+    public boolean isArenaAvailable() { return arenaAvailable; }
+    public void setArenaAvailable(boolean arenaAvailable) { this.arenaAvailable = arenaAvailable; }
+    @Override public String getID() { return cardId; }
+    @Override public void setID(String s) { cardId = s; }
 
-    @Override
-    public String getID() {
-        return cardId;
-    }
-
-    @Override
-    public void setID(String s) {
-        cardId = s;
-    }
-
+    /* Static Enums */
     public enum Quality {
         FREE,
         COMMON,
@@ -205,7 +126,9 @@ public class Card implements Entity<String> {
         /** One Night in Karazhan */
         KARAZHAN,
         /** Mean Streets of Gadgetzan */
-        GADGETZAN
+        GADGETZAN,
+        /** Journey to Un'goro */
+        UNGORO
     }
     public enum Race {
         NONE, BEAST, DEMON, DRAGON, MECH, MURLOC, PIRATE, TOTEM

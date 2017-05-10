@@ -34,14 +34,6 @@ public class User implements Entity<String> {
     public void setNickname(String nickname) { this.nickname = nickname; }
     public List<String> getRoles() { return roles; }
     public void setRoles(List<String> roles) { this.roles = roles; }
-
-    @Override
-    public String getID() {
-        return username;
-    }
-
-    @Override
-    public void setID(String s) {
-        username = s;
-    }
+    @Override public String getID() { return username; }
+    @Override public void setID(String s) { username = s; }
 }

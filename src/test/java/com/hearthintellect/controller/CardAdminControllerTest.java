@@ -106,7 +106,7 @@ public class CardAdminControllerTest extends ControllerTest {
         testCard.getName().put(Locale.CHINA, "");
         sentCardBody.setCost(3);
         testCard.setCost(3);
-        sentCardBody.setCollectible(testCard.getCollectible());
+        sentCardBody.setCollectible(testCard.isCollectible());
 
         // TODO Add test on more fields
 

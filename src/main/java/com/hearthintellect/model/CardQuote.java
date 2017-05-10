@@ -19,24 +19,12 @@ public class CardQuote {
         this.audioUrl = audioUrl;
     }
 
-    public Type getType() {
-        return type;
-    }
-    public void setType(Type type) {
-        this.type = type;
-    }
-    public LocaleString getLine() {
-        return line;
-    }
-    public void setLine(LocaleString line) {
-        this.line = line;
-    }
-    public String getAudioUrl() {
-        return audioUrl;
-    }
-    public void setAudioUrl(String audioUrl) {
-        this.audioUrl = audioUrl;
-    }
+    public Type getType() { return type; }
+    public void setType(Type type) { this.type = type; }
+    public LocaleString getLine() { return line; }
+    public void setLine(LocaleString line) { this.line = line; }
+    public String getAudioUrl() { return audioUrl; }
+    public void setAudioUrl(String audioUrl) { this.audioUrl = audioUrl; }
 
     public enum Type {
         Play, Attack, Death, Alternate, Trigger, Other

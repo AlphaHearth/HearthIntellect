@@ -30,14 +30,6 @@ public class Token implements Entity<String> {
     public void setUsername(String username) { this.username = username; }
     public LocalDateTime getExpireTime() { return expireTime; }
     public void setExpireTime(LocalDateTime expireTime) { this.expireTime = expireTime; }
-
-    @Override
-    public String getID() {
-        return id;
-    }
-
-    @Override
-    public void setID(String s) {
-        this.id = s;
-    }
+    @Override public String getID() { return id; }
+    @Override public void setID(String s) { this.id = s; }
 }

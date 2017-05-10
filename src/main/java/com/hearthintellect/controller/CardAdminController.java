@@ -84,7 +84,7 @@ public class CardAdminController {
         cardInDB.setCost(card.getCost());
         cardInDB.setAttack(card.getAttack());
         cardInDB.setHealth(card.getHealth());
-        cardInDB.setCollectible(card.getCollectible());
+        cardInDB.setCollectible(card.isCollectible());
         if (card.getImageUrl() != null)
             cardInDB.setImageUrl(cardInDB.getImageUrl());
         if (card.getHeroClass() != null)

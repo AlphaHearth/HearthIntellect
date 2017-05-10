@@ -31,34 +31,14 @@ public class HistoryCard {
         this.health = health;
     }
 
-    public Patch getSincePatch() {
-        return sincePatch;
-    }
-    public void setSincePatch(Patch sincePatch) {
-        this.sincePatch = sincePatch;
-    }
-    public LocaleString getEffect() {
-        return effect;
-    }
-    public void setEffect(LocaleString effect) {
-        this.effect = effect;
-    }
-    public int getCost() {
-        return cost;
-    }
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-    public int getAttack() {
-        return attack;
-    }
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-    public int getHealth() {
-        return health;
-    }
-    public void setHealth(int health) {
-        this.health = health;
-    }
+    public Patch getSincePatch() { return sincePatch; }
+    public void setSincePatch(Patch sincePatch) { this.sincePatch = sincePatch; }
+    public LocaleString getEffect() { return effect; }
+    public void setEffect(LocaleString effect) { this.effect = effect; }
+    public int getCost() { return cost; }
+    public void setCost(int cost) { this.cost = cost; }
+    public int getAttack() { return attack; }
+    public void setAttack(int attack) { this.attack = attack; }
+    public int getHealth() { return health; }
+    public void setHealth(int health) { this.health = health; }
 }

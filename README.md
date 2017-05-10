@@ -14,9 +14,9 @@ Hearthstone database website written in Java.
 - [x] Deploy version `0.2`.
 - [x] Refactor controller exceptions.
 - [x] Test if creating duplicate `_id` documents is possible.
+- [x] Update `Card` model to support Gadgetzan's tri-class cards(Additional `HeroClass` enums). [Link](http://hearthstone.gamepedia.com/Mean_Streets_of_Gadgetzan#Tri-class_cards)
+- [x] Add tag to `Card` model for card banned in Arena. [Link](http://www.hearthpwn.com/news/1709-upcoming-arena-changes-cards-being-removed-from)
 - [ ] Migrate from Spring Data to Morphia to support upcoming advanced queries.
-- [ ] Update `Card` model to support Gadgetzan's tri-class cards(Additional `HeroClass` enums). [Link](http://hearthstone.gamepedia.com/Mean_Streets_of_Gadgetzan#Tri-class_cards)
-- [ ] Add tag to `Card` model for card banned in Arena. [Link](http://www.hearthpwn.com/news/1709-upcoming-arena-changes-cards-being-removed-from)
 - [ ] Update `crawler` module and `Card` to support Un'goro.
 - [ ] Crawl card and mechanic data again.
 - [ ] Implement advanced filtering for Card browsing.

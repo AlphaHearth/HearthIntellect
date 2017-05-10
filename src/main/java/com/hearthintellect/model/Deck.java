@@ -52,28 +52,27 @@ public class Deck {
     }
 
     /* Getters and Setters */
-    public Long getDeckId() { return deckId; }
-    public void setDeckId(Long deckId) { this.deckId = deckId; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
-    public int getLike() { return like; }
-    public void setLike(int like) { this.like = like; }
-    public int getDislike() { return dislike; }
-    public void setDislike(int dislike) { this.dislike = dislike; }
-    public HeroClass getHeroClass() { return heroClass; }
-    public void setHeroClass(HeroClass heroClass) { this.heroClass = heroClass; }
-    public List<DeckEntry> getCards() { return cards; }
-    public void setCards(List<DeckEntry> cards) { this.cards = cards; }
-    public Patch getPatch() { return patch; }
-    public void setPatch(Patch patch) { this.patch = patch; }
-    public User getAuthor() { return author; }
-    public void setAuthor(User author) { this.author = author; }
-    public LocalDateTime getPostedDate() { return postedDate; }
-    public void setPostedDate(LocalDateTime postedDate) { this.postedDate = postedDate; }
-    public LocalDateTime getLastModified() { return lastModified; }
-    public void setLastModified(LocalDateTime lastModified) { this.lastModified = lastModified; }
-    public boolean getEffective() { return effective; }
-    public void setEffective(boolean effective) { this.effective = effective; }
-}
+    public Long getDeckId() { return deckId;  }
+    public void setDeckId(Long deckId) { this.deckId = deckId;  }
+    public String getName() { return name;  }
+    public void setName(String name) { this.name = name;  }
+    public String getContent() { return content;  }
+    public void setContent(String content) { this.content = content;  }
+    public int getLike() { return like;  }
+    public void setLike(int like) { this.like = like;  }
+    public int getDislike() { return dislike;  }
+    public void setDislike(int dislike) { this.dislike = dislike;  }
+    public HeroClass getHeroClass() { return heroClass;  }
+    public void setHeroClass(HeroClass heroClass) { this.heroClass = heroClass;  }
+    public List<DeckEntry> getCards() { return cards;  }
+    public void setCards(List<DeckEntry> cards) { this.cards = cards;  }
+    public Patch getPatch() { return patch;  }
+    public void setPatch(Patch patch) { this.patch = patch;  }
+    public User getAuthor() { return author;  }
+    public void setAuthor(User author) { this.author = author;  }
+    public LocalDateTime getPostedDate() { return postedDate;  }
+    public void setPostedDate(LocalDateTime postedDate) { this.postedDate = postedDate;  }
+    public LocalDateTime getLastModified() { return lastModified;  }
+    public void setLastModified(LocalDateTime lastModified) { this.lastModified = lastModified;  }
+    public boolean getEffective() { return effective;  }
+    public void setEffective(boolean effective) { this.effective = effective; } }

@@ -30,14 +30,6 @@ public class Patch implements Entity<Integer> {
     public void setReleaseDate(LocalDate releaseDate) { this.releaseDate = releaseDate; }
     public LocaleString getReleaseNote() { return releaseNote; }
     public void setReleaseNote(LocaleString releaseNote) { this.releaseNote = releaseNote; }
-
-    @Override
-    public Integer getID() {
-        return buildNum;
-    }
-
-    @Override
-    public void setID(Integer integer) {
-        buildNum = integer;
-    }
+    @Override public Integer getID() { return buildNum; }
+    @Override public void setID(Integer integer) { buildNum = integer; }
 }

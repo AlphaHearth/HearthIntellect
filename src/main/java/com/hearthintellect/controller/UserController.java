@@ -57,9 +57,6 @@ public class UserController {
                 .body(new CreatedMessage("/users/" + username, "User `" + username + "` updated."));
     }
 
-    // TODO Resolve the Concurrency Caveat here: two current client trying to create
-    // TODO users with the same username. Consider requesting for a document lock?
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CreatedMessage> createUser(@RequestBody User user) {
         String username = user.getUsername();
