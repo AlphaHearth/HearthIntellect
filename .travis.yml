@@ -12,12 +12,13 @@ cache:
 
 before_install:
   - chmod +x gradlew
+install:
+  - ./gradlew testClasses
 script:
-  - ./gradlew clean
   - ./gradlew test
 
 after_success:
-  - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
+  - ./gradlew jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
