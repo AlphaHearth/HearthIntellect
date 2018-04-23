@@ -1,0 +1,16 @@
+version: "3"
+services:
+  web:
+    image: windy/nodejs
+    container_name: hearthintellect-web
+    hostname: hearthintellect-web
+    ports:
+    - "4000:3000"
+    volumes:
+    - D:/HearthIntellect:/opt/nodeapp
+  mongo:
+    image: mongo
+    container_name: hearthintellect-mongo
+    hostname: hearthintellect-mongo
+    ports:
+    - "27017:27017"
