@@ -9,6 +9,15 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://hearthintellect-mongo:27017/cards";
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    console.log("数据库已创建!");
+    db.close();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
