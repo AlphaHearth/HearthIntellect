@@ -9,7 +9,7 @@ services:
     volumes:
     - D:/HearthIntellect/server:/opt/nodeapp
   mongo:
-    image: mongo
+    image: windy/mongo
     container_name: hearthintellect-mongo
     hostname: hearthintellect-mongo
     ports:
