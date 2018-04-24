@@ -5,6 +5,10 @@
 
 Hearthstone database website written in Java.
 
+## NOTE
+
+This is the archived Java SpringMVC version of HearthIntellect web server implementation. Please refer to the latest version.
+
 ## Future tasks
 
 - [x] Deploy version `0.1`.
