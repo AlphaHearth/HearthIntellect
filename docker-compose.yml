@@ -7,7 +7,7 @@ services:
     ports:
     - "4000:3000"
     volumes:
-    - D:/HearthIntellect:/opt/nodeapp
+    - D:/HearthIntellect/server:/opt/nodeapp
   mongo:
     image: mongo
     container_name: hearthintellect-mongo
