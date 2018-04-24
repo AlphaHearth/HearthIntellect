@@ -18,7 +18,8 @@ MongoClient.connect(url, function(err, db) {
     var dbo = db.db("hearthstone");
     dbo.collection("cards"). find({}).toArray(function(err, result) { // 返回集合中所有数据
         if (err) throw err;
-        console.log(result);
+        console.log("成功连接cards");
+        //console.log(result);
         db.close();
     });
 });
