@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
     this.service.getCard()
-      .subscribe(res => this.card = (res as any).user, error => console.log(error));
+      .subscribe(res => this.card = (res[0] as any).name, error => console.log(error));
   }
 }

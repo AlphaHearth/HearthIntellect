@@ -8,6 +8,6 @@ export class AppService {
   }
 
   public getCard(){
-    return this.httpClient.get("http://localhost:4000/users");
+    return this.httpClient.get("http://localhost:4000/cards");
   }
 }
