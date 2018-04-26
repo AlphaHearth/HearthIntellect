@@ -15,10 +15,10 @@ services:
     ports:
     - "27017:27017"
   nginx:
-    image: nginx
+    image: windy/nginx
     container_name: hearthintellect-nginx
     hostname: hearthintellect-nginx
     ports:
     - "80:80"
     volumes:
-    - D:/HearthIntellect/web/hearthStoneWeb/dist:/www
+    - D:/HearthIntellect/web/dist:/www/hearthStone
