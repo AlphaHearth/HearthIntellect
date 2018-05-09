@@ -8,6 +8,7 @@ import {CardsModule} from "./cards/cards.module";
 import {HttpErrorModule} from "./shared/http-error/http-error.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {MenuModule} from "./menu/menu.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {MenuModule} from "./menu/menu.module";
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     CardsModule,
     MenuModule,
     HttpErrorModule,
