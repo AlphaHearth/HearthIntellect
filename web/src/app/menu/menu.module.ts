@@ -8,7 +8,8 @@ import {MenuComponent} from "./menu.component";
   imports: [
     BrowserModule,
     HttpClientModule
-  ]
+  ],
+  exports: [MenuComponent]
 })
 export class MenuModule {
 
