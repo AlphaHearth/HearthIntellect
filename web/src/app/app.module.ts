@@ -9,6 +9,7 @@ import {HttpErrorModule} from "./shared/http-error/http-error.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {MenuModule} from "./menu/menu.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {LayoutModule} from "@angular/cdk/layout";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     CardsModule,
     MenuModule,
     HttpErrorModule,
+    LayoutModule,
     AppRoutingModule // 加在所有特性模块（的路由部分）后面
   ],
   providers: [AppService],
