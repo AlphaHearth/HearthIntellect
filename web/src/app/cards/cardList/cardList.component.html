@@ -1,1 +1,26 @@
-<label>{{card}}</label>
+<div class="cards-container">
+  <mat-card *ngFor="let card of cards">
+    <img mat-card-image src={{getImgSrc(card.id)}}
+         >
+    <mat-card-content>
+      <h3>
+        {{card.name}}
+      </h3>
+      <mat-chip-list class="card-tag-container">
+        <mat-chip>
+          {{card.set}}
+        </mat-chip>
+        <mat-chip>
+          {{card.rarity}}
+        </mat-chip>
+        <mat-chip>
+          {{card.playerClass}}
+        </mat-chip>
+        <mat-chip>
+          {{card.type}}
+        </mat-chip>
+      </mat-chip-list>
+      <p>{{card.text}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

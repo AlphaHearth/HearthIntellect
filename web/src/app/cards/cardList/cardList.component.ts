@@ -6,13 +6,17 @@ import {CardsService} from "../cards.service";
   styleUrls: ['./cardList.component.css']
 })
 export class CardListComponent implements OnInit {
-  public card = 'test';
+  public cards = [];
 
   constructor(public service: CardsService) {
   }
 
   public ngOnInit() {
-    // this.service.getCard()
-    //   .subscribe(res => this.card = (res[0] as any).name, error => console.log(error));
+    this.service.getCards()
+      .subscribe(res => this.cards = (res as any), error => console.log(error));
+  }
+
+  public getImgSrc(id:string):string{
+    return `https://media.services.zam.com/v1/media/byName/hs/cards/enus/${id}.png`;
   }
 }

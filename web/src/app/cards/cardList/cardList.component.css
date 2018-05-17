@@ -1,0 +1,24 @@
+.cards-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  max-width: 200px;
+}
+
+.card-tag-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-card-image {
+}
+
+mat-chip {
+  max-width: 50px;
+}
