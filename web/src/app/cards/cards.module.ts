@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CardsService} from "./cards.service";
 import {CardListComponent} from "./cardList/cardList.component";
 import {CardComponent} from "./card/card.component";
-import {CardsRoutingModule} from "./cards-routing.module";
+import {MatCardModule, MatChipsModule} from "@angular/material";
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import {CardsRoutingModule} from "./cards-routing.module";
   imports: [
     BrowserModule,
     HttpClientModule,
-    CardsRoutingModule
+    MatCardModule,
+    MatChipsModule
   ],
   providers: [CardsService]
 })

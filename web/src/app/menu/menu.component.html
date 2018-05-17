@@ -6,7 +6,7 @@
     <h1 class="app-app-name">Responsive App</h1>
   </mat-toolbar>
 
-  <mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav-container class="app-sidenav-container"  [style.marginTop.px]="mobileQuery.matches ? 56 : 0">>
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-list role="list">
@@ -14,7 +14,7 @@
       </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      content
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

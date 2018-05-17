@@ -4,7 +4,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppService} from "./app.service";
-import {CardsModule} from "./cards/cards.module";
 import {HttpErrorModule} from "./shared/http-error/http-error.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {MenuModule} from "./menu/menu.module";
@@ -20,7 +19,6 @@ import {LayoutModule} from "@angular/cdk/layout";
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CardsModule,
     MenuModule,
     HttpErrorModule,
     LayoutModule,
