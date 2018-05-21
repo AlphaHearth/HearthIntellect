@@ -8,8 +8,8 @@ router.get('/', function (req, res, next) {
     if (allowedOrigins.indexOf(origin) > -1) {
         res.set('Access-Control-Allow-Origin', origin);
     }
-    var page = req.query.page ? req.query.page : 1;
-    var pageSize = req.query.pageSize ? req.query.pageSize : 10;
+    var page = req.query.page ? Number(req.query.page) : 1;
+    var pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10;
     global.db.collection("cards").find().skip((page - 1) * pageSize).limit(pageSize).toArray(function (err, result) { // 返回集合中所有数据
         if (err) throw err;
         console.log("成功连接cards");
