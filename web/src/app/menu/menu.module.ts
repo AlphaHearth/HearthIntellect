@@ -2,7 +2,10 @@ import {NgModule} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserModule} from "@angular/platform-browser";
 import {MenuComponent} from "./menu.component";
-import {MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule} from "@angular/material";
+import {
+  MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatSidenavModule,
+  MatToolbarModule
+} from "@angular/material";
 import {CardsModule} from "../cards/cards.module";
 import {MenuRoutingModule} from "./menu-routing.module";
 
@@ -17,7 +20,9 @@ import {MenuRoutingModule} from "./menu-routing.module";
     MatButtonModule,
     MatSidenavModule,
     CardsModule,
-    MenuRoutingModule
+    MenuRoutingModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [MenuComponent]
 })
