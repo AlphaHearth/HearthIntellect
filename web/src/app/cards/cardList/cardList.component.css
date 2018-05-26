@@ -1,13 +1,14 @@
 .cards-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: stretch;
 }
 
 mat-card {
   width: 310px;
   height: 700px;
+  margin:15px;
 }
 
 .card-tag-container {

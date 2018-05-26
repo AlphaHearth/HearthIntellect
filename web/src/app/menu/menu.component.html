@@ -12,8 +12,9 @@
 
   <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">>
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-      <mat-list role="list">
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="side-nav">
+      <img src="../../assets/portrait.jpg" alt="portrait" class="portrait">
+      <mat-list role="list" class="list-container">
         <mat-list-item role="listitem">Card</mat-list-item>
       </mat-list>
     </mat-sidenav>

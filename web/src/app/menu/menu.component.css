@@ -31,7 +31,7 @@ h1.app-app-name {
   flex: 1 0 auto;
 }
 
-.app-toolbar{
+.app-toolbar {
   justify-content: space-between;
 }
 
@@ -54,4 +54,32 @@ h1.app-app-name {
   color: grey;
   font-size: 30px;
   cursor: pointer;
+}
+
+.side-nav {
+  width: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.list-container {
+  width: 100%;
+  background-color: #eeeeee;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.list-container:hover {
+  background-color: #dddddd;
+}
+
+.list-container:active {
+  background-color: #cccccc;
+}
+
+.portrait {
+  margin: 10px;
+  border-radius: 50%;
 }
