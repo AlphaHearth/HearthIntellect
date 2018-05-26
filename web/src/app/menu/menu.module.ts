@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserModule} from "@angular/platform-browser";
 import {MenuComponent} from "./menu.component";
+import {FormsModule} from '@angular/forms';
 import {
   MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatSidenavModule,
   MatToolbarModule
@@ -14,6 +15,7 @@ import {MenuRoutingModule} from "./menu-routing.module";
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatListModule,

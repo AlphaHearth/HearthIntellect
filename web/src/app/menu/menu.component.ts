@@ -10,6 +10,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   @ViewChild('snav')
   public sideNav;
+  public cardInput = null;
 
   private _mobileQueryListener: () => void;
 
@@ -25,15 +26,19 @@ export class MenuComponent implements OnInit, OnDestroy {
       Breakpoints.HandsetPortrait
     ]).subscribe(result => {
       if (result.matches) {
-        if(this.sideNav.opened){
+        if (this.sideNav.opened) {
           this.sideNav.close();
         }
       } else {
-        if(!this.sideNav.opened){
+        if (!this.sideNav.opened) {
           this.sideNav.open();
         }
       }
     });
+  }
+
+  public searchCard(): void {
+
   }
 
   public ngOnDestroy(): void {

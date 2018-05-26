@@ -30,3 +30,28 @@ h1.app-app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
+
+.app-toolbar{
+  justify-content: space-between;
+}
+
+.search-container {
+  background-color: white;
+  display: flex;
+  flex-flow: row wrap;
+  border-radius: 5px;
+  float: right;
+}
+
+.search-input {
+  display: inline-block;
+  width: 80%;
+  color: black;
+  margin: 0 5px;
+}
+
+.search-icon {
+  color: grey;
+  font-size: 30px;
+  cursor: pointer;
+}
