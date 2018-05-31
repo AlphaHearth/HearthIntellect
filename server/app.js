@@ -1,11 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var cardsRouter = require('./routes/cards');
+const indexRouter = require('./routes/index');
+const cardsRouter = require('./routes/cards');
 
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://hearthintellect-mongo:27017/";
@@ -14,6 +14,7 @@ MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     console.log("数据库已创建!");
     global.db = db.db("hearthstone");
+    global.db.collection("cards").ensureIndex({name: "text", text: "text"});
 });
 
 var app = express();

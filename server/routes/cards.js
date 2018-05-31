@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET cards listing. */
 router.get('/', function (req, res, next) {
@@ -10,12 +10,21 @@ router.get('/', function (req, res, next) {
     }
     var page = req.query.page ? Number(req.query.page) : 1;
     var pageSize = req.query.pageSize ? Number(req.query.pageSize) : 10;
-    global.db.collection("cards").find().skip((page - 1) * pageSize).limit(pageSize).toArray(function (err, result) { // 返回集合中所有数据
-        if (err) throw err;
-        console.log("成功连接cards");
-        console.log(result);
-        res.json(result);
-    });
+    var searchValue = req.query.search;
+    global.db.collection("cards")
+        .find(
+            {$text: {$search: searchValue}}
+        )
+        .project({ score: { $meta: "textScore" } })
+        .sort({score: {$meta: "textScore"}})
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .toArray(function (err, result) { // 返回集合中所有数据
+            if (err) throw err;
+            console.log("成功连接cards");
+            console.log(result);
+            res.json(result);
+        });
 });
 
 /* GET users listing. */
