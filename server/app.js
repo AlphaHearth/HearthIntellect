@@ -17,7 +17,7 @@ MongoClient.connect(url, function (err, db) {
     global.db.collection("cards").ensureIndex({name: "text", text: "text"});
 });
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
