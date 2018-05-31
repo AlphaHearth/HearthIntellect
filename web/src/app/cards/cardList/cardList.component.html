@@ -1,9 +1,4 @@
-<mat-paginator [length]="length"
-               [pageSize]="10"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="page($event)">
-</mat-paginator>
-<div class="cards-container">
+<div class="cards-container" appInfiniteScroll [scrollCallback]="scrollCallBack" [scrollPercent]=100 style="height:100%; overflow: auto;">
   <mat-card *ngFor="let card of cards">
     <img mat-card-image src={{getImgSrc(card.id)}}>
     <mat-card-content>

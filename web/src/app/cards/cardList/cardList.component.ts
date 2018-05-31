@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CardsService} from "../cards.service";
-import {PageEvent} from "@angular/material";
+import {CardsService} from '../cards.service';
+import 'rxjs/add/operator/do';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   templateUrl: './cardList.component.html',
@@ -8,25 +9,33 @@ import {PageEvent} from "@angular/material";
 })
 export class CardListComponent implements OnInit {
   public cards = [];
-  public length = 100;
-  public pageSizeOptions = [5, 10, 25, 100];
+  private pageIndex;
+  private searchVale = null;
 
-  constructor(public service: CardsService) {
+  public scrollCallBack;
+
+  constructor(private route: ActivatedRoute, private service: CardsService) {
+    this.pageIndex = 1;
+    this.scrollCallBack = this.scrollGetCard.bind(this);
   }
 
   public ngOnInit() {
-    this.service.getCards()
-      .subscribe(res => this.cards = (res as any), error => console.log(error));
+    this.route.params.subscribe(() => {
+      this.searchVale = this.route.snapshot.paramMap.get('name');
+      console.log('search', this.searchVale);
+      this.service.getCards({search: this.searchVale})
+        .subscribe(res => this.cards = (res as any), error => console.log(error));
+    });
   }
 
   public getImgSrc(id: string): string {
     return `https://media.services.zam.com/v1/media/byName/hs/cards/enus/${id}.png`;
   }
 
-  public page(event: PageEvent): void {
-    console.log(event.pageIndex);
-    console.log(event.pageSize);
-    this.service.getCards({page: (event.pageIndex + 1).toString(), pageSize: (event.pageSize).toString()})
-      .subscribe(res => this.cards = (res as any), error => console.log(error));
+  public scrollGetCard() {
+    return this.service.getCards({page: (++this.pageIndex).toString(), search: this.searchVale})
+      .do((val) => {
+        this.cards = this.cards.concat(val);
+      });
   }
 }
