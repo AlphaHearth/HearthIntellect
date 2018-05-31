@@ -13,9 +13,9 @@ router.get('/', function (req, res, next) {
     var searchValue = req.query.search;
     global.db.collection("cards")
         .find(
-            {$text: {$search: searchValue}}
+            searchValue ? {$text: {$search: searchValue}} : {}
         )
-        .project({ score: { $meta: "textScore" } })
+        .project({score: {$meta: "textScore"}})
         .sort({score: {$meta: "textScore"}})
         .skip((page - 1) * pageSize)
         .limit(pageSize)
