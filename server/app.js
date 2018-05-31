@@ -1,3 +1,13 @@
+// FIXME: 按组区分 import 语句
+// 1. NodeJS 标准库
+// 2. 第三方库
+// 3. 自己的包
+// 每一组间用一个空行分割
+// 每一组内按字典序排序
+
+// TODO 增加 README.md
+// TODO 注释、文档暂时先用中文写
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,10 +17,13 @@ const logger = require('morgan');
 const cardsRouter = require('./routes/cards');
 
 const MongoClient = require('mongodb').MongoClient;
+
+// FIXME: 相关配置参数设置为可配置（配置文件或/和命令行参数）
 const url = "mongodb://hearthintellect-mongo:27017/";
 
 MongoClient.connect(url, function (err, db) {
-    if (err) throw err;
+    if (err)
+        throw err;
     console.log("数据库已创建!");
     global.db = db.db("hearthstone");
     global.db.collection("cards").ensureIndex({name: "text", text: "text"});
@@ -22,6 +35,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+
+// TODO 不需要这个
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/cards', cardsRouter);

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    // TODO: 生产环境不可能使用 nodemon
     "start": "nodemon ./bin/www -L"
   },
   "dependencies": {

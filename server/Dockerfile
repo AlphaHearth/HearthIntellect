@@ -1,3 +1,5 @@
+# TODO 考虑改用 alpine 镜像
+
 FROM ubuntu:16.04
 MAINTAINER Windy <chenchuowen@foxmail>
 

@@ -1,12 +1,14 @@
 version: "3"
 services:
   web:
+# TODO: image.build
     image: windy/nodejs
     container_name: hearthintellect-web
     hostname: hearthintellect-web
     ports:
     - "4000:3000"
     volumes:
+# TODO: Volumes 改用相对路径
     - D:/HearthIntellect/server:/opt/nodeapp
   mongo:
     image: windy/mongo

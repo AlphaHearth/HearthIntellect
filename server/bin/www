@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 
+// TODO 弃用该文件，自行编写命令行入口
+
 const app = require('../app');
 const debug = require('debug')('hearthstone:server');
 const http = require('http');
@@ -32,7 +34,6 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
     const port = parseInt(val, 10);
     if (isNaN(port)) {
