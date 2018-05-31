@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {NotFoundComponent} from "../shared/http-error/not-found.component";
-import {MenuComponent} from "./menu.component";
-import {CardListComponent} from "../cards/cardList/cardList.component";
-import {CardComponent} from "../cards/card/card.component";
+import {NotFoundComponent} from '../shared/http-error/not-found.component';
+import {MenuComponent} from './menu.component';
+import {CardListComponent} from '../cards/cardList/cardList.component';
+import {CardComponent} from '../cards/card/card.component';
 
 const routes: Routes = [
   {
@@ -17,6 +17,10 @@ const routes: Routes = [
       },
       {
         path: 'cards',
+        component: CardListComponent
+      },
+      {
+        path: 'cards/:name',
         component: CardListComponent
       },
       {

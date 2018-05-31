@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BreakpointObserver, Breakpoints, MediaMatcher} from "@angular/cdk/layout";
+import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'menu-component',
@@ -14,7 +15,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private breakpointObserver: BreakpointObserver) {
+  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private breakpointObserver: BreakpointObserver, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -25,20 +26,15 @@ export class MenuComponent implements OnInit, OnDestroy {
       Breakpoints.HandsetLandscape,
       Breakpoints.HandsetPortrait
     ]).subscribe(result => {
-      if (result.matches) {
-        if (this.sideNav.opened) {
-          this.sideNav.close();
-        }
-      } else {
-        if (!this.sideNav.opened) {
-          this.sideNav.open();
-        }
+      if (result.matches === this.sideNav.opened) {
+        this.sideNav.toggle();
       }
     });
   }
 
   public searchCard(): void {
-
+    console.log(this.cardInput);
+    this.router.navigate(['/content/cards', {name: this.cardInput}]);
   }
 
   public ngOnDestroy(): void {

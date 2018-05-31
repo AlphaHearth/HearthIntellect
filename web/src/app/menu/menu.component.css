@@ -48,6 +48,7 @@ h1.app-app-name {
   width: 80%;
   color: black;
   margin: 0 5px;
+  border: 0;
 }
 
 .search-icon {
