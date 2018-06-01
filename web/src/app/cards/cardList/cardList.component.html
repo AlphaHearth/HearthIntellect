@@ -24,9 +24,9 @@
     </mat-card-content>
   </mat-card>
 </div>
-<div *ngIf="cards.length === 0 && !this.isError" class="error-hint-container">
+<div *ngIf="cards.length === 0 && !isError && searchValue !== null" class="error-hint-container">
   <mat-card class="error-hint">
-    Sorry, we could't find any card name or card text matching '{{searchVale}}'
+    Sorry, we could't find any card name or card text matching '{{searchValue}}'
   </mat-card>
 </div>
 

@@ -14,7 +14,7 @@ import {MatSnackBar} from '@angular/material';
 export class CardListComponent implements OnInit {
   public cards = [];
   private pageIndex;
-  private searchVale = null;
+  public searchValue = null;
   public isError: boolean;
 
   public scrollCallBack;
@@ -27,8 +27,8 @@ export class CardListComponent implements OnInit {
 
   public ngOnInit() {
     this.route.params.subscribe(() => {
-      this.searchVale = this.route.snapshot.paramMap.get('name') === 'null' ? null : this.route.snapshot.paramMap.get('name');
-      this.service.getCards({search: this.searchVale})
+      this.searchValue = this.route.snapshot.paramMap.get('name') === 'null' ? null : this.route.snapshot.paramMap.get('name');
+      this.service.getCards({search: this.searchValue})
         .subscribe(res => {
             this.cards = (res as any);
             this.isError = false;
@@ -45,7 +45,7 @@ export class CardListComponent implements OnInit {
   }
 
   public scrollGetCard() {
-    return this.service.getCards({page: (++this.pageIndex).toString(), search: this.searchVale})
+    return this.service.getCards({page: (++this.pageIndex).toString(), search: this.searchValue})
       .do((val) => {
         this.cards = this.cards.concat(val);
         this.isError = false;
