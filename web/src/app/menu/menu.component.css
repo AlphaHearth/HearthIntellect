@@ -16,6 +16,8 @@
 
 h1.app-app-name {
   margin-left: 8px;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .app-sidenav-container {
@@ -36,25 +38,32 @@ h1.app-app-name {
 }
 
 .search-container {
-  background-color: white;
+  background: none;
   display: flex;
   flex-flow: row wrap;
-  border-radius: 5px;
+  justify-content: right;
   float: right;
+  border-radius: 25px;
+  width: 220px;
 }
 
 .search-input {
   display: inline-block;
-  width: 80%;
   color: black;
-  margin: 0 5px;
-  border: 0;
+  margin: 0;
+  padding: 0 15px;
+  border-radius: 25px;
+  height: 30px;
+  width:200px;
+  background-color: #e8e0f5;
+  border-width:0;
 }
 
-.search-icon {
-  color: grey;
-  font-size: 30px;
-  cursor: pointer;
+.search-input:focus {
+  outline: 0;
+  width: 220px;
+  background-color: white;
+  height: 35px;
 }
 
 .side-nav {

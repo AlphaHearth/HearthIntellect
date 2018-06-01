@@ -1,13 +1,11 @@
 <div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="app-toolbar mat-elevation-z4">
-    <!--<button mat-icon-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">-->
-    <button mat-icon-button (click)="snav.toggle()"  [hidden]="!mobileQuery.matches">
+    <button mat-icon-button (click)="snav.toggle()"  [hidden]="!mobileQuery.matches" [disabled]="!mobileQuery.matches">
       <mat-icon *ngIf="mobileQuery.matches">menu</mat-icon>
     </button>
     <h1 class="app-app-name" *ngIf="!mobileQuery.matches">HeartStone</h1>
     <div class="search-container">
-      <input matInput placeholder="Card" class="search-input" [(ngModel)]="cardInput">
-      <mat-icon matSuffix class="search-icon" (click)="searchCard()">search</mat-icon>
+      <input matInput type="search" placeholder="Search card..." class="search-input" [(ngModel)]="cardInput" (keydown.enter)="searchCard()">
     </div>
   </mat-toolbar>
 
