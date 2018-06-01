@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    // TODO: 生产环境不可能使用 nodemon
-    "start": "nodemon ./bin/www -L"
+    "start": "nodemon ./bin/www -L",
+    "build": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
