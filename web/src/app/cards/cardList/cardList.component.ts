@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {CardsService} from '../cards.service';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+
 import {ActivatedRoute} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
+
 
 @Component({
   templateUrl: './cardList.component.html',
@@ -11,20 +15,28 @@ export class CardListComponent implements OnInit {
   public cards = [];
   private pageIndex;
   private searchVale = null;
+  public isError: boolean;
 
   public scrollCallBack;
 
-  constructor(private route: ActivatedRoute, private service: CardsService) {
+  constructor(private route: ActivatedRoute, private service: CardsService, private snackBar: MatSnackBar) {
     this.pageIndex = 1;
+    this.isError = false;
     this.scrollCallBack = this.scrollGetCard.bind(this);
   }
 
   public ngOnInit() {
     this.route.params.subscribe(() => {
-      this.searchVale = this.route.snapshot.paramMap.get('name');
-      console.log('search', this.searchVale);
+      this.searchVale = this.route.snapshot.paramMap.get('name') === 'null' ? null : this.route.snapshot.paramMap.get('name');
       this.service.getCards({search: this.searchVale})
-        .subscribe(res => this.cards = (res as any), error => console.log(error));
+        .subscribe(res => {
+            this.cards = (res as any);
+            this.isError = false;
+          }, error => {
+            this.openSnackBar(JSON.stringify(error));
+            this.isError = true;
+          }
+        );
     });
   }
 
@@ -36,6 +48,11 @@ export class CardListComponent implements OnInit {
     return this.service.getCards({page: (++this.pageIndex).toString(), search: this.searchVale})
       .do((val) => {
         this.cards = this.cards.concat(val);
+        this.isError = false;
       });
+  }
+
+  private openSnackBar(message: string) {
+    this.snackBar.open(message, '', {duration: 3e3});
   }
 }

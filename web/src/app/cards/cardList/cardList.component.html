@@ -1,26 +1,32 @@
-<div class="cards-container" appInfiniteScroll [scrollCallback]="scrollCallBack" [scrollPercent]=100 style="height:100%; overflow: auto;">
-  <mat-card *ngFor="let card of cards">
+<div *ngIf="cards.length > 0" class="cards-container" appInfiniteScroll [scrollCallback]="scrollCallBack"
+     [scrollPosition]=750 style="height:100%; overflow: auto;">
+  <mat-card *ngFor="let card of cards" class="card">
     <img mat-card-image src={{getImgSrc(card.id)}}>
     <mat-card-content>
       <h3>
         {{card.name}}
       </h3>
       <mat-chip-list class="card-tag-container">
-        <mat-chip>
+        <mat-chip class="card-set">
           {{card.set}}
         </mat-chip>
-        <mat-chip>
+        <mat-chip class="card-rarity">
           {{card.rarity}}
         </mat-chip>
-        <mat-chip>
+        <mat-chip class="card-chip">
           {{card.playerClass}}
         </mat-chip>
-        <mat-chip>
+        <mat-chip class="card-type">
           {{card.type}}
         </mat-chip>
       </mat-chip-list>
       <p [innerHtml]="card.text"></p>
     </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="cards.length === 0 && !this.isError" class="error-hint-container">
+  <mat-card class="error-hint">
+    Sorry, we could't find any card name or card text matching '{{searchVale}}'
   </mat-card>
 </div>
 

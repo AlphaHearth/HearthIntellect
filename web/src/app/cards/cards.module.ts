@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CardsService} from './cards.service';
 import {CardListComponent} from './cardList/cardList.component';
 import {CardComponent} from './card/card.component';
-import {MatCardModule, MatChipsModule, MatPaginatorModule} from '@angular/material';
+import {MatCardModule, MatChipsModule, MatSnackBarModule} from '@angular/material';
 import {InfiniteScrollDirective} from './cardList/infinite-scroll.directive';
 
 
@@ -16,7 +16,8 @@ import {InfiniteScrollDirective} from './cardList/infinite-scroll.directive';
     HttpClientModule,
     MatCardModule,
     MatChipsModule,
-    MatPaginatorModule],
+    MatSnackBarModule
+  ],
   providers: [CardsService]
 })
 export class CardsModule {

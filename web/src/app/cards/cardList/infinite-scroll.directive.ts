@@ -11,14 +11,14 @@ interface ScrollPosition {
   scrollHeight: number;
   scrollTop: number;
   clientHeight: number;
-};
+}
 
 @Directive({
   selector: '[appInfiniteScroll]'
 })
 export class InfiniteScrollDirective implements AfterViewInit {
-  /** 触发callback函数当前滚动高度占全文高度百分比 */
-  @Input() public scrollPercent: number;
+  /** 触发callback函数当前位置离底部距离 */
+  @Input() public scrollPosition: number;
   /** callback函数*/
   @Input() public scrollCallback;
 
@@ -33,7 +33,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
         clientHeight: e.target.clientHeight
       }))
       .pairwise()
-      .filter(position => this.isScrollDown(position[0], position[1]) && this.isScrollExpectedPercent(position[1]))
+      .filter(position => this.isScrollDown(position[0], position[1]) && this.isScrollExpectedPosition(position[1]))
       .exhaustMap(() => this.scrollCallback())
       .subscribe();
   }
@@ -44,7 +44,7 @@ export class InfiniteScrollDirective implements AfterViewInit {
   }
 
   /** 判断是否已到需要触发callback函数的位置 */
-  private isScrollExpectedPercent(curPosition) {
-    return ((curPosition.clientHeight + curPosition.scrollTop) / curPosition.scrollHeight) > (this.scrollPercent / 100);
+  private isScrollExpectedPosition(curPosition) {
+    return (curPosition.scrollHeight - (curPosition.clientHeight + curPosition.scrollTop)) < (this.scrollPosition);
   }
 }

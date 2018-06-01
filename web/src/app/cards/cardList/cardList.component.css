@@ -5,10 +5,10 @@
   align-items: stretch;
 }
 
-mat-card {
+.card {
   width: 310px;
-  height: 700px;
-  margin:15px;
+  height: 720px;
+  margin: 15px;
 }
 
 .card-tag-container {
@@ -21,8 +21,40 @@ mat-card {
 .mat-card-image {
 }
 
-.mat-chip:not(.mat-basic-chip) {
+.mat-chip:not(.mat-basic-chip), .mat-chip:not(.mat-basic-chip) + .mat-chip:not(.mat-basic-chip) {
   border-radius: 0;
-  padding:7px 7px;
-  margin: 1px 3px;
+  padding: 7px 7px;
+  margin: 2px 2px 0 0;
+  color: grey;
+}
+
+.card-set {
+  background-color: #fce5cd;
+}
+
+.card-rarity {
+  background-color: #cfe2f3;
+}
+
+.card-chip {
+  background-color: #d9ead3;
+}
+
+.card-type {
+  background-color: #f4cccc;
+}
+
+.error-hint-container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-hint {
+  width: 80%;
+  margin: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
 }
