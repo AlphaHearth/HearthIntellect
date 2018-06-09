@@ -3,12 +3,12 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {AppService} from "./app.service";
-import {HttpErrorModule} from "./shared/http-error/http-error.module";
-import {AppRoutingModule} from "./app-routing.module";
-import {MenuModule} from "./menu/menu.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {LayoutModule} from "@angular/cdk/layout";
+import {AppService} from './app.service';
+import {AppRoutingModule} from './app-routing.module';
+import {MenuModule} from './menu/menu.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LayoutModule} from '@angular/cdk/layout';
+import {SharedModule} from './shared/shared.module';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import {LayoutModule} from "@angular/cdk/layout";
     HttpClientModule,
     BrowserAnimationsModule,
     MenuModule,
-    HttpErrorModule,
+    SharedModule,
     LayoutModule,
     AppRoutingModule // 加在所有特性模块（的路由部分）后面
   ],
