@@ -3,24 +3,27 @@ services:
   web:
 # TODO: image.build
     image: windy/nodejs
+    build: server
     container_name: hearthintellect-web
     hostname: hearthintellect-web
     ports:
     - "4000:3000"
     volumes:
 # TODO: Volumes 改用相对路径
-    - D:/HearthIntellect/server:/opt/nodeapp
+    - ./server:/opt/nodeapp
   mongo:
     image: windy/mongo
+    build: mongo
     container_name: hearthintellect-mongo
     hostname: hearthintellect-mongo
     ports:
     - "27017:27017"
   nginx:
     image: windy/nginx
+    build: web
     container_name: hearthintellect-nginx
     hostname: hearthintellect-nginx
     ports:
     - "80:80"
     volumes:
-    - D:/HearthIntellect/web/dist:/www/hearthStone
+    - ./web/dist:/www/hearthStone
