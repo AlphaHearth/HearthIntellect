@@ -9,24 +9,11 @@
 // TODO 注释、文档暂时先用中文写
 
 const express = require('express');
-const MongoClient = require('mongodb').MongoClient;
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const cardsRouter = require('./routes/cards');
-
-
-// FIXME: 相关配置参数设置为可配置（配置文件或/和命令行参数）
-const url = 'mongodb://hearthintellect-mongo:27017/';
-
-MongoClient.connect(url, function (err, db) {
-    if (err)
-        throw err;
-    console.log('数据库已创建!');
-    global.db = db.db('hearthstone');
-    global.db.collection('cards').ensureIndex({name: 'text', text: 'text'});
-});
 
 const app = express();
 
