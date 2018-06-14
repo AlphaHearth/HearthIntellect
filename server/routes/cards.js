@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const Setting = require('../setting');
-
-const setting = Setting.getSetting();
+const setting = require('../setting').getSetting();
+const logger = require('../logging').logger;
 
 // TODO: 增加日志输出，记录关键事件
 // 日志输出一般分为 4 个等级：
@@ -14,6 +13,7 @@ const setting = Setting.getSetting();
 
 // GET cards listing
 router.get('/', function (req, res, next) {
+
     const allowedOrigins = setting.origin;
     const origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
@@ -23,7 +23,6 @@ router.get('/', function (req, res, next) {
     const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 20;
     const searchValue = req.query.search;
 
-    // TODO 使用依赖注入替换对 global 的使用
     setting.db.collection('cards')
         .find(searchValue ? {$text: {$search: searchValue}} : {})
         .project({score: {$meta: 'textScore'}})
@@ -33,12 +32,10 @@ router.get('/', function (req, res, next) {
         .toArray(function (err, result) { // 返回集合中所有数据
             if (err) {
                 throw err;
-                // res.json(err);
             }
-            console.log('成功连接cards');
+            logger.info('成功连接cards');
             res.json(result);
         });
 });
 
-// TODO: exports 写在最前面
 module.exports = router;
