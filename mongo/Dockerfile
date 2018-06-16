@@ -5,9 +5,10 @@ RUN mkdir -p /data/hsdb
 
 ADD ./cards.collectible.json /data
 ADD ./mongoImport.sh /bin
-RUN  /bin/mongoImport.sh
-RUN rm /data/cards.collectible.json
-RUN rm /bin/mongoImport.sh
+RUN chmod +x /bin/mongoImport.sh \
+    && /bin/mongoImport.sh \
+    && rm /data/cards.collectible.json \
+    && rm /bin/mongoImport.sh
 
 RUN chown -R mongodb:mongodb /data/hsdb
 
