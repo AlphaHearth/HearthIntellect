@@ -10,6 +10,7 @@ const app = require('../app');
 const http = require('http');
 
 const logger = require('../logging').logger;
+const setting = require('../setting').getSetting();
 
 /**
  * Get port from environment and store in Express.
@@ -86,6 +87,6 @@ function onListening() {
         : 'port ' + addr.port;
     logger.info('Listening on ' + bind);
 }
-app.env = 'dev';
 
-logger.info(app.env);
+process.env.NODE_ENV = setting.environment;
+logger.info(process.env.NODE_ENV);

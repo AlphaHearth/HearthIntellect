@@ -17,8 +17,14 @@ const logger = require('./logging').logger;
 
 const app = express();
 
+// info logger
+app.use(function (req, res, next) {
+    logger.info(req.method, req.originalUrl);
+    next();
+});
+
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/cards', cardsRouter);
@@ -31,7 +37,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     logger.error(err);
-    res.status(500).send({error: err.toString()});
+    res.status(500).send({ error: err.toString() });
 });
 
 module.exports = app;

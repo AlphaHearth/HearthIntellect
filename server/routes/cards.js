@@ -13,7 +13,6 @@ const logger = require('../logging').logger;
 
 // GET cards listing
 router.get('/', function (req, res, next) {
-
     const allowedOrigins = setting.origin;
     const origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
@@ -24,18 +23,18 @@ router.get('/', function (req, res, next) {
     const searchValue = req.query.search;
 
     setting.db.collection('cards')
-        .find(searchValue ? {$text: {$search: searchValue}} : {})
-        .project({score: {$meta: 'textScore'}})
-        .sort({score: {$meta: 'textScore'}})
+        .find(searchValue ? { $text: { $search: searchValue } } : {})
+        .project({ score: { $meta: 'textScore' } })
+        .sort({ score: { $meta: 'textScore' } })
         .skip((page - 1) * pageSize)
         .limit(pageSize)
         .toArray(function (err, result) { // 返回集合中所有数据
             if (err) {
                 throw err;
             }
-            logger.info('成功连接cards');
             res.json(result);
         });
+
 });
 
 module.exports = router;
