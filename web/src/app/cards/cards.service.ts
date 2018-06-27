@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
 
 export interface Card {
   id: string;
@@ -13,7 +14,6 @@ export interface Card {
 
 @Injectable()
 export class CardsService {
-  public static host = `http://localhost:4000`;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -24,7 +24,7 @@ export class CardsService {
   }
 
   public getUrl(path: string, searchParam: { [key: string]: string | null }): string {
-    const url = new window.URL(path, CardsService.host);
+    const url = new window.URL(path, environment.host);
     for (const key in searchParam) {
       if (searchParam[key]) {
         url.searchParams.set(key, searchParam[key]);

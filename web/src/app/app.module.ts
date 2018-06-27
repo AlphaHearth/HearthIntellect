@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
-import {AppService} from './app.service';
 import {AppRoutingModule} from './app-routing.module';
 import {MenuModule} from './menu/menu.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -24,7 +23,6 @@ import {SharedModule} from './shared/shared.module';
     LayoutModule,
     AppRoutingModule // 加在所有特性模块（的路由部分）后面
   ],
-  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
