@@ -5,8 +5,11 @@ services:
     build: server
     container_name: hearthintellect-web
     hostname: hearthintellect-web
+    depends_on:
+      - "mongo"
     ports:
     - "4000:3000"
+    command: ["./wait-for-it.sh", "mongo:27017", "--", "npm", "run", "build"]
   mongo:
     image: windy/mongo
     build: mongo
