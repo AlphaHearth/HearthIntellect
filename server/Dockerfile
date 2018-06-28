@@ -10,6 +10,8 @@ RUN mkdir -p /opt/nodeapp
 
 ADD . /opt/nodeapp
 
+RUN chmod +x /opt/nodeapp/wait-for-it.sh
+
 WORKDIR /opt/nodeapp
 RUN npm install
 RUN npm install -g nodemon
