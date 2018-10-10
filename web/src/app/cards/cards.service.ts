@@ -19,7 +19,7 @@ export class CardsService {
   }
 
   public getCards(searchParam?: { [key: string]: string }) {
-    const url = this.getUrl('../cards/', searchParam);
+    const url = this.getUrl('../api/v1/cards/', searchParam);
     return this.httpClient.get(url);
   }
 
