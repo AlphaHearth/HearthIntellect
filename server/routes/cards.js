@@ -13,11 +13,6 @@ const logger = require('../logging').logger;
 
 // GET cards listing
 router.get('/', function (req, res, next) {
-    const allowedOrigins = setting.origin;
-    const origin = req.headers.origin;
-    if (allowedOrigins.indexOf(origin) > -1) {
-        res.set('Access-Control-Allow-Origin', origin);
-    }
     const page = req.query.page ? Number(req.query.page) : 1;
     const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 20;
     const searchValue = req.query.search;

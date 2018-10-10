@@ -6,7 +6,6 @@ const logger = require('./logging').logger;
 program
     .version('0.1.0')
     .option('-e, --environment <e>', 'An environment of the working project', /^(dev|production)$/i, 'production')
-    .option('-o, --origin <o>', 'The original host added to Access-Control-Allow-Origin header', ['http://www.hearthintellect.com'])
     .option('-m, --mongo <m>', 'The url of mongodb','mongodb://hearthintellect-mongo:27017/')
     .parse(process.argv);
 
